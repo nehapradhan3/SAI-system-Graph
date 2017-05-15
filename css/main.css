@@ -1,0 +1,79 @@
+#chartdiv {
+	width	: 80%;
+	height	: 400px;
+	align-content: center;
+	padding-left:50px;
+	padding-top:250px;
+}
+body{
+	background-color: #9999af; color: #fff;
+	overflow-y: scroll;
+}
+
+#chartdivTwo {
+	width	: 80%;
+	height	: 500px;
+	align-content: right;
+	padding-left:50px;
+	padding-top:5px;
+	padding-bottom:150px;
+}
+@import url(http://weloveiconfonts.com/api/?family=fontawesome);
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,300);
+
+/* fontawesome */
+[class*="fontawesome-"]:before {
+  font-family: 'FontAwesome', sans-serif;
+	font-size: 0.3em;
+}
+.left {
+  float: left;
+}
+.clear {
+clear: both;
+}
+
+.buysblock {
+  background: rgb(38,168,226);
+}
+.commentsblock {
+  background: rgb(39,183,121);
+}
+.emailThreads {
+	  background: rgb(244, 191, 66);
+}
+.candidateThreads{
+	background: rgb(244, 104, 66);
+}
+.followUpThreads{
+  background: rgb(65, 244, 134);
+}
+.userModelsBuilt{
+background: rgb(193, 9, 67)
+}
+.refreshtokenStatus{
+	background: rgb(217, 66, 244)
+}
+.metroblock {
+  width: 7em;
+  padding: 1em 1em 1em 1em;
+  color: #fff;
+  font-family: 'Open Sans', sans-serif;
+  margin: 1em;
+}
+
+.metroblock h1, .metroblock h2, .metroblock .icon {
+  font-weight: 30;
+  margin: 0;
+  padding: 0;
+}
+.metroblock h1, .metroblock .icon {
+  font-size: 2em;
+  text-align: center;
+}
+.metroblock .icon {
+  margin-right: .2em;
+}
+#row{
+	padding-left: 0px;
+}

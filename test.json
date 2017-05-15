@@ -1,0 +1,12 @@
+{
+  "totalNumOfUsers": 0,
+  "totalNumOfAccounts": {
+    "GMAIL": 0,
+    "GMAIL_CALENDAR": 0
+  },
+  "totalNumOfThreads": 0,
+  "totalNumOfFollowUpThreads": 0,
+  "totalNumOfUserModels": 0,
+  "totalValidRefreshTokens": 0,
+  "avgMessagesPerThread": 0
+}
