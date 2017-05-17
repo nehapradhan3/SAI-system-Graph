@@ -1,3 +1,4 @@
+
 var chartData = generateChartData();
 
 var chart = AmCharts.makeChart("chartdiv", {
@@ -81,8 +82,9 @@ function generateChartData() {
 
   $(document).ready(function () {
     $.ajax({
-      //url: 'http://54.174.27.160:8080/analysis/snapshots/latest',
-      url :'http://52.55.210.93:8080/analysis/snapshot-views?sortOrder=DESCENDING&size=1',
+
+      //url :'http://52.55.210.93:8080/analysis/snapshot-views?sortOrder=DESCENDING&size=1',
+      url :'http://52.55.210.93:8080/analysis/snapshot-views?order=ASCENDING&size=1',
 
       contentType:"application/x-www-form-urlencoded",
       type: 'GET',
@@ -96,8 +98,9 @@ function generateChartData() {
 
         // chartData =data.dataProvider;
         var totalNumOfUsers,  differenceTotalNumOfUsers, differenceRefreshTokenCount, totalNumOfAccounts, totalNumOfThreads, totalNumOfFollowUpThreads, totalNumOfUserModels, totalValidRefreshTokens, avgMessagesPerThread;
+        console.log ('data>>>',data);
         data.forEach(function(single){
-
+          totalFollowUpStatusCounts = single.followUpStatusCounts.FOLLOWED_UP+single.followUpStatusCounts.IGNORED+single.followUpStatusCounts.IGNORED_BLACKLISTED+single.followUpStatusCounts.NO_ACTION+single.followUpStatusCounts.UNDEFINED;
           totalNumOfUsers = single.totalNumOfUsers;
           differenceTotalNumOfUsers = single.totalNumOfUsers;
           totalNumOfAccounts = single.totalNumOfAccounts.GMAIL+single.totalNumOfAccounts.GMAIL_CALENDAR+single.totalNumOfAccounts.SALESFORCE+single.totalNumOfAccounts.TWITTER;
@@ -125,23 +128,36 @@ function generateChartData() {
         console.log("totalNumOfUserModels>>>",totalNumOfUserModels);
         console.log("totalValidRefreshTokens>>>",totalValidRefreshTokens);
         console.log("maxPossibleNumOfFollowUp>>>",maxPossibleNumOfFollowUp);
+        console.log("totalFollowUpStatusCounts>>>",totalFollowUpStatusCounts);
 
         var values = [];
+        var valuesTwo = [];
         data.forEach(function(single){
           values = [];
+          var valuesTwo = [];
           var keys = Object.keys(single.totalNumOfAccounts);
+          var keysTwo = Object.keys(single.followUpStatusCounts);
+          console.log("keysTwo####",keysTwo);
+          keysTwo.forEach(function(keyTwo){
+            let b = {"followUpStatusCounts" : keyTwo , "visits" : single.followUpStatusCounts[keyTwo] };
+            console.log("b####",b);
+            valuesTwo.push(b);
+          })
           keys.forEach(function(key){
             let a = {"totalNoOfAccounts" : key , "litres" : single.totalNumOfAccounts[key] };
             values.push(a);
+
           })
-          createChart(values);
+          createChartOne(values);
+          createChart(valuesTwo);
         });
 
       }
 
+
     });
   });
-
+/*for line graph*/
   var chartData = [];
   var firstDate = new Date();
   firstDate.setDate(firstDate.getDate() - 100);
@@ -186,13 +202,17 @@ function generateChartData() {
 function zoomChart(){
   chart.zoomToIndexes(chart.dataProvider.length - 20, chart.dataProvider.length - 1);
 }
+/*line graph ends*/
 
-
-function createChart(data){
+function createChartOne(data){
   /*PieChart*/
   var chartTwo = AmCharts.makeChart( "chartdivTwo", {
     "type": "pie",
     "theme": "dark",
+    "titles": [ {
+      "text": "totalNoOfAccounts",
+      "size": 16
+    } ],
     "dataProvider": data,
     "valueField": "litres",
     "titleField": "totalNoOfAccounts",
@@ -205,4 +225,32 @@ function createChart(data){
 
     }
   } );
+}
+
+function createChart(data){
+
+console.log("i am here>>>>");
+
+    /*DougnutChart*/
+    var chartThree = AmCharts.makeChart( "chartdivThree", {
+      "type": "pie",
+      "theme": "light",
+      "titles": [ {
+        "text": "FollowUpStatusCounts",
+        "size": 16
+      } ],
+     "dataProvider": data,
+      "valueField": "visits",
+      "titleField": "followUpStatusCounts",
+      "startEffect": "elastic",
+      "startDuration": 2,
+      "labelRadius": 15,
+      "innerRadius": "50%",
+      "depth3D": 10,
+      "balloonText": "[[title]]<br><span style='font-size:14px'><b>[[value]]</b> [[followups]]</span>",
+      "angle": 15,
+      "export": {
+        "enabled": true
+      }
+     });
 }

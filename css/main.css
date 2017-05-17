@@ -5,18 +5,26 @@
 	padding-left:50px;
 	padding-top:250px;
 }
+#chartdivThree {
+	width: 70%;
+height: 400px;
+padding-top:250px;
+padding-left:50px;
+
+}
 body{
-	background-color: #9999af; color: #fff;
+	background-color: #9999af;
 	overflow-y: scroll;
 }
 
 #chartdivTwo {
-	width	: 80%;
-	height	: 500px;
+	width	: 70%;
+	height: 500px;
 	align-content: right;
 	padding-left:50px;
 	padding-top:5px;
 	padding-bottom:150px;
+
 }
 @import url(http://weloveiconfonts.com/api/?family=fontawesome);
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:400,300);
