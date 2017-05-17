@@ -4,6 +4,10 @@ var chartData = generateChartData();
 var chart = AmCharts.makeChart("chartdiv", {
   "type": "serial",
   "theme": "light",
+  "titles": [ {
+    "text": "Number of users in time series",
+    "size": 16
+  } ],
   "legend": {
     "useGraphSettings": true
   },
@@ -53,8 +57,8 @@ var chart = AmCharts.makeChart("chartdiv", {
     "bullet": "square",
     "bulletBorderThickness": 1,
     "hideBulletsCount": 30,
-    "title": "answers",
-    "valueField": "answers",
+    "title": "ignored",
+    "valueField": "ignored",
     "fillAlphas": 0
   }],
   "chartScrollbar": {},
@@ -208,7 +212,7 @@ function createChartOne(data){
   /*PieChart*/
   var chartTwo = AmCharts.makeChart( "chartdivTwo", {
     "type": "pie",
-    "theme": "dark",
+    "theme": "none",
     "titles": [ {
       "text": "totalNoOfAccounts",
       "size": 16
