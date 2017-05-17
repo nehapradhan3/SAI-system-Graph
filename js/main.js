@@ -165,7 +165,7 @@ function generateChartData() {
   var chartData = [];
   var firstDate = new Date();
   firstDate.setDate(firstDate.getDate() - 100);
-  var answers =20;
+  var ignored;
   var totalNumOfUsers;
   var totalNumOfAccounts;
   var totalNumOfThreads;
@@ -184,13 +184,13 @@ function generateChartData() {
     var visits = Math.round(Math.sin(i * 5) * i);
     var hits = Math.round(Math.random() * 80) + 500 + i * 3;
     var views = Math.round(Math.random() * 6000) + i * 4;
-
+    var ignored = Math.round(Math.random() *10) + i *0;
     chartData.push({
       date: newDate,
       visits: visits,
       hits: hits,
       views: views,
-      answers: answers,
+      ignored: ignored,
       totalNumOfUsers: totalNumOfUsers,
       totalNumOfAccounts: totalNumOfAccounts,
       totalNumOfThreads: totalNumOfThreads,
@@ -214,7 +214,7 @@ function createChartOne(data){
     "type": "pie",
     "theme": "none",
     "titles": [ {
-      "text": "totalNoOfAccounts",
+      "text": "Total Number Of Accounts",
       "size": 16
     } ],
     "dataProvider": data,
@@ -240,7 +240,7 @@ console.log("i am here>>>>");
       "type": "pie",
       "theme": "light",
       "titles": [ {
-        "text": "FollowUpStatusCounts",
+        "text": "Follow Up Status Counts",
         "size": 16
       } ],
      "dataProvider": data,
