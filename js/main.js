@@ -1,3 +1,8 @@
+/*
+* @author Neha Pradhan
+* 17th May 2017
+*/
+
 
 var chartData = generateChartData();
 
@@ -85,11 +90,16 @@ zoomChart();
 function generateChartData() {
 
   $(document).ready(function () {
+    if (sessionStorage.getItem('status') !== 'loggedIn'){
+
+      window.location.href="login.html";
+    }
     $.ajax({
 
-      //url :'http://52.55.210.93:8080/analysis/snapshot-views?sortOrder=DESCENDING&size=1',
-      url :'http://52.55.210.93:8080/analysis/snapshot-views?order=ASCENDING&size=1',
 
+      //url :'http://52.55.210.93:8080/analysis/snapshot-views?order=ASCENDING&size=1',
+
+      url :'http://52.55.210.93:8080/analysis/snapshot-views?order=DESCENDING&size=1',
       contentType:"application/x-www-form-urlencoded",
       type: 'GET',
       dataType: 'json',
@@ -233,7 +243,7 @@ function createChartOne(data){
 
 function createChart(data){
 
-console.log("i am here>>>>");
+console.log("createChart function called");
 
     /*DougnutChart*/
     var chartThree = AmCharts.makeChart( "chartdivThree", {

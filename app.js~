@@ -1,0 +1,61 @@
+/*
+* @author suman kunwar
+* 23 th Dec 2016
+*/
+
+!function ($) {
+ 'use strict';
+
+/*
+ * login form check values
+*/
+
+ $("#login-submit" ).click(function( event ) {
+
+   event.preventDefault();
+   var emailVal = $('.login-email').val().trim(),
+       passwordVal = $('.login-password').val().trim();
+  //validation logic
+  if(emailVal.length <= 0 || emailVal == null || passwordVal.length <=0 || passwordVal == null){
+    $.notify("Insufficient information !", "error");
+  }else if(emailVal.length >= 1 &&  passwordVal.length >=1 ){
+     if(emailVal =="test@fusemachines.com" && passwordVal =="fusemachines"){ //change this with backend
+    	 localStorage.setItem('login', true);
+    	 $("#form").submit();
+       window.location.href = "/dashboard"; 
+     }
+    $.notify("Use email:test@fusemachines.com and password:fusemachines to login", "info");
+  }
+});
+ $(document).on('click' , '.delete-user',function(){
+	 var $current = $(this);
+	 var selectUserId = $(this).data('userid');
+
+   $.ajax({
+             url: '/delete?username='+selectUserId,
+             dataType:"json",
+             contentType:"application/json",
+             async: false,
+             type: 'GET',
+
+          	success: function(data){
+          		console.log($current,$current.parent().parent() );
+          		$current.parent().parent().remove();
+
+          		alert("administrator deleted!");
+
+          },
+          error: function(e) {
+              $('#info').html('<p>An error has occurred</p>');
+             }
+
+     });
+ });
+// user logout actons
+$('#user-logout').off('click');
+$('#user-logout').on('click', function(){
+  localStorage.removeItem('login')
+  window.location.href = "/dashboard"; // redirect to index.html
+})
+}(jQuery);
+
