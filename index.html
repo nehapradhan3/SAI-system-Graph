@@ -5,7 +5,7 @@
     <script src="js/login.js"></script>
 </head>
 
-<body>
+<body onload=beginning()>
 
 <center><h2 >SAI Login</h2></center>
 
@@ -62,7 +62,25 @@ function login(){
 
   }
   else{
-    alert('Wrong username or password');
+   alert('Wrong username or password');
+
+  }
+}
+function beginning(){
+  var user = document.getElementById("user").value;
+  var pass = document.getElementById("Pass").value;
+  if (user =='saicharts' && pass=='123'){
+    console.log('i m in function',  window.location.pathname);
+
+     window.location.href = "sam.html";
+    //window.location.replace('index.html');
+  //  window.open("index.html");
+    sessionStorage.setItem('status','loggedIn');
+
+  }
+  else{
+   sessionStorage.setItem('status','loggedOut');
+
   }
 }
 </script>

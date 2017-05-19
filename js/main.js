@@ -92,7 +92,7 @@ function generateChartData() {
   $(document).ready(function () {
     if (sessionStorage.getItem('status') !== 'loggedIn'){
 
-      window.location.href="login.html";
+      window.location.href="index.html";
     }
     $.ajax({
 
