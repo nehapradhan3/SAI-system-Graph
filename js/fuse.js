@@ -1,156 +1,213 @@
-var chart = AmCharts.makeChart("chartdivFour", {
-    "theme": "light",
-    "type": "serial",
-    "titles": [ {
-      "text": "Ignored Vs no_Action",
-      "size": 16
-    } ],
-    "dataProvider": [{
-        "country": "date1",
-        "year2004": 3.5,
-        "year2005": 4.2,
-        "year2006": 5.2,
-        "year2007" : 8.8,
-        "expenses": 30.5
-
-
-    }, {
-        "country": "date2",
-        "year2004": 1.7,
-        "year2005": 3.1,
-        "year2006": 5.2,
-          "year2007" : 10,
-          "expenses": 19.5
-    }, {
-        "country": "date3",
-        "year2004": 2.8,
-        "year2005": 2.9,
-        "year2006": 5.2,
-          "year2007" : 11,
-          "expenses": 38.5
-
-    }, {
-        "country": "date4",
-        "year2004": 2.6,
-        "year2005": 2.3,
-        "year2006": 5.2,
-          "year2007" : 12,
-          "expenses": 33.5
-
-    }, {
-        "country": "date5",
-        "year2004": 1.4,
-        "year2005": 3.1,
-        "year2006": 7.2,
-          "year2007" : 14,
-          "expenses": 20.5
-
-    }, {
-        "country": "date6",
-        "year2004": 2.6,
-        "year2005": 4.9,
-        "year2006": 5.2,
-          "year2007" : 17,
-          "expenses": 40.5
-
-    }, {
-        "country": "date7",
-        "year2004": 6.4,
-        "year2005": 7.2,
-        "year2006": 5.2,
-          "year2007" : 13,
-          "expenses": 16.5
-    }, {
-        "country": "date8",
-        "year2004": 8,
-        "year2005": 7.1,
-          "year2006": 5.2,
-            "year2007" : 16,
-            "expenses": 20.5
-    }, {
-        "country": "date9",
-        "year2004": 9.9,
-        "year2005": 10.1,
-        "year2006": 5.2,
-          "year2007" : 8,
-          "expenses": 10.5
-
-    }],
-    "valueAxes": [{
-        "stackType": "3d",
-        "unit": "%",
-        "position": "left",
-        "title": "GDP growth rate",
-    }],
-    "startDuration": 1,
-    "graphs": [{
-        "balloonText": "GDP grow in [[category]] (2004): <b>[[value]]</b>",
-        "fillAlphas": 0.9,
-        "lineAlpha": 2.2,
-        "title": "2004",
-        "type": "column",
-        "valueField": "year2004"
-    }, {
-        "balloonText": "GDP grow in [[category]] (2005): <b>[[value]]</b>",
-        "fillAlphas": 3.9,
-        "lineAlpha": 0.2,
-        "title": "2005",
-        "type": "column",
-        "valueField": "year2005"
-    }, {
-        "balloonText": "GDP grow in [[category]] (2006): <b>[[value]]</b>",
-        "fillAlphas": 0.9,
-        "lineAlpha": 0.2,
-        "title": "2006",
-        "type": "column",
-        "valueField": "year2006"
-    }, {
-        "balloonText": "GDP grow in [[category]] (2007): <b>[[value]]</b>",
-        "fillAlphas": 1.9,
-        "lineAlpha": 0.2,
-        "title": "2007",
-        "type": "column",
-        "valueField": "year2007"
-    },
-    {
-     "id": "graph2",
-     "balloonText": "<span style='font-size:12px;'>[[title]] in [[category]]:<br><span style='font-size:20px;'>[[value]]</span> [[additional]]</span>",
-     "bullet": "round",
-     "lineThickness": 3,
-     "bulletSize": 7,
-     "bulletBorderAlpha": 1,
-     "bulletColor": "#FFFFFF",
-     "useLineColorForBulletBorder": true,
-     "bulletBorderThickness": 3,
-     "fillAlphas": 0,
-     "lineAlpha": 1,
-     "title": "Expenses",
-     "valueField": "expenses",
-     "dashLengthField": "dashLengthLine"
-   }],
-    "plotAreaFillAlphas": 0.1,
-    "depth3D": 60,
-    "angle": 30,
-    "categoryField": "country",
-    "categoryAxis": {
-        "gridPosition": "start"
-    },
-    "export": {
-    	"enabled": true
-     }
-});
-jQuery('.chart-input').off().on('input change',function() {
-	var property	= jQuery(this).data('property');
-	var target		= chart;
-	chart.startDuration = 0;
-
-	if ( property == 'topRadius') {
-		target = chart.graphs[0];
-      	if ( this.value == 0 ) {
-          this.value = undefined;
-      	}
-	}
-
-	target[property] = this.value;
-	chart.validateNow();
+var chart = AmCharts.makeChart("chartdivfuse", {
+  "type": "serial",
+  "theme": "light",
+  "dataDateFormat": "YYYY-MM-DD",
+  "titles": [ {
+    "text": "Ignored Vs No-Accounts",
+    "size": 16
+  } ],
+  "precision": 2,
+  "valueAxes": [{
+    "id": "v1",
+    "title": "Sales",
+    "position": "left",
+    "autoGridCount": false,
+    "labelFunction": function(value) {
+      return "$" + Math.round(value) + "M";
+    }
+  }, {
+    "id": "v2",
+    "title": "Market Days",
+    "gridAlpha": 0,
+    "position": "right",
+    "autoGridCount": false
+  }],
+  "graphs": [{
+    "id": "g3",
+    "valueAxis": "v1",
+    "lineColor": "#e1ede9",
+    "fillColors": "#e1ede9",
+    "fillAlphas": 1,
+    "type": "column",
+    "title": "Actual Sales",
+    "valueField": "sales2",
+    "clustered": false,
+    "columnWidth": 0.5,
+    "legendValueText": "$[[value]]M",
+    "balloonText": "[[title]]<br /><b style='font-size: 130%'>$[[value]]M</b>"
+  }, {
+    "id": "g4",
+    "valueAxis": "v1",
+    "lineColor": "#62cf73",
+    "fillColors": "#62cf73",
+    "fillAlphas": 1,
+    "type": "column",
+    "title": "Target Sales",
+    "valueField": "sales1",
+    "clustered": false,
+    "columnWidth": 0.3,
+    "legendValueText": "$[[value]]M",
+    "balloonText": "[[title]]<br /><b style='font-size: 130%'>$[[value]]M</b>"
+  }, {
+    "id": "g1",
+    "valueAxis": "v2",
+    "bullet": "round",
+    "bulletBorderAlpha": 1,
+    "bulletColor": "#FFFFFF",
+    "bulletSize": 5,
+    "hideBulletsCount": 50,
+    "lineThickness": 2,
+    "lineColor": "#20acd4",
+    "type": "smoothedLine",
+    "title": "Market Days",
+    "useLineColorForBulletBorder": true,
+    "valueField": "market1",
+    "balloonText": "[[title]]<br /><b style='font-size: 130%'>[[value]]</b>"
+  }, {
+    "id": "g2",
+    "valueAxis": "v2",
+    "bullet": "round",
+    "bulletBorderAlpha": 1,
+    "bulletColor": "#FFFFFF",
+    "bulletSize": 5,
+    "hideBulletsCount": 50,
+    "lineThickness": 2,
+    "lineColor": "#e1ede9",
+    "type": "smoothedLine",
+    "dashLength": 5,
+    "title": "Market Days ALL",
+    "useLineColorForBulletBorder": true,
+    "valueField": "market2",
+    "balloonText": "[[title]]<br /><b style='font-size: 130%'>[[value]]</b>"
+  }],
+  "chartScrollbar": {
+    "graph": "g1",
+    "oppositeAxis": false,
+    "offset": 30,
+    "scrollbarHeight": 50,
+    "backgroundAlpha": 0,
+    "selectedBackgroundAlpha": 0.1,
+    "selectedBackgroundColor": "#888888",
+    "graphFillAlpha": 0,
+    "graphLineAlpha": 0.5,
+    "selectedGraphFillAlpha": 0,
+    "selectedGraphLineAlpha": 1,
+    "autoGridCount": true,
+    "color": "#AAAAAA"
+  },
+  "chartCursor": {
+    "pan": true,
+    "valueLineEnabled": true,
+    "valueLineBalloonEnabled": true,
+    "cursorAlpha": 0,
+    "valueLineAlpha": 0.2
+  },
+  "categoryField": "date",
+  "categoryAxis": {
+    "parseDates": true,
+    "dashLength": 1,
+    "minorGridEnabled": true
+  },
+  "legend": {
+    "useGraphSettings": true,
+    "position": "top"
+  },
+  "balloon": {
+    "borderThickness": 1,
+    "shadowAlpha": 0
+  },
+  "export": {
+   "enabled": true
+  },
+  "dataProvider": [{
+    "date": "2013-01-16",
+    "market1": 71,
+    "market2": 75,
+    "sales1": 5,
+    "sales2": 8
+  }, {
+    "date": "2013-01-17",
+    "market1": 74,
+    "market2": 78,
+    "sales1": 4,
+    "sales2": 6
+  }, {
+    "date": "2013-01-18",
+    "market1": 78,
+    "market2": 88,
+    "sales1": 5,
+    "sales2": 2
+  }, {
+    "date": "2013-01-19",
+    "market1": 85,
+    "market2": 89,
+    "sales1": 8,
+    "sales2": 9
+  }, {
+    "date": "2013-01-20",
+    "market1": 82,
+    "market2": 89,
+    "sales1": 9,
+    "sales2": 6
+  }, {
+    "date": "2013-01-21",
+    "market1": 83,
+    "market2": 85,
+    "sales1": 3,
+    "sales2": 5
+  }, {
+    "date": "2013-01-22",
+    "market1": 88,
+    "market2": 92,
+    "sales1": 5,
+    "sales2": 7
+  }, {
+    "date": "2013-01-23",
+    "market1": 85,
+    "market2": 90,
+    "sales1": 7,
+    "sales2": 6
+  }, {
+    "date": "2013-01-24",
+    "market1": 85,
+    "market2": 91,
+    "sales1": 9,
+    "sales2": 5
+  }, {
+    "date": "2013-01-25",
+    "market1": 80,
+    "market2": 84,
+    "sales1": 5,
+    "sales2": 8
+  }, {
+    "date": "2013-01-26",
+    "market1": 87,
+    "market2": 92,
+    "sales1": 4,
+    "sales2": 8
+  }, {
+    "date": "2013-01-27",
+    "market1": 84,
+    "market2": 87,
+    "sales1": 3,
+    "sales2": 4
+  }, {
+    "date": "2013-01-28",
+    "market1": 83,
+    "market2": 88,
+    "sales1": 5,
+    "sales2": 7
+  }, {
+    "date": "2013-01-29",
+    "market1": 84,
+    "market2": 87,
+    "sales1": 5,
+    "sales2": 8
+  }, {
+    "date": "2013-01-30",
+    "market1": 81,
+    "market2": 85,
+    "sales1": 4,
+    "sales2": 7
+  }]
 });

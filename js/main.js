@@ -260,9 +260,9 @@ console.log("createChart function called");
       "startDuration": 2,
       "labelRadius": 15,
       "innerRadius": "50%",
-      "depth3D": 10,
+      "depth3D": 1,
       "balloonText": "[[title]]<br><span style='font-size:14px'><b>[[value]]</b> [[followups]]</span>",
-      "angle": 15,
+      "angle": 1,
       "export": {
         "enabled": true
       }
