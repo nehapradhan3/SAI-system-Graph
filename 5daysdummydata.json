@@ -1,0 +1,161 @@
+
+
+
+
+[
+  {
+    "snapshotDate": "2017-05-14",
+    "totalNumOfUsers": 139,
+    "totalNumOfAccounts": {
+      "GMAIL": 248,
+      "GMAIL_CALENDAR": 68,
+      "SALESFORCE": 2,
+      "TWITTER": 0
+    },
+    "followUpStatusCounts": {
+      "FOLLOWED_UP": 609,
+      "NO_ACTION": 231,
+      "IGNORED": 205,
+      "IGNORED_BLACKLISTED": 72,
+      "UNDEFINED": 0
+    },
+    "followUpStatusPercentages": {
+      "FOLLOWED_UP": 0.54521038495971,
+      "NO_ACTION": 0.20680393912265,
+      "IGNORED": 0.18352730528201,
+      "IGNORED_BLACKLISTED": 0.064458370635631,
+      "UNDEFINED": 0
+    },
+    "maxPossibleThreadsInList": 1390,
+    "totalNumOfThreads": 91421,
+    "maxPossibleNumOfFollowUp": 99050,
+    "totalNumOfFollowUpThreads": 1117,
+    "totalNumOfUserModels": 62,
+    "totalValidRefreshTokens": 208,
+    "allUserSnapshotsUpdated": false
+  },
+  {
+    "snapshotDate": "2017-05-15",
+    "totalNumOfUsers": 111,
+    "totalNumOfAccounts": {
+      "GMAIL": 198,
+      "GMAIL_CALENDAR": 52,
+      "SALESFORCE": 2,
+      "TWITTER": 0
+    },
+    "followUpStatusCounts": {
+      "FOLLOWED_UP": 389,
+      "NO_ACTION": 241,
+      "IGNORED": 225,
+      "IGNORED_BLACKLISTED": 82,
+      "UNDEFINED": 0
+    },
+    "followUpStatusPercentages": {
+      "FOLLOWED_UP": 0.41515474919957,
+      "NO_ACTION": 0.25720384204909,
+      "IGNORED": 0.24012806830309,
+      "IGNORED_BLACKLISTED": 0.087513340448239,
+      "UNDEFINED": 0
+    },
+    "maxPossibleThreadsInList": 1110,
+    "totalNumOfThreads": 89031,
+    "maxPossibleNumOfFollowUp": 95251,
+    "totalNumOfFollowUpThreads": 937,
+    "totalNumOfUserModels": 52,
+    "totalValidRefreshTokens": 192,
+    "allUserSnapshotsUpdated": false
+  },
+  {
+    "snapshotDate": "2017-05-16",
+    "totalNumOfUsers": 89,
+    "totalNumOfAccounts": {
+      "GMAIL": 162,
+      "GMAIL_CALENDAR": 48,
+      "SALESFORCE": 2,
+      "TWITTER": 0
+    },
+    "followUpStatusCounts": {
+      "FOLLOWED_UP": 279,
+      "NO_ACTION": 191,
+      "IGNORED": 145,
+      "IGNORED_BLACKLISTED": 12,
+      "UNDEFINED": 0
+    },
+    "followUpStatusPercentages": {
+      "FOLLOWED_UP": 0.44497607655502,
+      "NO_ACTION": 0.30462519936204,
+      "IGNORED": 0.23125996810207,
+      "IGNORED_BLACKLISTED": 0.019138755980861,
+      "UNDEFINED": 0
+    },
+    "maxPossibleThreadsInList": 890,
+    "totalNumOfThreads": 80076,
+    "maxPossibleNumOfFollowUp": 89021,
+    "totalNumOfFollowUpThreads": 627,
+    "totalNumOfUserModels": 38,
+    "totalValidRefreshTokens": 160,
+    "allUserSnapshotsUpdated": false
+  },
+  {
+    "snapshotDate": "2017-05-17",
+    "totalNumOfUsers": 78,
+    "totalNumOfAccounts": {
+      "GMAIL": 150,
+      "GMAIL_CALENDAR": 45,
+      "SALESFORCE": 2,
+      "TWITTER": 0
+    },
+    "followUpStatusCounts": {
+      "FOLLOWED_UP": 201,
+      "NO_ACTION": 391,
+      "IGNORED": 265,
+      "IGNORED_BLACKLISTED": 32,
+      "UNDEFINED": 0
+    },
+    "followUpStatusPercentages": {
+      "FOLLOWED_UP": 0.22609673790776,
+      "NO_ACTION": 0.43982002249719,
+      "IGNORED": 0.29808773903262,
+      "IGNORED_BLACKLISTED": 0.03599550056243,
+      "UNDEFINED": 0
+    },
+    "maxPossibleThreadsInList": 780,
+    "totalNumOfThreads": 79416,
+    "maxPossibleNumOfFollowUp": 87942,
+    "totalNumOfFollowUpThreads": 889,
+    "totalNumOfUserModels": 34,
+    "totalValidRefreshTokens": 150,
+    "allUserSnapshotsUpdated": false
+  },
+  {
+    "snapshotDate": "2017-05-18",
+    "totalNumOfUsers": 72,
+    "totalNumOfAccounts": {
+      "GMAIL": 140,
+      "GMAIL_CALENDAR": 45,
+      "SALESFORCE": 2,
+      "TWITTER": 0
+    },
+    "followUpStatusCounts": {
+      "FOLLOWED_UP": 190,
+      "NO_ACTION": 400,
+      "IGNORED": 201,
+      "IGNORED_BLACKLISTED": 40,
+      "UNDEFINED": 0
+    },
+    "followUpStatusPercentages": {
+      "FOLLOWED_UP": 0.22864019253911,
+      "NO_ACTION": 0.48134777376655,
+      "IGNORED": 0.24187725631769,
+      "IGNORED_BLACKLISTED": 0.048134777376655,
+      "UNDEFINED": 0
+    },
+    "maxPossibleThreadsInList": 720,
+    "totalNumOfThreads": 79314,
+    "maxPossibleNumOfFollowUp": 87800,
+    "totalNumOfFollowUpThreads": 831,
+    "totalNumOfUserModels": 32,
+    "totalValidRefreshTokens": 120,
+    "allUserSnapshotsUpdated": false
+  }
+]
