@@ -1,9 +1,12 @@
+
+
+// function createTimeSeriesGraphTwo(){
 var chart = AmCharts.makeChart("chartdivfuse", {
   "type": "serial",
   "theme": "light",
   "dataDateFormat": "YYYY-MM-DD",
   "titles": [ {
-    "text": "Ignored Vs No-Accounts",
+    "text": "FollowUp Vs Ignored Vs No-Accounts",
     "size": 16
   } ],
   "precision": 2,
@@ -117,7 +120,7 @@ var chart = AmCharts.makeChart("chartdivfuse", {
     "shadowAlpha": 0
   },
   "export": {
-   "enabled": true
+    "enabled": true
   },
   "dataProvider": [{
     "date": "2013-01-16",
@@ -211,87 +214,234 @@ var chart = AmCharts.makeChart("chartdivfuse", {
     "sales2": 7
   }]
 });
+// }
+// <!--end of function create timeseriesGraph-->
 
+// users graph timeseries starts here--> needs total accounts(gmail),date,active Users,total users
+// function createTimeSeriesGraphTwo(data){
+// if( data === undefined){
+// 			return;
+// 		}
+// 	if(data.length <=0 ){
+// 		return;
+// 	}
+var chartData = generateChartData();
+
+var chart = AmCharts.makeChart("chartdiv", {
+  "type": "serial",
+  "theme": "light",
+  "legend": {
+    "useGraphSettings": true
+  },
+  "dataProvider": chartData,
+  "synchronizeGrid":true,
+  "valueAxes": [ {
+    "id":"v2",
+    "axisColor": "#FCD202",
+    "axisThickness": 2,
+    "axisAlpha": 1,
+    "position": "right"
+  }, {
+    "id":"v3",
+    "axisColor": "#B0DE09",
+    "axisThickness": 2,
+    "gridAlpha": 0,
+    "offset": 50,
+    "axisAlpha": 1,
+    "position": "left"
+  }],
+  "graphs": [ {
+    "valueAxis": "v2",
+    "lineColor": "#FCD202",
+    "bullet": "square",
+    "bulletBorderThickness": 1,
+    "hideBulletsCount": 30,
+    "title": "total GMAIL Accounts",
+    "valueField": "totalaccountsgmail",
+    "fillAlphas": 0
+  }, {
+    "valueAxis": "v3",
+    "lineColor": "#B0DE09",
+    "bullet": "triangleUp",
+    "bulletBorderThickness": 1,
+    "hideBulletsCount": 30,
+    "title": "total Users",
+    "valueField": "totalusers",
+    "fillAlphas": 0
+  }],
+  "chartScrollbar": {},
+  "chartCursor": {
+    "cursorPosition": "mouse"
+  },
+  "categoryField": "date",
+  "categoryAxis": {
+    "parseDates": true,
+    "axisColor": "#DADADA",
+    "minorGridEnabled": true
+  },
+  "export": {
+    "enabled": true,
+    "position": "bottom-right"
+  }
+});
+
+chart.addListener("dataUpdated", zoomChart);
+zoomChart();
+
+// generate some random data, quite different range
+//function generateChartData(snapshotDate,totalNumOfAccounts,totalNumOfUsers,length) {
+function generateChartData(data) {
+  if (data){
+    console.log('data>>>>>>>>>>',data);
+    var chartData = [];
+    data.forEach(function(val){
+
+      //epoch time conversion
+      var unixEpochTime = val.snapshotDateUnixTimeStamp;
+      var d = new Date(0); // The 0 there is the key, which sets the date to the epoch
+      d.setUTCSeconds(unixEpochTime);
+      console.log('hellossnewdate>>>>>',d);
+      totalUserss = val.totalNumOfUsers;
+      console.log('totalUserss%%%%%',totalUserss);
+      totalNumOfAccounts=val.totalNumOfAccounts.GMAIL;
+      console.log('totalNumOfAccounts#####',totalNumOfAccounts);
+
+      chartData.push({
+        date: d,
+        totalaccountsgmail: totalNumOfAccounts,
+        totalusers: totalUserss
+      });
+    });
+      console.log('*********chartdata*****',chartData);
+    return chartData;
+
+  }
+
+  function zoomChart(){
+      chart.zoomToIndexes(chart.dataProvider.length - 20, chart.dataProvider.length - 1);
+  }
+
+
+//   return false;
+//   console.log('snapshotDate---->>',snapshotDate);
+//   console.log('totalGmailAccounts---->>>',totalNumOfAccounts);
+//   console.log('totalNumberofUsers--->>>>',totalNumOfUsers);
+//   console.log('length',length);
+//   console.log('timestamp-->>',snapshotDateUnixTimeStamp);
+//   var chartData = [];
+//   var firstDate = new Date();
+//   firstDate.setDate(firstDate.getDate() - 100);
+//
+//   for (var i = 0; i < 100; i++) {
+//     // we create date objects here. In your data, you can have date strings
+//     // and then set format of your dates using chart.dataDateFormat property,
+//     // however when possible, use date objects, as this will speed up chart rendering.
+//     var newDate = new Date(firstDate);
+//     console.log('newDate',newDate);
+//     newDate.setDate(newDate.getDate() + i);
+//
+//     var  activeusers = Math.round(Math.sin(i * 5) * i);
+//     var totalaccountsgmail= Math.round(Math.random() * 80) + 500 + i * 3;
+//     var totalusers = Math.round(Math.random() * 6000) + i * 4;
+//
+//     chartData.push({
+//       date: newDate,
+//       activeusers: activeusers,
+//       totalaccountsgmail: totalaccountsgmail,
+//       totalusers: totalusers
+//     });
+//   }
+//   return chartData;
+// }
+
+// function zoomChart(){
+//   chart.zoomToIndexes(chart.chartData.length - 20, chart.chartData.length - 1);
+// }
+// }
+// timeseriesgraph ends here
+
+// usersgraph time series ends here
 //datepicker
 
 var bindDateRangeValidation = function (f, s, e) {
-    if(!(f instanceof jQuery)){
-			console.log("Not passing a jQuery object");
-    }
+  if(!(f instanceof jQuery)){
+    console.log("Not passing a jQuery object");
+  }
 
-    var jqForm = f,
-        startDateId = s,
-        endDateId = e;
+  var jqForm = f,
+  startDateId = s,
+  endDateId = e;
 
-    var checkDateRange = function (startDate, endDate) {
-        var isValid = (startDate != "" && endDate != "") ? startDate <= endDate : true;
-        return isValid;
-    }
+  var checkDateRange = function (startDate, endDate) {
+    var isValid = (startDate != "" && endDate != "") ? startDate <= endDate : true;
+    return isValid;
+  }
 
-    var bindValidator = function () {
-        var bstpValidate = jqForm.data('bootstrapValidator');
-        var validateFields = {
-            startDate: {
-                validators: {
-                    notEmpty: { message: 'This field is required.' },
-                    callback: {
-                        message: 'Start Date must less than or equal to End Date.',
-                        callback: function (startDate, validator, $field) {
-                            return checkDateRange(startDate, $('#' + endDateId).val())
-                        }
-                    }
-                }
-            },
-            endDate: {
-                validators: {
-                    notEmpty: { message: 'This field is required.' },
-                    callback: {
-                        message: 'End Date must greater than or equal to Start Date.',
-                        callback: function (endDate, validator, $field) {
-                            return checkDateRange($('#' + startDateId).val(), endDate);
-                        }
-                    }
-                }
-            },
-          	customize: {
-                validators: {
-                    customize: { message: 'customize.' }
-                }
+  var bindValidator = function () {
+    var bstpValidate = jqForm.data('bootstrapValidator');
+    var validateFields = {
+      startDate: {
+        validators: {
+          notEmpty: { message: 'This field is required.' },
+          callback: {
+            message: 'Start Date must less than or equal to End Date.',
+            callback: function (startDate, validator, $field) {
+              return checkDateRange(startDate, $('#' + endDateId).val())
             }
+          }
         }
-        if (!bstpValidate) {
-            jqForm.bootstrapValidator({
-                excluded: [':disabled'],
-            })
+      },
+      endDate: {
+        validators: {
+          notEmpty: { message: 'This field is required.' },
+          callback: {
+            message: 'End Date must greater than or equal to Start Date.',
+            callback: function (endDate, validator, $field) {
+              return checkDateRange($('#' + startDateId).val(), endDate);
+            }
+          }
         }
-
-        jqForm.bootstrapValidator('addField', startDateId, validateFields.startDate);
-        jqForm.bootstrapValidator('addField', endDateId, validateFields.endDate);
-
-    };
-
-    var hookValidatorEvt = function () {
-        var dateBlur = function (e, bundleDateId, action) {
-            jqForm.bootstrapValidator('revalidateField', e.target.id);
+      },
+      customize: {
+        validators: {
+          customize: { message: 'customize.' }
         }
-
-        $('#' + startDateId).on("dp.change dp.update blur", function (e) {
-            $('#' + endDateId).data("DateTimePicker").setMinDate(e.date);
-            dateBlur(e, endDateId);
-        });
-
-        $('#' + endDateId).on("dp.change dp.update blur", function (e) {
-            $('#' + startDateId).data("DateTimePicker").setMaxDate(e.date);
-            dateBlur(e, startDateId);
-        });
+      }
+    }
+    if (!bstpValidate) {
+      jqForm.bootstrapValidator({
+        excluded: [':disabled'],
+      })
     }
 
-    bindValidator();
-    hookValidatorEvt();
+    jqForm.bootstrapValidator('addField', startDateId, validateFields.startDate);
+    jqForm.bootstrapValidator('addField', endDateId, validateFields.endDate);
+
+  };
+
+  var hookValidatorEvt = function () {
+    var dateBlur = function (e, bundleDateId, action) {
+      jqForm.bootstrapValidator('revalidateField', e.target.id);
+    }
+
+    $('#' + startDateId).on("dp.change dp.update blur", function (e) {
+      $('#' + endDateId).data("DateTimePicker").setMinDate(e.date);
+      dateBlur(e, endDateId);
+    });
+
+    $('#' + endDateId).on("dp.change dp.update blur", function (e) {
+      $('#' + startDateId).data("DateTimePicker").setMaxDate(e.date);
+      dateBlur(e, startDateId);
+    });
+  }
+
+  bindValidator();
+  hookValidatorEvt();
 };
 //end of date picker
 
 $(document).ready(function(){
+
   $('a.oneWeek').on('click', function(){
     $('.datePicker').css('visibility', 'visible');
   });
@@ -304,7 +454,91 @@ $(document).ready(function(){
   $('a.oneQuarter').on('click', function(){
     $('.datePicker').css('visibility', 'visible');
   });
+  $('.datesubmit').on('click', function(){
+    var datetimepicker1= $('input#startDate').val(),
+    dateFrom = new Date(datetimepicker1).valueOf();
+    console.log('date1>>>',datetimepicker1);
+    var datetimepicker2= $('input#endDate').val(),
+    dateTo = new Date(datetimepicker2).valueOf();
+    console.log('date2>>>',datetimepicker2);
+    if(isNaN(dateFrom)|| isNaN(dateTo)){
+      return;
+    }
+  });
   //datepicker
+  $.ajax({
+    url : 'http://52.55.210.93:8080/analysis/snapshot-views?start_date=2017-05-14&end_date=2017-05-18',
+    // url :'http://52.55.210.93:8080/analysis/snapshot-views?start_date='+dateFrom+'&end_date='dateTo,
+    contentType:"application/x-www-form-urlencoded",
+    type: 'GET',
+    dataType: 'json',
+    crossDomain: true,
+
+    error: function() {
+      $('#info').html('<p>An error has occurred</p>');
+    },
+    success: function (data) {
+      var totalNumOfUsers,  differenceTotalNumOfUsers, differenceRefreshTokenCount, totalNumOfAccounts, totalNumOfThreads, totalNumOfFollowUpThreads, totalNumOfUserModels, totalValidRefreshTokens, avgMessagesPerThread;
+      console.log ('data>>>',data);
+      console.log('data.length>>>',data.length);
+      let snapshotDate=[];
+
+      data.forEach(function(single){
+        console.log('DATE>>',single.snapshotDate);
+        // snapshotDate.push(single.snapshotDate);
+        // generateChartData(snapshotDate,single.totalNumOfUsers,single.totalNumOfAccounts.GMAIL,data.length);
+        totalFollowUpStatusCounts = single.followUpStatusCounts.FOLLOWED_UP+single.followUpStatusCounts.IGNORED+single.followUpStatusCounts.IGNORED_BLACKLISTED+single.followUpStatusCounts.NO_ACTION+single.followUpStatusCounts.UNDEFINED;
+        totalNumOfUsers = single.totalNumOfUsers;
+        differenceTotalNumOfUsers = single.totalNumOfUsers;
+
+        totalNumOfAccounts = single.totalNumOfAccounts.GMAIL+single.totalNumOfAccounts.GMAIL_CALENDAR+single.totalNumOfAccounts.SALESFORCE+single.totalNumOfAccounts.TWITTER;
+        totalNumOfThreads = single.totalNumOfThreads;
+        totalNumOfFollowUpThreads = single.totalNumOfFollowUpThreads;
+        totalNumOfUserModels = single.totalNumOfUserModels;
+        totalValidRefreshTokens = single.totalValidRefreshTokens;
+        maxPossibleNumOfFollowUp = single.maxPossibleNumOfFollowUp;
+        differenceRefreshToken = single.maxPossibleNumOfFollowUp;
+      })
+      $('#differenceRefreshTokenCount').text(totalNumOfFollowUpThreads);
+      $('#differenceTotalNumOfUsersCount').text(totalNumOfUsers);
+      $('#usercount').text(totalNumOfUsers);
+      $('#accountCount').text(totalNumOfAccounts);
+      $('#EmailThreadsCount').text(totalNumOfThreads);
+      $('#markedAsFollowUpCount').text(totalNumOfFollowUpThreads);
+      $('#userModelBuiltCount').text(totalNumOfUserModels);
+      $('#refreshtokenCount').text(totalValidRefreshTokens);
+      $('#candidateThreadsCount').text(maxPossibleNumOfFollowUp);
+
+      // var datevalues= [];
+      // data.forEach(function(single){
+      //   datevalues= [];
+      //   //console.log('DATE>>',single.snapshotDate);
+      //   datevalues.push(single.snapshotDate);
+      //   console.log('arrayofdates>>>>>',datevalues);
+      // })
+
+      var values = [];
+
+      data.forEach(function(single){
+        values = [];
+        var keys = Object.keys(single.totalNumOfAccounts);
+        keys.forEach(function(key){
+          let a = {"totalNoOfAccounts" : key , "litres" : single.totalNumOfAccounts[key] };
+          console.log("c>>>>>>>>>",a);
+          values.push(a);
+
+        })
+        // generateChartData(snapshotDate,single.totalNumOfUsers,single.totalNumOfAccounts.GMAIL,data.length);
+        generateChartData(data);
+
+
+        //########
+        // createTimeSeriesGraph(values);
+      });
+
+    }
+  });
+
   var sd = new Date(), ed = new Date();
 
   $('#startDate').datetimepicker({
@@ -323,5 +557,5 @@ $(document).ready(function(){
 
   //passing 1.jquery form object, 2.start date dom Id, 3.end date dom Id
   bindDateRangeValidation($("#form"), 'startDate', 'endDate');
-
 });
+}

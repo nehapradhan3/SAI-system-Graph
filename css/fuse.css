@@ -3,6 +3,10 @@
   height: 500px;
   padding-top: 100px;
 }
+#chartdiv{
+  width: 80%;
+  height: 500px;
+}
 
  .datePicker {
    padding: 20px;
