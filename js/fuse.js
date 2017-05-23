@@ -214,153 +214,107 @@ var chart = AmCharts.makeChart("chartdivfuse", {
     "sales2": 7
   }]
 });
-// }
-// <!--end of function create timeseriesGraph-->
 
-// users graph timeseries starts here--> needs total accounts(gmail),date,active Users,total users
-// function createTimeSeriesGraphTwo(data){
-// if( data === undefined){
-// 			return;
-// 		}
-// 	if(data.length <=0 ){
-// 		return;
-// 	}
-var chartData = generateChartData();
-
+function MakeChartData(chartData){
 var chart = AmCharts.makeChart("chartdiv", {
-  "type": "serial",
-  "theme": "light",
-  "legend": {
-    "useGraphSettings": true
-  },
-  "dataProvider": chartData,
-  "synchronizeGrid":true,
-  "valueAxes": [ {
-    "id":"v2",
-    "axisColor": "#FCD202",
-    "axisThickness": 2,
-    "axisAlpha": 1,
-    "position": "right"
-  }, {
-    "id":"v3",
-    "axisColor": "#B0DE09",
-    "axisThickness": 2,
-    "gridAlpha": 0,
-    "offset": 50,
-    "axisAlpha": 1,
-    "position": "left"
-  }],
-  "graphs": [ {
-    "valueAxis": "v2",
-    "lineColor": "#FCD202",
-    "bullet": "square",
-    "bulletBorderThickness": 1,
-    "hideBulletsCount": 30,
-    "title": "total GMAIL Accounts",
-    "valueField": "totalaccountsgmail",
-    "fillAlphas": 0
-  }, {
-    "valueAxis": "v3",
-    "lineColor": "#B0DE09",
-    "bullet": "triangleUp",
-    "bulletBorderThickness": 1,
-    "hideBulletsCount": 30,
-    "title": "total Users",
-    "valueField": "totalusers",
-    "fillAlphas": 0
-  }],
-  "chartScrollbar": {},
-  "chartCursor": {
-    "cursorPosition": "mouse"
-  },
-  "categoryField": "date",
-  "categoryAxis": {
-    "parseDates": true,
-    "axisColor": "#DADADA",
-    "minorGridEnabled": true
-  },
-  "export": {
-    "enabled": true,
-    "position": "bottom-right"
-  }
+    "type": "serial",
+    "theme": "light",
+    "legend": {
+        "useGraphSettings": true
+    },
+    "dataProvider": chartData,
+    "synchronizeGrid":true,
+    "valueAxes": [ {
+        "id":"v1",
+        "axisColor": "#FCD202 ",
+        "axisThickness": 2,
+        "axisAlpha": 1,
+        "position": "right"
+    }, {
+        "id":"v2",
+        "axisColor": "#B0DE09 ",
+        "axisThickness": 2,
+        "gridAlpha": 0,
+        "offset": 50,
+        "axisAlpha": 1,
+        "position": "left"
+    }],
+    "graphs": [ {
+        "valueAxis": "v1",
+        "lineColor": "#FCD202 ",
+        "bullet": "square",
+        "bulletBorderThickness": 1,
+        "hideBulletsCount": 30,
+        "title": "yellow line",
+        "valueField": "totalAccounts",
+        "fillAlphas": 0
+    }, {
+        "valueAxis": "v2",
+        "lineColor": "#B0DE09 ",
+        "bullet": "triangleUp",
+        "bulletBorderThickness": 1,
+        "hideBulletsCount": 30,
+        "title": "green line",
+        "valueField": "totalUsers",
+        "fillAlphas": 0
+    }],
+    "chartScrollbar": {},
+    "chartCursor": {
+        "cursorPosition": "mouse"
+    },
+    "categoryField": "date",
+    "categoryAxis": {
+        "parseDates": true,
+        "axisColor": "#DADADA ",
+        "minorGridEnabled": true
+    },
+    "export": {
+        "enabled": true,
+        "position": "bottom-right"
+     }
 });
+
+}
 
 chart.addListener("dataUpdated", zoomChart);
 zoomChart();
 
+
 // generate some random data, quite different range
-//function generateChartData(snapshotDate,totalNumOfAccounts,totalNumOfUsers,length) {
-function generateChartData(data) {
-  if (data){
-    console.log('data>>>>>>>>>>',data);
-    var chartData = [];
-    data.forEach(function(val){
-
-      //epoch time conversion
-      var unixEpochTime = val.snapshotDateUnixTimeStamp;
-      var d = new Date(0); // The 0 there is the key, which sets the date to the epoch
-      d.setUTCSeconds(unixEpochTime);
-      console.log('hellossnewdate>>>>>',d);
-      totalUserss = val.totalNumOfUsers;
-      console.log('totalUserss%%%%%',totalUserss);
-      totalNumOfAccounts=val.totalNumOfAccounts.GMAIL;
-      console.log('totalNumOfAccounts#####',totalNumOfAccounts);
-
-      chartData.push({
-        date: d,
-        totalaccountsgmail: totalNumOfAccounts,
-        totalusers: totalUserss
-      });
-    });
-      console.log('*********chartdata*****',chartData);
-    return chartData;
-
-  }
-
-  function zoomChart(){
-      chart.zoomToIndexes(chart.dataProvider.length - 20, chart.dataProvider.length - 1);
-  }
-
-
-//   return false;
-//   console.log('snapshotDate---->>',snapshotDate);
-//   console.log('totalGmailAccounts---->>>',totalNumOfAccounts);
-//   console.log('totalNumberofUsers--->>>>',totalNumOfUsers);
-//   console.log('length',length);
-//   console.log('timestamp-->>',snapshotDateUnixTimeStamp);
-//   var chartData = [];
-//   var firstDate = new Date();
-//   firstDate.setDate(firstDate.getDate() - 100);
+// function generateChartData() {
+//     var chartData = [];
+//     var firstDate = new Date();
+//     firstDate.setDate(firstDate.getDate() - 100);
 //
-//   for (var i = 0; i < 100; i++) {
-//     // we create date objects here. In your data, you can have date strings
-//     // and then set format of your dates using chart.dataDateFormat property,
-//     // however when possible, use date objects, as this will speed up chart rendering.
-//     var newDate = new Date(firstDate);
-//     console.log('newDate',newDate);
-//     newDate.setDate(newDate.getDate() + i);
+//    for (var i = 0; i < 4; i++) {
+//         // we create date objects here. In your data, you can have date strings
+//         // and then set format of your dates using chart.dataDateFormat property,
+//         // however when possible, use date objects, as this will speed up chart rendering.
+//         var newDate = new Date(firstDate);
+//     console.log('newdate>>',newDate);
+//         newDate.setDate(newDate.getDate() + i);
 //
-//     var  activeusers = Math.round(Math.sin(i * 5) * i);
-//     var totalaccountsgmail= Math.round(Math.random() * 80) + 500 + i * 3;
-//     var totalusers = Math.round(Math.random() * 6000) + i * 4;
+//        var totalAccounts = Math.round(Math.sin(i * 5) * i);
+//         var totalUsers = Math.round(Math.random() * 80) + 500 + i * 3;
 //
-//     chartData.push({
-//       date: newDate,
-//       activeusers: activeusers,
-//       totalaccountsgmail: totalaccountsgmail,
-//       totalusers: totalusers
-//     });
-//   }
-//   return chartData;
+//
+//        chartData.push({
+//             date: newDate,
+//             totalAccounts: totalAccounts,
+//             totalUsers: totalUsers
+//
+//        });
+//     }
+// // console.log('chartdata>>>',chartData);
+//     return chartData;
 // }
 
-// function zoomChart(){
-//   chart.zoomToIndexes(chart.chartData.length - 20, chart.chartData.length - 1);
-// }
-// }
-// timeseriesgraph ends here
+function zoomChart(){
+    chart.zoomToIndexes(chart.dataProvider.length - 20, chart.dataProvider.length - 1);
+}
 
-// usersgraph time series ends here
+
+
 //datepicker
 
 var bindDateRangeValidation = function (f, s, e) {
@@ -466,7 +420,7 @@ $(document).ready(function(){
     }
   });
   //datepicker
-  $.ajax({
+$.ajax({
     url : 'http://52.55.210.93:8080/analysis/snapshot-views?start_date=2017-05-14&end_date=2017-05-18',
     // url :'http://52.55.210.93:8080/analysis/snapshot-views?start_date='+dateFrom+'&end_date='dateTo,
     contentType:"application/x-www-form-urlencoded",
@@ -482,9 +436,9 @@ $(document).ready(function(){
       console.log ('data>>>',data);
       console.log('data.length>>>',data.length);
       let snapshotDate=[];
-
+      let dataL = [];
       data.forEach(function(single){
-        console.log('DATE>>',single.snapshotDate);
+        // console.log('DATE>>',single.snapshotDate);
         // snapshotDate.push(single.snapshotDate);
         // generateChartData(snapshotDate,single.totalNumOfUsers,single.totalNumOfAccounts.GMAIL,data.length);
         totalFollowUpStatusCounts = single.followUpStatusCounts.FOLLOWED_UP+single.followUpStatusCounts.IGNORED+single.followUpStatusCounts.IGNORED_BLACKLISTED+single.followUpStatusCounts.NO_ACTION+single.followUpStatusCounts.UNDEFINED;
@@ -498,43 +452,21 @@ $(document).ready(function(){
         totalValidRefreshTokens = single.totalValidRefreshTokens;
         maxPossibleNumOfFollowUp = single.maxPossibleNumOfFollowUp;
         differenceRefreshToken = single.maxPossibleNumOfFollowUp;
+
+        //sumans
+        let unixEpochTime = single.snapshotDateUnixTimeStamp;
+        let d = new Date(0); // The 0 there is the key, which sets the date to the epoch
+            d.setUTCSeconds(unixEpochTime);
+            d.setDate(d.getDate() - 100);
+      dataL.push({
+                  date: d,
+                  totalAccounts: totalNumOfAccounts,
+                  totalUsers: totalNumOfUsers
+
+             });
+
+            MakeChartData(dataL)
       })
-      $('#differenceRefreshTokenCount').text(totalNumOfFollowUpThreads);
-      $('#differenceTotalNumOfUsersCount').text(totalNumOfUsers);
-      $('#usercount').text(totalNumOfUsers);
-      $('#accountCount').text(totalNumOfAccounts);
-      $('#EmailThreadsCount').text(totalNumOfThreads);
-      $('#markedAsFollowUpCount').text(totalNumOfFollowUpThreads);
-      $('#userModelBuiltCount').text(totalNumOfUserModels);
-      $('#refreshtokenCount').text(totalValidRefreshTokens);
-      $('#candidateThreadsCount').text(maxPossibleNumOfFollowUp);
-
-      // var datevalues= [];
-      // data.forEach(function(single){
-      //   datevalues= [];
-      //   //console.log('DATE>>',single.snapshotDate);
-      //   datevalues.push(single.snapshotDate);
-      //   console.log('arrayofdates>>>>>',datevalues);
-      // })
-
-      var values = [];
-
-      data.forEach(function(single){
-        values = [];
-        var keys = Object.keys(single.totalNumOfAccounts);
-        keys.forEach(function(key){
-          let a = {"totalNoOfAccounts" : key , "litres" : single.totalNumOfAccounts[key] };
-          console.log("c>>>>>>>>>",a);
-          values.push(a);
-
-        })
-        // generateChartData(snapshotDate,single.totalNumOfUsers,single.totalNumOfAccounts.GMAIL,data.length);
-        generateChartData(data);
-
-
-        //########
-        // createTimeSeriesGraph(values);
-      });
 
     }
   });
@@ -558,4 +490,3 @@ $(document).ready(function(){
   //passing 1.jquery form object, 2.start date dom Id, 3.end date dom Id
   bindDateRangeValidation($("#form"), 'startDate', 'endDate');
 });
-}
