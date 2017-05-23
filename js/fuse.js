@@ -219,6 +219,10 @@ function MakeChartData(chartData){
 var chart = AmCharts.makeChart("chartdiv", {
     "type": "serial",
     "theme": "light",
+    "titles": [ {
+      "text": "SAI Users Graph",
+      "size": 16
+    } ],
     "legend": {
         "useGraphSettings": true
     },
@@ -245,7 +249,7 @@ var chart = AmCharts.makeChart("chartdiv", {
         "bullet": "square",
         "bulletBorderThickness": 1,
         "hideBulletsCount": 30,
-        "title": "yellow line",
+        "title": "Total Gmail Accounts",
         "valueField": "totalAccounts",
         "fillAlphas": 0
     }, {
@@ -254,7 +258,7 @@ var chart = AmCharts.makeChart("chartdiv", {
         "bullet": "triangleUp",
         "bulletBorderThickness": 1,
         "hideBulletsCount": 30,
-        "title": "green line",
+        "title": "Total Users",
         "valueField": "totalUsers",
         "fillAlphas": 0
     }],
@@ -280,34 +284,6 @@ chart.addListener("dataUpdated", zoomChart);
 zoomChart();
 
 
-// generate some random data, quite different range
-// function generateChartData() {
-//     var chartData = [];
-//     var firstDate = new Date();
-//     firstDate.setDate(firstDate.getDate() - 100);
-//
-//    for (var i = 0; i < 4; i++) {
-//         // we create date objects here. In your data, you can have date strings
-//         // and then set format of your dates using chart.dataDateFormat property,
-//         // however when possible, use date objects, as this will speed up chart rendering.
-//         var newDate = new Date(firstDate);
-//     console.log('newdate>>',newDate);
-//         newDate.setDate(newDate.getDate() + i);
-//
-//        var totalAccounts = Math.round(Math.sin(i * 5) * i);
-//         var totalUsers = Math.round(Math.random() * 80) + 500 + i * 3;
-//
-//
-//        chartData.push({
-//             date: newDate,
-//             totalAccounts: totalAccounts,
-//             totalUsers: totalUsers
-//
-//        });
-//     }
-// // console.log('chartdata>>>',chartData);
-//     return chartData;
-// }
 
 function zoomChart(){
     chart.zoomToIndexes(chart.dataProvider.length - 20, chart.dataProvider.length - 1);
@@ -458,6 +434,7 @@ $.ajax({
         let d = new Date(0); // The 0 there is the key, which sets the date to the epoch
             d.setUTCSeconds(unixEpochTime);
             d.setDate(d.getDate() - 100);
+
       dataL.push({
                   date: d,
                   totalAccounts: totalNumOfAccounts,
