@@ -21,10 +21,10 @@
 
     <div class="container">
       <label><b>Username</b></label>
-      <input type="text" placeholder="Enter Username" id="user" class="login-email" name="uname" required>
+      <input type="text" placeholder="Enter Username" id="user" class="login-email" required>
 
       <label><b>Password</b></label>
-      <input type="password" placeholder="Enter Password" id="Pass" class="login-password" name="psw" required>
+      <input type="password" placeholder="Enter Password" id="Pass" class="login-password" required>
 
       <button type="submit" onclick="login()" id="login-submit">Login</button>
       <input type="checkbox" checked="checked"> Remember me
@@ -70,7 +70,7 @@ function beginning(){
   var user = document.getElementById("user").value;
   var pass = document.getElementById("Pass").value;
   if (user =='saicharts' && pass=='123'){
-    console.log('i m in function',  window.location.pathname);
+    console.log('i m in the beginning function',  window.location.pathname);
 
      window.location.href = "sam.html";
     //window.location.replace('index.html');
