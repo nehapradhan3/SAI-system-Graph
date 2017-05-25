@@ -468,8 +468,26 @@ $.ajax({
         totalValidRefreshTokens = single.totalValidRefreshTokens;
         maxPossibleNumOfFollowUp = single.maxPossibleNumOfFollowUp;
         differenceRefreshToken = single.maxPossibleNumOfFollowUp;
+//for the followUp
 
-        
+var valuesTwo = [];
+data.forEach(function(single){
+
+  var valuesTwo = [];
+
+  var keysTwo = Object.keys(single.followUpStatusCounts);
+  console.log("keysTwo>>>>",keysTwo);
+  keysTwo.forEach(function(keyTwo){
+    let b = {"followUpStatusCounts" : keyTwo , "visits" : single.followUpStatusCounts[keyTwo] };
+    console.log("b>>>>>>",b);
+    valuesTwo.push(b);
+  })
+});
+
+
+
+
+        /////////////////////
         let unixEpochTime = single.snapshotDateUnixTimeStamp;
         let d = new Date(0); // The 0 there is the key, which sets the date to the epoch
             d.setUTCSeconds(unixEpochTime);
@@ -483,6 +501,7 @@ $.ajax({
              });
 
             MakeChartData(dataL)
+              // createChart(valuesTwo);
       })
 
     }
