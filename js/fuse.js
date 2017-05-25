@@ -4,57 +4,81 @@
 var chart = AmCharts.makeChart("chartdivfuse", {
   "type": "serial",
   "theme": "light",
-  "dataDateFormat": "YYYY-MM-DD",
   "titles": [ {
-    "text": "FollowUp Vs Ignored Vs No-Accounts",
+    "text": "Followup Vs Ignored Vs No action (Scaled by No.of Users)",
     "size": 16
   } ],
+  "legend": {
+    "horizontalGap": 15,
+     "maxColumns": 1,
+    "useGraphSettings": true,
+    "markerSize": 10
+  },
+  "dataDateFormat": "YYYY-MM-DD",
   "precision": 2,
   "valueAxes": [{
     "id": "v1",
-    "title": "Sales",
+    "title": "Users",
     "position": "left",
-    "autoGridCount": false,
-    "labelFunction": function(value) {
-      return "$" + Math.round(value) + "M";
-    }
-  }, {
-    "id": "v2",
-    "title": "Market Days",
-    "gridAlpha": 0,
-    "position": "right",
-    "autoGridCount": false
+    "autoGridCount": true,
+
   }],
   "graphs": [{
     "id": "g3",
     "valueAxis": "v1",
-    "lineColor": "#e1ede9",
-    "fillColors": "#e1ede9",
+    "lineColor": "#ffcc66",
+    "fillColors": "#ffcc66",
     "fillAlphas": 1,
     "type": "column",
-    "title": "Actual Sales",
-    "valueField": "sales2",
-    "clustered": false,
-    "columnWidth": 0.5,
-    "legendValueText": "$[[value]]M",
-    "balloonText": "[[title]]<br /><b style='font-size: 130%'>$[[value]]M</b>"
-  }, {
+    "title": "Maximum Possible Thread List",
+    "valueField": "maxpossibleTL",
+     "clustered": false,
+    "columnWidth": 0.7,
+    "legendValueText": "[[value]]Users",
+    "balloonText": "[[title]]<br /><b style='font-size: 130%'>[[value]]Users</b>"
+  },{
     "id": "g4",
+    "valueAxis": "v1",
+    "lineColor": "#ccff66",
+    "fillColors": "#ccff66",
+    "fillAlphas": 1,
+    "type": "column",
+    "title": "followup",
+    "valueField": "followup",
+     "clustered": false,
+    "columnWidth": 0.7,
+    "legendValueText": "[[value]]Users",
+    "balloonText": "[[title]]<br /><b style='font-size: 130%'>[[value]]Users</b>"
+  }, {
+    "id": "g5",
     "valueAxis": "v1",
     "lineColor": "#62cf73",
     "fillColors": "#62cf73",
     "fillAlphas": 1,
     "type": "column",
-    "title": "Target Sales",
-    "valueField": "sales1",
+    "title": "Ignored",
+    "valueField": "Ignored",
+   "clustered": false,
+    "columnWidth": 0.7,
+    "legendValueText": "[[value]]",
+    "balloonText": "[[title]]<br /><b style='font-size: 130%'>[[value]]Users</b>"
+  },{
+    "id": "g6",
+    "valueAxis": "v5",
+    "lineColor": "#99ff99",
+    "fillColors": "#99ff99",
+    "fillAlphas": 1,
+    "type": "column",
     "clustered": false,
-    "columnWidth": 0.3,
-    "legendValueText": "$[[value]]M",
-    "balloonText": "[[title]]<br /><b style='font-size: 130%'>$[[value]]M</b>"
-  }, {
+    "columnWidth": 0.7,
+    "title": "No-Action",
+    "valueField": "No-Action",
+    "legendValueText": "[[value]]",
+    "balloonText": "[[title]]<br /><b style='font-size: 130%'>[[value]]Users</b>"
+  } ,{
     "id": "g1",
     "valueAxis": "v2",
-    "bullet": "round",
+    "bullet": "square",
     "bulletBorderAlpha": 1,
     "bulletColor": "#FFFFFF",
     "bulletSize": 5,
@@ -62,25 +86,9 @@ var chart = AmCharts.makeChart("chartdivfuse", {
     "lineThickness": 2,
     "lineColor": "#20acd4",
     "type": "smoothedLine",
-    "title": "Market Days",
+    "title": "Users",
     "useLineColorForBulletBorder": true,
-    "valueField": "market1",
-    "balloonText": "[[title]]<br /><b style='font-size: 130%'>[[value]]</b>"
-  }, {
-    "id": "g2",
-    "valueAxis": "v2",
-    "bullet": "round",
-    "bulletBorderAlpha": 1,
-    "bulletColor": "#FFFFFF",
-    "bulletSize": 5,
-    "hideBulletsCount": 50,
-    "lineThickness": 2,
-    "lineColor": "#e1ede9",
-    "type": "smoothedLine",
-    "dashLength": 5,
-    "title": "Market Days ALL",
-    "useLineColorForBulletBorder": true,
-    "valueField": "market2",
+    "valueField": "usersValue",
     "balloonText": "[[title]]<br /><b style='font-size: 130%'>[[value]]</b>"
   }],
   "chartScrollbar": {
@@ -120,98 +128,129 @@ var chart = AmCharts.makeChart("chartdivfuse", {
     "shadowAlpha": 0
   },
   "export": {
-    "enabled": true
+   "enabled": true
   },
+
   "dataProvider": [{
     "date": "2013-01-16",
-    "market1": 71,
+    "usersValue": 11,
     "market2": 75,
-    "sales1": 5,
-    "sales2": 8
+    "Ignored": 5,
+    "followup": 8,
+    "maxpossibleTL": 7,
+    "No-Action": 5
   }, {
     "date": "2013-01-17",
-    "market1": 74,
+    "usersValue": 14,
     "market2": 78,
-    "sales1": 4,
-    "sales2": 6
+    "Ignored": 4,
+    "followup": 6,
+    "maxpossibleTL": 18,
+    "No-Action": 4,
   }, {
     "date": "2013-01-18",
-    "market1": 78,
+    "usersValue": 18,
     "market2": 88,
-    "sales1": 5,
-    "sales2": 2
+    "Ignored": 5,
+    "followup": 2,
+    "maxpossibleTL": 9,
+    "No-Action": 8,
   }, {
     "date": "2013-01-19",
-    "market1": 85,
+    "usersValue": 15,
     "market2": 89,
-    "sales1": 8,
-    "sales2": 9
+    "Ignored": 8,
+    "followup": 9,
+    "maxpossibleTL": 6,
+    "No-Action": 8,
   }, {
     "date": "2013-01-20",
-    "market1": 82,
+    "usersValue": 12,
     "market2": 89,
-    "sales1": 9,
-    "sales2": 6
+    "Ignored": 9,
+    "followup": 6,
+    "maxpossibleTL": 5,
+    "No-Action": 5
   }, {
     "date": "2013-01-21",
-    "market1": 83,
+    "usersValue": 13,
     "market2": 85,
-    "sales1": 3,
-    "sales2": 5
+    "Ignored": 3,
+    "followup": 5,
+    "maxpossibleTL": 8,
+    "No-Action": 5
   }, {
     "date": "2013-01-22",
-    "market1": 88,
+    "usersValue": 18,
     "market2": 92,
-    "sales1": 5,
-    "sales2": 7
+    "Ignored": 5,
+    "followup": 7,
+    "maxpossibleTL": 12,
+    "No-Action": 2
   }, {
     "date": "2013-01-23",
-    "market1": 85,
+    "usersValue": 15,
     "market2": 90,
-    "sales1": 7,
-    "sales2": 6
+    "Ignored": 7,
+    "followup": 6,
+    "maxpossibleTL": 15,
+    "No-Action": 8
   }, {
     "date": "2013-01-24",
-    "market1": 85,
+    "usersValue": 15,
     "market2": 91,
-    "sales1": 9,
-    "sales2": 5
+    "Ignored": 9,
+    "followup": 11,
+    "maxpossibleTL": 8,
+    "No-Action": 6
   }, {
     "date": "2013-01-25",
-    "market1": 80,
+    "usersValue": 10,
     "market2": 84,
-    "sales1": 5,
-    "sales2": 8
+    "Ignored": 5,
+    "followup": 8,
+    "maxpossibleTL": 17,
+    "No-Action": 8
   }, {
     "date": "2013-01-26",
-    "market1": 87,
+    "usersValue": 17,
     "market2": 92,
-    "sales1": 4,
-    "sales2": 8
+    "Ignored": 4,
+    "followup": 8,
+    "maxpossibleTL": 15,
+    "No-Action": 7
   }, {
     "date": "2013-01-27",
-    "market1": 84,
+    "usersValue": 14,
     "market2": 87,
-    "sales1": 3,
-    "sales2": 4
+    "Ignored": 3,
+    "followup": 4,
+    "maxpossibleTL": 18,
+    "No-Action": 6
   }, {
     "date": "2013-01-28",
-    "market1": 83,
+    "usersValue": 13,
     "market2": 88,
-    "sales1": 5,
-    "sales2": 7
+    "Ignored": 5,
+    "followup": 7,
+    "maxpossibleTL": 17,
+    "No-Action": 9
   }, {
     "date": "2013-01-29",
-    "market1": 84,
+    "usersValue": 14,
     "market2": 87,
-    "sales1": 5,
-    "sales2": 8
+    "Ignored": 5,
+    "followup": 8,
+    "maxpossibleTL": 15,
+    "No-Action": 8
   }, {
     "date": "2013-01-30",
-    "market1": 81,
+    "usersValue": 11,
     "market2": 85,
-    "sales1": 4,
-    "sales2": 7
+    "Ignored": 4,
+    "followup": 7,
+    "maxpossibleTL": 14,
+    "No-Action": 7
   }]
 });
 
@@ -413,6 +452,7 @@ $.ajax({
       console.log('data.length>>>',data.length);
       let snapshotDate=[];
       let dataL = [];
+      let dataM = [];
       data.forEach(function(single){
         // console.log('DATE>>',single.snapshotDate);
         // snapshotDate.push(single.snapshotDate);
@@ -429,7 +469,7 @@ $.ajax({
         maxPossibleNumOfFollowUp = single.maxPossibleNumOfFollowUp;
         differenceRefreshToken = single.maxPossibleNumOfFollowUp;
 
-        //sumans
+        
         let unixEpochTime = single.snapshotDateUnixTimeStamp;
         let d = new Date(0); // The 0 there is the key, which sets the date to the epoch
             d.setUTCSeconds(unixEpochTime);
