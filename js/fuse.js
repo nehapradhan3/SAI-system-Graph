@@ -1,4 +1,76 @@
+///////////////////////////////////////////////////////////simplestack
+function MakeStackData(chartdatatwo){
+var charttwo = AmCharts.makeChart("simplestack", {
+    "type": "serial",
+	"theme": "light",
+  "titles": [ {
+    "text": "Followup Vs Ignored Vs No action (Scaled by No.of Users)",
+    "size": 16
+  } ],
+    "legend": {
+        "horizontalGap": 10,
+        "maxColumns": 1,
+        "position": "right",
+		"useGraphSettings": true,
+		"markerSize": 10
+    },
+    "dataProvider": chartdatatwo ,
+    "valueAxes": [{
+        "stackType": "regular",
+        "axisAlpha": 0.3,
+        "gridAlpha": 0
+    }],
+    "graphs": [ {
+        "balloonText": "<b>[[title]]</b><br><span style='font-size:14px'>[[category]]: <b>[[value]]</b></span>",
+        "fillAlphas": 0.8,
+        "labelText": "[[value]]",
+        "lineAlpha": 0.3,
+        "title": "followup",
+        "type": "column",
+		"color": "#000000",
+        "valueField": "followup"
+    }, {
+        "balloonText": "<b>[[title]]</b><br><span style='font-size:14px'>[[category]]: <b>[[value]]</b></span>",
+        "fillAlphas": 0.8,
+        "labelText": "[[value]]",
+        "lineAlpha": 0.3,
+        "title": "Ignored",
+        "type": "column",
+		"color": "#000000",
+        "valueField": "Ignored"
+    }, {
+        "balloonText": "<b>[[title]]</b><br><span style='font-size:14px'>[[category]]: <b>[[value]]</b></span>",
+        "fillAlphas": 0.8,
+        "labelText": "[[value]]",
+        "lineAlpha": 0.3,
+        "title": "No Action",
+        "type": "column",
+		"color": "#000000",
+        "valueField": "NoAction"
+    }, {
+        "balloonText": "<b>[[title]]</b><br><span style='font-size:14px'>[[category]]: <b>[[value]]</b></span>",
+        "fillAlphas": 0.8,
+        "labelText": "[[value]]",
+        "lineAlpha": 0.3,
+        "title": "undefined",
+        "type": "column",
+		"color": "#000000",
+        "valueField": "undefinedone"
+    }],
+    "categoryField": "date",
+    "categoryAxis": {
+        "gridPosition": "start",
+        "axisAlpha": 0,
+        "gridAlpha": 0,
+        "position": "left"
+    },
+    "export": {
+    	"enabled": true
+     }
 
+});
+}
+//////////////////////////////////////////////////////////followupgraph
 function MakeMoreChartData(chartdatatwo){
 var chart = AmCharts.makeChart("chartdivfuse", {
   "type": "serial",
@@ -147,7 +219,7 @@ var chart = AmCharts.makeChart("chartdivfuse", {
 
 });
 }
-
+//////////////////////////////////////////////////////////////////linechart of users
 
 function MakeChartData(chartData){
 var chart = AmCharts.makeChart("chartdiv", {
@@ -402,7 +474,7 @@ data.forEach(function(single){
 
               })
               console.log("dataM>>>>",dataM);
-            MakeMoreChartData(dataM);
+            MakeStackData(dataM);
       })
 
 
