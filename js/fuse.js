@@ -1,6 +1,5 @@
 
-//
-// function MakeMoreChartData(chartDataTwo){
+function MakeMoreChartData(chartdatatwo){
 var chart = AmCharts.makeChart("chartdivfuse", {
   "type": "serial",
   "theme": "light",
@@ -131,115 +130,116 @@ var chart = AmCharts.makeChart("chartdivfuse", {
    "enabled": true
   },
 
-  "dataProvider":
-   [{
-    "date": "2013-01-16",
-    "usersValue": 11,
-    "Ignored": 5,
-    "followup": 8,
-    "maxpossibleTL": 7,
-    "NoAction": 5
-  }, {
-    "date": "2013-01-17",
-    "usersValue": 14,
-    "Ignored": 4,
-    "followup": 6,
-    "maxpossibleTL": 18,
-    "NoAction": 4,
-  }, {
-    "date": "2013-01-18",
-    "usersValue": 18,
-    "Ignored": 5,
-    "followup": 2,
-    "maxpossibleTL": 9,
-    "NoAction": 8,
-  }, {
-    "date": "2013-01-19",
-    "usersValue": 15,
-    "market2": 89,
-    "followup": 9,
-    "maxpossibleTL": 6,
-    "NoAction": 8,
-  }, {
-    "date": "2013-01-20",
-    "usersValue": 12,
-    "Ignored": 9,
-    "followup": 6,
-    "maxpossibleTL": 5,
-    "NoAction": 5
-  }, {
-    "date": "2013-01-21",
-    "usersValue": 13,
-    "Ignored": 3,
-    "followup": 5,
-    "maxpossibleTL": 8,
-    "NoAction": 5
-  }, {
-    "date": "2013-01-22",
-    "usersValue": 18,
-    "Ignored": 5,
-    "followup": 7,
-    "maxpossibleTL": 12,
-    "NoAction": 2
-  }, {
-    "date": "2013-01-23",
-    "usersValue": 15,
-    "Ignored": 7,
-    "followup": 6,
-    "maxpossibleTL": 15,
-    "NoAction": 8
-  }, {
-    "date": "2013-01-24",
-    "usersValue": 15,
-    "Ignored": 9,
-    "followup": 11,
-    "maxpossibleTL": 8,
-    "NoAction": 6
-  }, {
-    "date": "2013-01-25",
-    "usersValue": 10,
-    "Ignored": 5,
-    "followup": 8,
-    "maxpossibleTL": 17,
-    "NoAction": 8
-  }, {
-    "date": "2013-01-26",
-    "usersValue": 17,
-    "Ignored": 4,
-    "followup": 8,
-    "maxpossibleTL": 15,
-    "NoAction": 7
-  }, {
-    "date": "2013-01-27",
-    "usersValue": 14,
-    "Ignored": 3,
-    "followup": 4,
-    "maxpossibleTL": 18,
-    "NoAction": 6
-  }, {
-    "date": "2013-01-28",
-    "usersValue": 13,
-    "Ignored": 5,
-    "followup": 7,
-    "maxpossibleTL": 17,
-    "NoAction": 9
-  }, {
-    "date": "2013-01-29",
-    "usersValue": 14,
-    "Ignored": 5,
-    "followup": 8,
-    "maxpossibleTL": 15,
-    "NoAction": 8
-  }, {
-    "date": "2013-01-30",
-    "usersValue": 11,
-    "Ignored": 4,
-    "followup": 7,
-    "maxpossibleTL": 14,
-    "NoAction": 7
-  }]
+  "dataProvider": chartdatatwo
+  //  [{
+  //   "date": "2013-01-16",
+  //   "usersValue": 11,
+  //   "Ignored": 5,
+  //   "followup": 8,
+  //   "maxpossibleTL": 7,
+  //   "NoAction": 5
+  // }, {
+  //   "date": "2013-01-17",
+  //   "usersValue": 14,
+  //   "Ignored": 4,
+  //   "followup": 6,
+  //   "maxpossibleTL": 18,
+  //   "NoAction": 4,
+  // }, {
+  //   "date": "2013-01-18",
+  //   "usersValue": 18,
+  //   "Ignored": 5,
+  //   "followup": 2,
+  //   "maxpossibleTL": 9,
+  //   "NoAction": 8,
+  // }, {
+  //   "date": "2013-01-19",
+  //   "usersValue": 15,
+  //   "market2": 89,
+  //   "followup": 9,
+  //   "maxpossibleTL": 6,
+  //   "NoAction": 8,
+  // }, {
+  //   "date": "2013-01-20",
+  //   "usersValue": 12,
+  //   "Ignored": 9,
+  //   "followup": 6,
+  //   "maxpossibleTL": 5,
+  //   "NoAction": 5
+  // }, {
+  //   "date": "2013-01-21",
+  //   "usersValue": 13,
+  //   "Ignored": 3,
+  //   "followup": 5,
+  //   "maxpossibleTL": 8,
+  //   "NoAction": 5
+  // }, {
+  //   "date": "2013-01-22",
+  //   "usersValue": 18,
+  //   "Ignored": 5,
+  //   "followup": 7,
+  //   "maxpossibleTL": 12,
+  //   "NoAction": 2
+  // }, {
+  //   "date": "2013-01-23",
+  //   "usersValue": 15,
+  //   "Ignored": 7,
+  //   "followup": 6,
+  //   "maxpossibleTL": 15,
+  //   "NoAction": 8
+  // }, {
+  //   "date": "2013-01-24",
+  //   "usersValue": 15,
+  //   "Ignored": 9,
+  //   "followup": 11,
+  //   "maxpossibleTL": 8,
+  //   "NoAction": 6
+  // }, {
+  //   "date": "2013-01-25",
+  //   "usersValue": 10,
+  //   "Ignored": 5,
+  //   "followup": 8,
+  //   "maxpossibleTL": 17,
+  //   "NoAction": 8
+  // }, {
+  //   "date": "2013-01-26",
+  //   "usersValue": 17,
+  //   "Ignored": 4,
+  //   "followup": 8,
+  //   "maxpossibleTL": 15,
+  //   "NoAction": 7
+  // }, {
+  //   "date": "2013-01-27",
+  //   "usersValue": 14,
+  //   "Ignored": 3,
+  //   "followup": 4,
+  //   "maxpossibleTL": 18,
+  //   "NoAction": 6
+  // }, {
+  //   "date": "2013-01-28",
+  //   "usersValue": 13,
+  //   "Ignored": 5,
+  //   "followup": 7,
+  //   "maxpossibleTL": 17,
+  //   "NoAction": 9
+  // }, {
+  //   "date": "2013-01-29",
+  //   "usersValue": 14,
+  //   "Ignored": 5,
+  //   "followup": 8,
+  //   "maxpossibleTL": 15,
+  //   "NoAction": 8
+  // }, {
+  //   "date": "2013-01-30",
+  //   "usersValue": 11,
+  //   "Ignored": 4,
+  //   "followup": 7,
+  //   "maxpossibleTL": 14,
+  //   "NoAction": 7
+  // }]
 });
-// }
+}
+
 
 function MakeChartData(chartData){
 var chart = AmCharts.makeChart("chartdiv", {
@@ -303,17 +303,15 @@ var chart = AmCharts.makeChart("chartdiv", {
         "position": "bottom-right"
      }
 });
-
-}
-
 chart.addListener("dataUpdated", zoomChart);
 zoomChart();
-
-
 
 function zoomChart(){
     chart.zoomToIndexes(chart.dataProvider.length - 20, chart.dataProvider.length - 1);
 }
+
+}
+
 
 
 
@@ -490,15 +488,15 @@ data.forEach(function(single){
 
               dataM.push({
                 date: single.snapshotDate,
-                Users:single.totalNumOfUsers,
-                followUp : single.followUpStatusCounts.FOLLOWED_UP,
+                usersValue:single.totalNumOfUsers,
+                followup : single.followUpStatusCounts.FOLLOWED_UP,
                 Ignored: single.followUpStatusCounts.IGNORED+single.followUpStatusCounts.IGNORED_BLACKLISTED,
                 maxpossibleTL: single.maxPossibleThreadsInList,
                 NoAction:single.followUpStatusCounts.NO_ACTION
 
               })
               console.log("dataM>>>>",dataM);
-              // MakeMoreChartData(dataM)
+            MakeMoreChartData(dataM);
       })
 
 
