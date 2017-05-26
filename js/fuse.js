@@ -476,23 +476,26 @@ data.forEach(function(single){
   var valuesTwo = [];
 
   var keysTwo = Object.keys(single.followUpStatusCounts);
-  console.log("keysTwo>>>>",keysTwo);
+  //  console.log("keysTwo>>>>",keysTwo);
   keysTwo.forEach(function(keyTwo){
     let b = {"followUpStatusCounts" : keyTwo , "visits" : single.followUpStatusCounts[keyTwo] };
-    console.log("b>>>>>>",b);
+    // console.log("b>>>>>>",b);
     valuesTwo.push(b);
+
   })
+  console.log("valuesTwo>>>>>>",valuesTwo);
 });
 
 
 
 
-        /////////////////////
+        ///////////////////////suman
+
         let unixEpochTime = single.snapshotDateUnixTimeStamp;
         let d = new Date(0); // The 0 there is the key, which sets the date to the epoch
             d.setUTCSeconds(unixEpochTime);
             d.setDate(d.getDate() - 100);
-            console.log("epochdate>>>",d);
+            // console.log("epochdate>>>",d);
       dataL.push({
                   date: d,
                   totalAccounts: totalNumOfAccounts,
