@@ -96,10 +96,8 @@ function generateChartData() {
     }
     $.ajax({
 
-
-      //url :'http://52.55.210.93:8080/analysis/snapshot-views?order=ASCENDING&size=1',
-
-      url :'http://52.55.210.93:8080/analysis/snapshot-views?order=DESCENDING&size=1',
+      // url :'http://52.55.210.93:8080/analysis/snapshot-views?order=DESCENDING&size=1',
+      url: 'http://52.7.123.186:8080/analysis/snapshot-views',
       contentType:"application/x-www-form-urlencoded",
       type: 'GET',
       dataType: 'json',

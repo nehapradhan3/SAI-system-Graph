@@ -1,6 +1,6 @@
 
-
-// function createTimeSeriesGraphTwo(){
+//
+// function MakeMoreChartData(chartDataTwo){
 var chart = AmCharts.makeChart("chartdivfuse", {
   "type": "serial",
   "theme": "light",
@@ -71,8 +71,8 @@ var chart = AmCharts.makeChart("chartdivfuse", {
     "type": "column",
     "clustered": false,
     "columnWidth": 0.7,
-    "title": "No-Action",
-    "valueField": "No-Action",
+    "title": "NoAction",
+    "valueField": "NoAction",
     "legendValueText": "[[value]]",
     "balloonText": "[[title]]<br /><b style='font-size: 130%'>[[value]]Users</b>"
   } ,{
@@ -131,128 +131,115 @@ var chart = AmCharts.makeChart("chartdivfuse", {
    "enabled": true
   },
 
-  "dataProvider": [{
+  "dataProvider":
+   [{
     "date": "2013-01-16",
     "usersValue": 11,
-    "market2": 75,
     "Ignored": 5,
     "followup": 8,
     "maxpossibleTL": 7,
-    "No-Action": 5
+    "NoAction": 5
   }, {
     "date": "2013-01-17",
     "usersValue": 14,
-    "market2": 78,
     "Ignored": 4,
     "followup": 6,
     "maxpossibleTL": 18,
-    "No-Action": 4,
+    "NoAction": 4,
   }, {
     "date": "2013-01-18",
     "usersValue": 18,
-    "market2": 88,
     "Ignored": 5,
     "followup": 2,
     "maxpossibleTL": 9,
-    "No-Action": 8,
+    "NoAction": 8,
   }, {
     "date": "2013-01-19",
     "usersValue": 15,
     "market2": 89,
-    "Ignored": 8,
     "followup": 9,
     "maxpossibleTL": 6,
-    "No-Action": 8,
+    "NoAction": 8,
   }, {
     "date": "2013-01-20",
     "usersValue": 12,
-    "market2": 89,
     "Ignored": 9,
     "followup": 6,
     "maxpossibleTL": 5,
-    "No-Action": 5
+    "NoAction": 5
   }, {
     "date": "2013-01-21",
     "usersValue": 13,
-    "market2": 85,
     "Ignored": 3,
     "followup": 5,
     "maxpossibleTL": 8,
-    "No-Action": 5
+    "NoAction": 5
   }, {
     "date": "2013-01-22",
     "usersValue": 18,
-    "market2": 92,
     "Ignored": 5,
     "followup": 7,
     "maxpossibleTL": 12,
-    "No-Action": 2
+    "NoAction": 2
   }, {
     "date": "2013-01-23",
     "usersValue": 15,
-    "market2": 90,
     "Ignored": 7,
     "followup": 6,
     "maxpossibleTL": 15,
-    "No-Action": 8
+    "NoAction": 8
   }, {
     "date": "2013-01-24",
     "usersValue": 15,
-    "market2": 91,
     "Ignored": 9,
     "followup": 11,
     "maxpossibleTL": 8,
-    "No-Action": 6
+    "NoAction": 6
   }, {
     "date": "2013-01-25",
     "usersValue": 10,
-    "market2": 84,
     "Ignored": 5,
     "followup": 8,
     "maxpossibleTL": 17,
-    "No-Action": 8
+    "NoAction": 8
   }, {
     "date": "2013-01-26",
     "usersValue": 17,
-    "market2": 92,
     "Ignored": 4,
     "followup": 8,
     "maxpossibleTL": 15,
-    "No-Action": 7
+    "NoAction": 7
   }, {
     "date": "2013-01-27",
     "usersValue": 14,
-    "market2": 87,
     "Ignored": 3,
     "followup": 4,
     "maxpossibleTL": 18,
-    "No-Action": 6
+    "NoAction": 6
   }, {
     "date": "2013-01-28",
     "usersValue": 13,
-    "market2": 88,
     "Ignored": 5,
     "followup": 7,
     "maxpossibleTL": 17,
-    "No-Action": 9
+    "NoAction": 9
   }, {
     "date": "2013-01-29",
     "usersValue": 14,
-    "market2": 87,
     "Ignored": 5,
     "followup": 8,
     "maxpossibleTL": 15,
-    "No-Action": 8
+    "NoAction": 8
   }, {
     "date": "2013-01-30",
     "usersValue": 11,
-    "market2": 85,
     "Ignored": 4,
     "followup": 7,
     "maxpossibleTL": 14,
-    "No-Action": 7
+    "NoAction": 7
   }]
 });
+// }
 
 function MakeChartData(chartData){
 var chart = AmCharts.makeChart("chartdiv", {
@@ -436,8 +423,9 @@ $(document).ready(function(){
   });
   //datepicker
 $.ajax({
-    url : 'http://52.55.210.93:8080/analysis/snapshot-views?start_date=2017-05-14&end_date=2017-05-18',
+    // url : 'http://52.55.210.93:8080/analysis/snapshot-views?start_date=2017-05-14&end_date=2017-05-18',
     // url :'http://52.55.210.93:8080/analysis/snapshot-views?start_date='+dateFrom+'&end_date='dateTo,
+    url: 'http://52.7.123.186:8080/analysis/snapshot-views',
     contentType:"application/x-www-form-urlencoded",
     type: 'GET',
     dataType: 'json',
@@ -450,6 +438,7 @@ $.ajax({
       var totalNumOfUsers,  differenceTotalNumOfUsers, differenceRefreshTokenCount, totalNumOfAccounts, totalNumOfThreads, totalNumOfFollowUpThreads, totalNumOfUserModels, totalValidRefreshTokens, avgMessagesPerThread;
       console.log ('data>>>',data);
       console.log('data.length>>>',data.length);
+
       let snapshotDate=[];
       let dataL = [];
       let dataM = [];
@@ -468,25 +457,20 @@ $.ajax({
         totalValidRefreshTokens = single.totalValidRefreshTokens;
         maxPossibleNumOfFollowUp = single.maxPossibleNumOfFollowUp;
         differenceRefreshToken = single.maxPossibleNumOfFollowUp;
+
 //for the followUp
 
 var valuesTwo = [];
 data.forEach(function(single){
-
   var valuesTwo = [];
-
   var keysTwo = Object.keys(single.followUpStatusCounts);
   //  console.log("keysTwo>>>>",keysTwo);
   keysTwo.forEach(function(keyTwo){
-    let b = {"followUpStatusCounts" : keyTwo , "visits" : single.followUpStatusCounts[keyTwo] };
-    // console.log("b>>>>>>",b);
+    let b = {"followUpStatusCounts" : keyTwo , "maxpossibleTL" : single.followUpStatusCounts[keyTwo] };
     valuesTwo.push(b);
-
   })
-  console.log("valuesTwo>>>>>>",valuesTwo);
-});
 
-
+});//end of for each loop
 
 
         ///////////////////////suman
@@ -502,10 +486,21 @@ data.forEach(function(single){
                   totalUsers: totalNumOfUsers
 
              });
+              MakeChartData(dataL)
 
-            MakeChartData(dataL)
-              // createChart(valuesTwo);
+              dataM.push({
+                date: single.snapshotDate,
+                Users:single.totalNumOfUsers,
+                followUp : single.followUpStatusCounts.FOLLOWED_UP,
+                Ignored: single.followUpStatusCounts.IGNORED+single.followUpStatusCounts.IGNORED_BLACKLISTED,
+                maxpossibleTL: single.maxPossibleThreadsInList,
+                NoAction:single.followUpStatusCounts.NO_ACTION
+
+              })
+              console.log("dataM>>>>",dataM);
+              // MakeMoreChartData(dataM)
       })
+
 
     }
   });
