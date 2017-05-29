@@ -344,14 +344,16 @@ var chart = AmCharts.makeChart("chartdiv", {
     },
     "dataProvider": chartData,
     "synchronizeGrid":true,
-    "valueAxes": [ {
+    "valueAxes": [
+    //   {
+    //     "id":"v1",
+    //     "axisColor": "#FCD202 ",
+    //     "axisThickness": 2,
+    //     "axisAlpha": 1,
+    //     "position": "right"
+    // },
+    {
         "id":"v1",
-        "axisColor": "#FCD202 ",
-        "axisThickness": 2,
-        "axisAlpha": 1,
-        "position": "right"
-    }, {
-        "id":"v2",
         "axisColor": "#B0DE09 ",
         "axisThickness": 2,
         "gridAlpha": 0,
@@ -369,7 +371,7 @@ var chart = AmCharts.makeChart("chartdiv", {
         "valueField": "totalAccounts",
         "fillAlphas": 0
     }, {
-        "valueAxis": "v2",
+        "valueAxis": "v1",
         "lineColor": "#B0DE09 ",
         "bullet": "triangleUp",
         "bulletBorderThickness": 1,
