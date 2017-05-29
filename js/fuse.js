@@ -160,26 +160,14 @@ var chart = AmCharts.makeChart("chartdivfuse", {
 
   }],
   "graphs": [{
-    "id": "g3",
-    "valueAxis": "v1",
-    "lineColor": "#ffcc66",
-    "fillColors": "#ffcc66",
-    "fillAlphas": 1,
-    "type": "column",
-    "title": "Maximum Possible Thread List",
-    "valueField": "maxpossibleTL",
-     "clustered": false,
-    "columnWidth": 0.7,
-    "legendValueText": "[[value]]Users",
-    "balloonText": "[[title]]<br /><b style='font-size: 130%'>[[value]]Users</b>"
-  },{
+
     "id": "g4",
     "valueAxis": "v1",
     "lineColor": "#ccff66",
     "fillColors": "#ccff66",
     "fillAlphas": 1,
     "type": "column",
-    "title": "followup",
+    "title": "Followup",
     "valueField": "followup",
      "clustered": false,
     "columnWidth": 0.7,
@@ -207,7 +195,7 @@ var chart = AmCharts.makeChart("chartdivfuse", {
     "type": "column",
     "clustered": false,
     "columnWidth": 0.7,
-    "title": "NoAction",
+    "title": "No Action",
     "valueField": "NoAction",
     "legendValueText": "[[value]]",
     "balloonText": "[[title]]<br /><b style='font-size: 130%'>[[value]]Users</b>"
@@ -284,6 +272,63 @@ var chart = AmCharts.makeChart("chartdivfuse", {
 
 });
 }
+//////////////////////////////////////////////////////////////////////////////max possible thread vs total sent
+function MaxChartData(dataofmaxpossibleTLTS){
+var chart = AmCharts.makeChart("maxpossibleTS", {
+    "type": "serial",
+	"theme": "light",
+  "titles": [ {
+    "text": "Max Possible Thread List Vs Total sent (Scaled by No.of Users)",
+    "size": 16
+  } ],
+    "legend": {
+        "horizontalGap": 10,
+        "maxColumns": 1,
+        "position": "right",
+		"useGraphSettings": true,
+		"markerSize": 10
+    },
+    "dataProvider": dataofmaxpossibleTLTS,
+
+    "valueAxes": [{
+        "stackType": "regular",
+        "axisAlpha": 0.3,
+        "gridAlpha": 0
+    }],
+    "graphs": [ {
+        "balloonText": "<b>[[title]]</b><br><span style='font-size:14px'>[[category]]: <b>[[value]]</b></span>",
+        "fillAlphas": 0.8,
+        "labelText": "[[value]]",
+        "lineAlpha": 0.3,
+        "title": "Total Sent",
+        "type": "column",
+		"color": "#000000",
+        "valueField": "totalsent"
+    },{
+        "balloonText": "<b>[[title]]</b><br><span style='font-size:14px'>[[category]]: <b>[[value]]</b></span>",
+        "fillAlphas": 0.8,
+        "labelText": "[[value]]",
+        "lineAlpha": 0.3,
+        "title": "Max Possible Thread List",
+        "type": "column",
+		"color": "#000000",
+        "valueField": "maxpossibleTL"
+    }],
+    "categoryField": "date",
+    "categoryAxis": {
+        "gridPosition": "start",
+        "axisAlpha": 0,
+        "gridAlpha": 0,
+        "position": "left"
+    },
+    "export": {
+    	"enabled": true
+     }
+
+});
+
+}
+
 //////////////////////////////////////////////////////////////////linechart of users
 
 function MakeChartData(chartData){
@@ -524,11 +569,13 @@ $.ajax({
                 Ignored: single.followUpStatusCounts.IGNORED+single.followUpStatusCounts.IGNORED_BLACKLISTED,
                 maxpossibleTL: single.maxPossibleThreadsInList,
                 NoAction: single.followUpStatusCounts.NO_ACTION,
-                undefinedone: single.followUpStatusCounts.UNDEFINED
+                undefinedone: single.followUpStatusCounts.UNDEFINED,
+                totalsent: single.followUpStatusCounts.FOLLOWED_UP+single.followUpStatusCounts.IGNORED+single.followUpStatusCounts.IGNORED_BLACKLISTED+single.followUpStatusCounts.NO_ACTION+single.followUpStatusCounts.UNDEFINED
 
               });//end of dataM
               // console.log("dataM>>>>",dataM);
             MakeStackData(dataM);
+            MaxChartData(dataM);
             dataN.push({
               date: single.snapshotDate,
               usersValue:single.totalNumOfUsers,
