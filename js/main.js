@@ -180,10 +180,10 @@ console.log('queryDay>>>',yesterday);
           var valuesTwo = [];
           var keys = Object.keys(single.totalNumOfAccounts);
           var keysTwo = Object.keys(single.followUpStatusCounts);
-          console.log("keysTwo####",keysTwo);
+          // console.log("keysTwo####",keysTwo);
           keysTwo.forEach(function(keyTwo){
             let b = {"followUpStatusCounts" : keyTwo , "visits" : single.followUpStatusCounts[keyTwo] };
-            console.log("b####",b);
+            // console.log("b####",b);
             valuesTwo.push(b);
           })
           keys.forEach(function(key){
