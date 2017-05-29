@@ -79,44 +79,14 @@ var chart = AmCharts.makeChart("chartdivpercent", {
       "text": "Followup Vs Ignored Vs No action (Based on number of links sent(%))",
       "size": 16
     } ],
+
      "dataProvider": chartdatapercent,
-    // [{
-    //     "date": "YYYY-MM-DD",
-    //     "Ignored": 40000,
-    //     "NoAction": 180000,
-    //     "Undefined": 80000,
-    //     "followup": 10000,
-    //     "total":  310000
-    // }, {
-    //     "date": "YYYY-MM-DD",
-    //     "Ignored": 4000,
-    //     "NoAction": 170000,
-    //     "Undefined": 60000,
-    //     "followup": 20000,
-    //     "total": 300000
-    // },{
-    //     "date": "YYYY-MM-DD",
-    //     "Ignored": 90000,
-    //     "NoAction": 40000,
-    //     "Undefined": 100000,
-    //     "followUp": 10000,
-    //     "total": 240000
-    // }, {
-    //     "date": "YYYY-MM-DD",
-    //     "Ignored": 30000,
-    //     "NoAction": 50000,
-    //     "Undefined": 100000,
-    //       "followUp": 10000,
-    //     "total": 190000
-    // }],
-
-
-    "categoryField": "date",
+      "categoryField": "date",
 
     "categoryAxis": {
         "gridAlpha": 0.1,
         "axisAlpha": 0,
-        "widthField": "total",
+        "widthField": "usersValue",
         "gridPosition": "start"
     },
 
@@ -557,7 +527,7 @@ $.ajax({
                 undefinedone: single.followUpStatusCounts.UNDEFINED
 
               });//end of dataM
-              console.log("dataM>>>>",dataM);
+              // console.log("dataM>>>>",dataM);
             MakeStackData(dataM);
             dataN.push({
               date: single.snapshotDate,
