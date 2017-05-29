@@ -94,10 +94,41 @@ function generateChartData() {
 
       window.location.href="index.html";
     }
+
+    //todays date
+
+  var t = new Date();
+
+ var decrement = (t.getDay() == 1? 3:1);
+
+var yesterday = new Date();
+
+yesterday.setDate(t.getDate() - decrement);
+var printday =yesterday;
+printday=new Date(printday).toUTCString();
+printday=printday.split(' ').slice(0, 4).join(' ')
+console.log(printday);
+$('#seedate').text(printday);
+
+
+  var dd = yesterday.getDate();
+  var mm = yesterday.getMonth()+1; //January is 0!
+  var yyyy = yesterday.getFullYear();
+  if(dd<10){
+    dd='0'+dd
+  }
+  if(mm<10){
+    mm='0'+mm
+  }
+  yesterday = yyyy+'-'+mm+'-'+dd;
+console.log('queryDay>>>',yesterday);
+
+    //todays date ends
+
     $.ajax({
 
-      // url :'http://52.55.210.93:8080/analysis/snapshot-views?order=DESCENDING&size=1',
-      url: 'http://52.7.123.186:8080/analysis/snapshot-views',
+      url:'http://52.7.123.186:8080/analysis/snapshot-views?start_date='+yesterday+'&end_date='+yesterday,
+      //   url: 'http://52.7.123.186:8080/analysis/snapshot-views',
       contentType:"application/x-www-form-urlencoded",
       type: 'GET',
       dataType: 'json',

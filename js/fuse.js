@@ -498,10 +498,10 @@ $(document).ready(function(){
   $('.datesubmit').on('click', function(){
     var datetimepicker1= $('input#startDate').val(),
     dateFrom = new Date(datetimepicker1).valueOf();
-    console.log('date1>>>',datetimepicker1);
+    // console.log('date1>>>',datetimepicker1);
     var datetimepicker2= $('input#endDate').val(),
     dateTo = new Date(datetimepicker2).valueOf();
-    console.log('date2>>>',datetimepicker2);
+    // console.log('date2>>>',datetimepicker2);
     if(isNaN(dateFrom)|| isNaN(dateTo)){
       return;
     }
@@ -521,8 +521,8 @@ $.ajax({
     },
     success: function (data) {
       var totalNumOfUsers,  differenceTotalNumOfUsers, differenceRefreshTokenCount, totalNumOfAccounts, totalNumOfThreads, totalNumOfFollowUpThreads, totalNumOfUserModels, totalValidRefreshTokens, avgMessagesPerThread;
-      console.log ('data>>>',data);
-      console.log('data.length>>>',data.length);
+    //  console.log ('data>>>',data);
+      // console.log('data.length>>>',data.length);
 
       let snapshotDate=[];
       let dataL = [];
@@ -553,7 +553,7 @@ $.ajax({
         //     d.setDate(d.getDate() - 100);
             //  console.log("epochdate>>>",d);
              var d = new Date(unixEpochTime*1000);
-             console.log("date>>>>>",d);
+            //  console.log("date>>>>>",d);
       dataL.push({
                   date: d,
                   totalAccounts: totalNumOfAccounts,
@@ -586,7 +586,7 @@ $.ajax({
               undefinedone: single.followUpStatusPercentages.UNDEFINED
 
             });
-            console.log("dataN>>>>",dataN);
+            // console.log("dataN>>>>",dataN);
             MakepercentData(dataN);
       })
 
