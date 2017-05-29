@@ -70,6 +70,101 @@ var charttwo = AmCharts.makeChart("simplestack", {
 
 });
 }
+//////////////////////////////////////////////////////////////percentgraphoffollowup
+function MakepercentData(chartdatapercent){
+var chart = AmCharts.makeChart("chartdivpercent", {
+    "theme": "light",
+    "type": "serial",
+    "titles": [ {
+      "text": "Followup Vs Ignored Vs No action (Based on number of links sent(%))",
+      "size": 16
+    } ],
+     "dataProvider": chartdatapercent,
+    // [{
+    //     "date": "YYYY-MM-DD",
+    //     "Ignored": 40000,
+    //     "NoAction": 180000,
+    //     "Undefined": 80000,
+    //     "followup": 10000,
+    //     "total":  310000
+    // }, {
+    //     "date": "YYYY-MM-DD",
+    //     "Ignored": 4000,
+    //     "NoAction": 170000,
+    //     "Undefined": 60000,
+    //     "followup": 20000,
+    //     "total": 300000
+    // },{
+    //     "date": "YYYY-MM-DD",
+    //     "Ignored": 90000,
+    //     "NoAction": 40000,
+    //     "Undefined": 100000,
+    //     "followUp": 10000,
+    //     "total": 240000
+    // }, {
+    //     "date": "YYYY-MM-DD",
+    //     "Ignored": 30000,
+    //     "NoAction": 50000,
+    //     "Undefined": 100000,
+    //       "followUp": 10000,
+    //     "total": 190000
+    // }],
+
+
+    "categoryField": "date",
+
+    "categoryAxis": {
+        "gridAlpha": 0.1,
+        "axisAlpha": 0,
+        "widthField": "total",
+        "gridPosition": "start"
+    },
+
+    "valueAxes": [{
+        "stackType": "100% stacked",
+        "gridAlpha": 0.1,
+        "unit": "%",
+        "axisAlpha": 0
+    }],
+
+    "graphs": [
+        {
+            "title": "Ignored",
+            "labelText": "[[value]]",
+            "valueField": "Ignored",
+            "type": "column",
+            "fillAlphas": 1
+        }, {
+            "title": "No Action",
+            "labelText": "[[value]]",
+            "valueField": "NoAction",
+            "type": "column",
+            "fillAlphas": 1
+        },
+
+        {
+            "title": "Followup",
+            "labelText": "[[value]]",
+            "valueField": "Followup",
+            "type": "column",
+            "fillAlphas": 1
+        },
+      {
+            "title": "Undefined",
+            "labelText": "[[value]]",
+            "valueField": "undefinedone",
+            "type": "column",
+            "fillAlphas": 1
+      }
+    ],
+
+    "legend": {},
+    "export":
+     {
+     "enabled":true
+     }
+});
+}
 //////////////////////////////////////////////////////////followupgraph
 function MakeMoreChartData(chartdatatwo){
 var chart = AmCharts.makeChart("chartdivfuse", {
@@ -417,6 +512,7 @@ $.ajax({
       let snapshotDate=[];
       let dataL = [];
       let dataM = [];
+      let dataN = [];
       data.forEach(function(single){
         // console.log('DATE>>',single.snapshotDate);
         // snapshotDate.push(single.snapshotDate);
@@ -433,34 +529,22 @@ $.ajax({
         maxPossibleNumOfFollowUp = single.maxPossibleNumOfFollowUp;
         differenceRefreshToken = single.maxPossibleNumOfFollowUp;
 
-//for the followUp
-
-var valuesTwo = [];
-data.forEach(function(single){
-  var valuesTwo = [];
-  var keysTwo = Object.keys(single.followUpStatusCounts);
-  //  console.log("keysTwo>>>>",keysTwo);
-  keysTwo.forEach(function(keyTwo){
-    let b = {"followUpStatusCounts" : keyTwo , "maxpossibleTL" : single.followUpStatusCounts[keyTwo] };
-    valuesTwo.push(b);
-  })
-
-});//end of for each loop
-
 
         ///////////////////////suman
 
         let unixEpochTime = single.snapshotDateUnixTimeStamp;
-        let d = new Date(0); // The 0 there is the key, which sets the date to the epoch
-            d.setUTCSeconds(unixEpochTime);
-            d.setDate(d.getDate() - 100);
-            // console.log("epochdate>>>",d);
+        // let d = new Date(0); // The 0 there is the key, which sets the date to the epoch
+        //     d.setUTCSeconds(unixEpochTime);
+        //     d.setDate(d.getDate() - 100);
+            //  console.log("epochdate>>>",d);
+             var d = new Date(unixEpochTime*1000);
+             console.log("date>>>>>",d);
       dataL.push({
                   date: d,
                   totalAccounts: totalNumOfAccounts,
                   totalUsers: totalNumOfUsers
 
-             });
+             });//endofdataL
               MakeChartData(dataL)
 
               dataM.push({
@@ -472,9 +556,21 @@ data.forEach(function(single){
                 NoAction: single.followUpStatusCounts.NO_ACTION,
                 undefinedone: single.followUpStatusCounts.UNDEFINED
 
-              })
+              });//end of dataM
               console.log("dataM>>>>",dataM);
             MakeStackData(dataM);
+            dataN.push({
+              date: single.snapshotDate,
+              usersValue:single.totalNumOfUsers,
+              followup : single.followUpStatusPercentages.FOLLOWED_UP,
+              Ignored: single.followUpStatusPercentages.IGNORED+single.followUpStatusPercentages.IGNORED_BLACKLISTED,
+              maxpossibleTL: single.maxPossibleThreadsInList,
+              NoAction: single.followUpStatusPercentages.NO_ACTION,
+              undefinedone: single.followUpStatusPercentages.UNDEFINED
+
+            });
+            console.log("dataN>>>>",dataN);
+            MakepercentData(dataN);
       })
 
 
