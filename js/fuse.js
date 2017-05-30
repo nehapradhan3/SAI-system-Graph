@@ -127,6 +127,16 @@ var chart = AmCharts.makeChart("chartdivpercent", {
             "fillAlphas": 1
       }
     ],
+    "chartScrollbar": {},
+    "chartCursor": {
+        "cursorPosition": "mouse"
+    },
+    "categoryField": "date",
+    "categoryAxis": {
+        "parseDates": true,
+        "axisColor": "#DADADA ",
+        "minorGridEnabled": true
+    },
 
     "legend": {},
     "export":
@@ -134,6 +144,13 @@ var chart = AmCharts.makeChart("chartdivpercent", {
      "enabled":true
      }
 });
+chart.addListener("dataUpdated", zoomChart);
+zoomChart();
+
+function zoomChart(){
+    chart.zoomToIndexes(chart.dataProvider.length - 20, chart.dataProvider.length - 1);
+}
+
 }
 //////////////////////////////////////////////////////////followupgraph
 function MakeMoreChartData(chartdatatwo){
@@ -345,13 +362,7 @@ var chart = AmCharts.makeChart("chartdiv", {
     "dataProvider": chartData,
     "synchronizeGrid":true,
     "valueAxes": [
-    //   {
-    //     "id":"v1",
-    //     "axisColor": "#FCD202 ",
-    //     "axisThickness": 2,
-    //     "axisAlpha": 1,
-    //     "position": "right"
-    // },
+
     {
         "id":"v1",
         "axisColor": "#B0DE09 ",
