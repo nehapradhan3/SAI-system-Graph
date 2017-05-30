@@ -4,7 +4,7 @@ var charttwo = AmCharts.makeChart("simplestack", {
     "type": "serial",
 	"theme": "light",
   "titles": [ {
-    "text": "Followup Vs Ignored Vs No action (Scaled by No.of Users)",
+    "text": "Followup Vs Ignored Vs No Action (Scaled by # of Users)",
     "size": 16
   } ],
     "legend": {
@@ -25,7 +25,7 @@ var charttwo = AmCharts.makeChart("simplestack", {
         "fillAlphas": 0.8,
         "labelText": "[[value]]",
         "lineAlpha": 0.3,
-        "title": "followup",
+        "title": "Followup",
         "type": "column",
 		"color": "#000000",
         "valueField": "followup"
@@ -52,7 +52,7 @@ var charttwo = AmCharts.makeChart("simplestack", {
         "fillAlphas": 0.8,
         "labelText": "[[value]]",
         "lineAlpha": 0.3,
-        "title": "undefined",
+        "title": "Undefined",
         "type": "column",
 		"color": "#000000",
         "valueField": "undefinedone"
@@ -76,7 +76,7 @@ var chart = AmCharts.makeChart("chartdivpercent", {
     "theme": "light",
     "type": "serial",
     "titles": [ {
-      "text": "Followup Vs Ignored Vs No action (Based on number of links sent(%))",
+      "text": "Followup Vs Ignored Vs No Action (Percentage based)",
       "size": 16
     } ],
 
@@ -158,7 +158,7 @@ var chart = AmCharts.makeChart("chartdivfuse", {
   "type": "serial",
   "theme": "light",
   "titles": [ {
-    "text": "Followup Vs Ignored Vs No action (Scaled by No.of Users)",
+    "text": "Followup Vs Ignored Vs No action (Scaled by # of Users)",
     "size": 16
   } ],
   "legend": {
@@ -295,7 +295,7 @@ var chart = AmCharts.makeChart("maxpossibleTS", {
     "type": "serial",
 	"theme": "light",
   "titles": [ {
-    "text": "Max Possible Thread List Vs Total sent (Scaled by No.of Users)",
+    "text": "Max Possible Thread List Vs Total Sent (Scaled by # of Users)",
     "size": 16
   } ],
     "legend": {
@@ -353,7 +353,7 @@ var chart = AmCharts.makeChart("chartdiv", {
     "type": "serial",
     "theme": "light",
     "titles": [ {
-      "text": "SAI Users Graph",
+      "text": "Total Users Vs Total Gmail Account",
       "size": 16
     } ],
     "legend": {

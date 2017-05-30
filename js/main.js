@@ -127,8 +127,8 @@ console.log('queryDay>>>',yesterday);
 
     $.ajax({
 
-      url:'http://52.7.123.186:8080/analysis/snapshot-views?start_date='+yesterday+'&end_date='+yesterday,
-      //   url: 'http://52.7.123.186:8080/analysis/snapshot-views',
+     url:'http://52.7.123.186:8080/analysis/snapshot-views?start_date='+yesterday+'&end_date='+yesterday,
+    //   url: 'http://52.7.123.186:8080/analysis/snapshot-views',
       contentType:"application/x-www-form-urlencoded",
       type: 'GET',
       dataType: 'json',
@@ -140,7 +140,7 @@ console.log('queryDay>>>',yesterday);
       success: function (data) {
 
         // chartData =data.dataProvider;
-        var totalNumOfUsers,  differenceTotalNumOfUsers, differenceRefreshTokenCount, totalNumOfAccounts, totalNumOfThreads, totalNumOfFollowUpThreads, totalNumOfUserModels, totalValidRefreshTokens, avgMessagesPerThread;
+        var totalNumOfUsers,  differenceTotalNumOfUsers, differenceRefreshTokenCount, totalNumOfAccounts, totalNumOfThreads, totalNumOfFollowUpThreads, totalNumOfUserModels, totalValidRefreshTokens, avgMessagesPerThread, maxPossibleNumOfFollowUp , totalFollowUpStatusCounts;
         console.log ('data>>>',data);
         data.forEach(function(single){
           totalFollowUpStatusCounts = single.followUpStatusCounts.FOLLOWED_UP+single.followUpStatusCounts.IGNORED+single.followUpStatusCounts.IGNORED_BLACKLISTED+single.followUpStatusCounts.NO_ACTION+single.followUpStatusCounts.UNDEFINED;
