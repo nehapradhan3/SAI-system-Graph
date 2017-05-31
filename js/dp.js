@@ -180,7 +180,60 @@ picker.on('set', function() {
 
     var pickdatez = $inputText.val();
     console.log('date>>',pickdatez);
+var yearss= pickdatez.substring(pickdatez.indexOf(',')+1,pickdatez.length);
+console.log('year>>>>',yearss);
+var dayss= pickdatez.substring(0,2);
+console.log("days>>",dayss);
+var monthss= pickdatez.substring(pickdatez.indexOf(' ')+1,pickdatez.length-6);
+// console.log("month>>",monthss);
 
+var b = "";
+
+    switch(monthss){
+        case "January":
+        b = "01";
+            break;
+        case "February":
+         b = "02" ;
+            break;
+        case  "March":
+        b = "03";
+            break;
+        case "April":
+        b = "04";
+            break;
+        case "May":
+            b = "05";
+            break;
+        case "June":
+            b = "06";
+            break;
+        case "July":
+            b = "07";
+            break;
+        case "August":
+            b = "08";
+            break;
+        case "September":
+            b = "09";
+            break;
+        case "October":
+            b = "10";
+            break;
+        case "November":
+            b = "11";
+            break;
+        case "December":
+            b = "12";
+            break;
+            default:
+            b = 00;
+            break;
+        }
+        console.log("month>>>>",b);
+      var showDate = (yearss+'-'+b+'-'+dayss).trim();
+      console.log('showdate>>>', showDate);
+      
 })
 
 });
