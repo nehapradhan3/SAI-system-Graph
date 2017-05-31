@@ -19,6 +19,9 @@ padding-left:50px;
 	padding-top: 190px;
 
 }
+h1 {
+	padding-bottom: 30px;
+}
 body{
 	background-color: #9999af;
 	overflow-y: scroll;

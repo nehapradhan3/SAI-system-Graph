@@ -359,13 +359,10 @@ var b = "";
       var showDate = (yearss+'-'+b+'-'+dayss).trim();
 
 
-
-
-
 console.log('showdate>>>', showDate);
 var printday = showDate;
-printday=new Date(printday).toUTCString();
-printday=printday.split(' ').slice(0, 4).join(' ')
+printday = new Date(printday).toUTCString();
+printday = printday.split(' ').slice(0, 4).join(' ')
 console.log("what to show>>>",printday);
 // $('#seedate').text(printday);
 $('#seedate').text(printday);//to show date next to the dashboard in sam.htmlshow daily
