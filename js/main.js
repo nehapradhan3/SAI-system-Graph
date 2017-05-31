@@ -364,7 +364,21 @@ var printday = showDate;
 printday = new Date(printday).toUTCString();
 printday = printday.split(' ').slice(0, 4).join(' ')
 console.log("what to show>>>",printday);
-// $('#seedate').text(printday);
+//test
+
+var today = new Date();
+console.log("*****",today);
+var today = new Date();
+var d2 = new Date(today);
+var dateonetoday = d2.getTime();
+ var d3 = new Date(pickdatez);
+ var datetwopicked = d3.getTime();//checking if picked day is greater than today
+console.log("dateonetoday>>",dateonetoday);
+console.log("datetwopicked>>",datetwopicked);
+if (datetwopicked>dateonetoday){
+  alert("can't select future dates");
+      // $inputText.val(this.get());
+}
 $('#seedate').text(printday);//to show date next to the dashboard in sam.htmlshow daily
 //////////////////////datepicker/////////////////////
 
