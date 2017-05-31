@@ -23,7 +23,16 @@ body{
 	background-color: #9999af;
 	overflow-y: scroll;
 }
+.datePicker {
+	padding: 20px;
+ visibility: hidden;
+ position: relative;
+ float: right;
 
+}
+.content {
+		 min-height: 1400;
+}
 #chartdivTwo {
 	width	: 80%;
 	height: 500px;
@@ -91,4 +100,12 @@ background: rgb(193, 9, 67)
 }
 #row{
 	padding-left: 0px;
+}
+/*.dropdown user user-menu pull-right{
+	max-width: 75px;
+
+}*/
+.dropdown-toggle{
+	max-width: 70px;
+	max-height: 0px;
 }

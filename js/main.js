@@ -154,7 +154,7 @@ console.log('queryDay>>>',yesterday);
           maxPossibleNumOfFollowUp = single.maxPossibleNumOfFollowUp;
           differenceRefreshToken = single.maxPossibleNumOfFollowUp;
         })
-        $('#differenceRefreshTokenCount').text(totalNumOfFollowUpThreads);
+        $('#differenceRefreshTokenCount').text(totalNumOfAccounts);
         $('#differenceTotalNumOfUsersCount').text(totalNumOfUsers);
         $('#usercount').text(totalNumOfUsers);
         $('#accountCount').text(totalNumOfAccounts);

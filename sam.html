@@ -13,7 +13,10 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
   <!-- Ionicons -->
   <link rel="stylesheet" href="plugins/ionicons-2.0.1/css/ionicons.css">
-
+<!--test date-->
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.css" rel="stylesheet" type="text/css" />
+<!--test date-->
   <!-- Theme style -->
   <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
 
@@ -24,10 +27,7 @@
   <link rel="stylesheet" href="plugins/morris/morris.css">
   <!-- jvectormap -->
   <link rel="stylesheet" href="plugins/jvectormap/jquery-jvectormap-1.2.2.css">
-  <!-- Date Picker -->
-  <link rel="stylesheet" href="plugins/datepicker/datepicker3.css">
-  <!-- Daterange picker -->
-  <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
+  
   <!-- bootstrap wysihtml5 - text editor -->
   <link rel="stylesheet" href="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
 
@@ -37,22 +37,26 @@
   <script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
 
   <script src="js/jQuery/jquery-2.2.3.min.js"></script>
+  <script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
       <script src="js/main.js"></script>
+        <script src="js/dp.js"></script>
   <!-- <script src= "js/fuse.js"></script> -->
 
-  <script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
+
       <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
       <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/js/bootstrapValidator.min.js"></script>
-      <script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js"></script>
-      <script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/3.1.3/js/bootstrap-datetimepicker.min.js"></script>
-      <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/3.1.3/css/bootstrap-datetimepicker.min.css">
-      <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-      <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/css/bootstrapValidator.min.css">
-  <!--end of datepicker-->
+<!--test date-->
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<!--test date-->
+
 
     <!-- <script src="js/app.js"></script> -->
   <link rel="stylesheet" href="css/main.css"/>
-    <link rel="stylesheet" href="css/fuse.css"/>
+  <link rel="stylesheet" href="css/fuse.css"/>
+    <link rel="stylesheet" href="css/dp.css"/>
   <script src="https://www.amcharts.com/lib/3/themes/dark.js"></script>
   <script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
   <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
@@ -79,7 +83,10 @@
         </a>
 
         <div class="navbar-custom-menu">
+
+
           <ul class="nav navbar-nav">
+
             <!-- Messages: style can be found in dropdown.less-->
             <li class="dropdown messages-menu">
               <!--envelop icon on top-->
@@ -274,8 +281,8 @@
               </ul>
             </li>
             <!-- User Account: style can be found in dropdown.less -->
-            <li class="dropdown user user-menu" style="position: absolute;">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <li class="dropdown user user-menu pull-right">
+              <a href="#" class="dropdown-toggle pull-right" data-toggle="dropdown">
                 <img src="img_avatar2.png" class="user-image" alt="User Image">
                 <span class="hidden-xs"></span>
               </a>
@@ -382,10 +389,16 @@
           Dashboard
           <small><h3 id="seedate"></h3></small>
         </h1>
-        <ol class="breadcrumb">
+        <!-- <ol class="breadcrumb">
+        <fieldset class="box pull-right">
+          <input type="text" id="input_text" placeholder="choose the date">
+          <input type="text" id="input_date">
+        </fieldset>
+      </ol> -->
+        <!-- <ol class="breadcrumb">
           <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
           <li class="active">Dashboard</li>
-        </ol>
+        </ol> -->
       </section>
 
       <!-- Main content -->
@@ -399,7 +412,7 @@
               <div class="inner">
                 <h3 id="usercount"></h3>
 
-                <p>Total Number of Users</p>
+                <p>Users</p>
               </div>
               <div class="icon">
                 <i class="ion ion-person"></i>
@@ -549,6 +562,10 @@
 
 <!-- jQuery 2.2.3 -->
 <script src="plugins/jQuery/jquery-2.2.3.min.js"></script>
+<script
+			  src="https://code.jquery.com/jquery-3.2.1.js"
+			  integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+			  crossorigin="anonymous"></script>
 <!-- jQuery UI 1.11.4 -->
 <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
@@ -568,8 +585,8 @@ $.widget.bridge('uibutton', $.ui.button);
 <!-- jQuery Knob Chart -->
 <script src="plugins/knob/jquery.knob.js"></script>
 <!-- daterangepicker -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
-<script src="plugins/daterangepicker/daterangepicker.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
 <!-- datepicker -->
 <script src="plugins/datepicker/bootstrap-datepicker.js"></script>
 <!-- Bootstrap WYSIHTML5 -->
