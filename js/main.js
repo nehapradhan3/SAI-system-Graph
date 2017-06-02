@@ -304,11 +304,16 @@ picker.on('set', function() {
   $inputText.val(this.get('value'))
 
     var pickdatez = $inputText.val();
-    console.log('date>>',pickdatez);
+    console.log('pickdatez>>>>',pickdatez);
 var yearss= pickdatez.substring(pickdatez.indexOf(',')+1,pickdatez.length);
 // console.log('year>>>>',yearss);
-var dayss= pickdatez.substring(0,2);
-// console.log("days>>",dayss);
+var dayss= pickdatez.substring(0,pickdatez.indexOf(' '));
+console.log("length of days>>>",dayss.length);
+if (dayss.length!=2){
+  dayss="0"+dayss;
+  console.log("zero wala days>>>",dayss);
+}
+console.log("######days>>",dayss);
 var monthss= pickdatez.substring(pickdatez.indexOf(' ')+1,pickdatez.length-6);
 // console.log("month>>",monthss);
 
