@@ -495,18 +495,93 @@ var bindDateRangeValidation = function (f, s, e) {
 //end of date picker
 
 $(document).ready(function(){
+//for one week
+  $('a.oneWeek').on('click', function(today1){
+    $('.datePicker').css('visibility', 'visible');
+    var ed= $('#endDate').val(todaysdate(today1));
+    console.log("ed>>>",ed);
+    console.log("endDate%",$('#endDate').val());
+    var oneWeekAgo = new Date();
+oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
+var oneWeekAgoDate=oneWeekAgo.getDate();
+var oneWeekAgoMonth=oneWeekAgo.getMonth()+1;
+var oneWeekAgoYear=oneWeekAgo.getFullYear();
+if(oneWeekAgoDate<10) {
+    oneWeekAgoDate='0'+oneWeekAgoDate
+}
 
-  $('a.oneWeek').on('click', function(){
-    $('.datePicker').css('visibility', 'visible');
+if(oneWeekAgoMonth<10) {
+    oneWeekAgoMonth='0'+oneWeekAgoMonth
+}
+var oneWeekAgo=oneWeekAgoYear+'-'+oneWeekAgoMonth+'-'+oneWeekAgoDate;
+var sd= $('#startDate').val(oneWeekAgo);
+console.log("one weekago>>",oneWeekAgo);
   });
-  $('a.twoWeeks').on('click', function(){
+  //for one month
+  $('a.twoWeeks').on('click', function(today1){
     $('.datePicker').css('visibility', 'visible');
+    var ed= $('#endDate').val(todaysdate(today1));
+    console.log("ed>>>",ed);
+    console.log("endDate%",$('#endDate').val());
+    var twoWeeksAgo = new Date();
+twoWeeksAgo.setDate(twoWeeksAgo.getDate() - 14);
+var twoWeeksAgoDate=twoWeeksAgo.getDate();
+var twoWeeksAgoMonth=twoWeeksAgo.getMonth()+1;
+var twoWeeksAgoYear=twoWeeksAgo.getFullYear();
+if(twoWeeksAgoDate<10) {
+    twoWeeksAgoDate='0'+twoWeeksAgoDate
+}
+
+if(twoWeeksAgoMonth<10) {
+  twoWeeksAgoMonth='0'+twoWeeksAgoMonth
+}
+var twoWeeksAgo=twoWeeksAgoYear+'-'+twoWeeksAgoMonth+'-'+twoWeeksAgoDate;
+var sd= $('#startDate').val(twoWeeksAgo);
+console.log("twoweeks ago>>",twoWeeksAgo);
   });
-  $('a.oneMonth').on('click', function(){
+  //for one month
+  $('a.oneMonth').on('click', function(today1){
     $('.datePicker').css('visibility', 'visible');
+    var ed= $('#endDate').val(todaysdate(today1));
+    console.log("ed>>>",ed);
+    console.log("endDate%",$('#endDate').val());
+    var oneMonthAgo = new Date();
+oneMonthAgo.setDate(oneMonthAgo.getDate());
+var oneMonthAgoDate=oneMonthAgo.getDate();
+var oneMonthAgoMonth=oneMonthAgo.getMonth()+1-1;
+var oneMonthAgoYear=oneMonthAgo.getFullYear();
+if(oneMonthAgoDate<10) {
+    oneMonthAgoDate='0'+oneMonthAgoDate
+}
+
+if(oneMonthAgoMonth<10) {
+    oneMonthAgoMonth='0'+oneMonthAgoMonth
+}
+var oneMonthAgo=oneMonthAgoYear+'-'+oneMonthAgoMonth+'-'+oneMonthAgoDate;
+var sd= $('#startDate').val(oneMonthAgo);
+console.log("one Monthago>>",oneMonthAgo);
   });
-  $('a.oneQuarter').on('click', function(){
+  //
+  $('a.oneQuarter').on('click', function(today1){
     $('.datePicker').css('visibility', 'visible');
+    var ed= $('#endDate').val(todaysdate(today1));
+    console.log("ed>>>",ed);
+    console.log("endDate%",$('#endDate').val());
+    var threeMonthsAgo = new Date();
+threeMonthsAgo.setDate(threeMonthsAgo.getDate());
+var threeMonthsAgoDate=threeMonthsAgo.getDate();
+var threeMonthsAgoMonth=threeMonthsAgo.getMonth()+1-3;
+var threeMonthsAgoYear=threeMonthsAgo.getFullYear();
+if(threeMonthsAgoDate<10) {
+    threeMonthsAgoDate='0'+threeMonthsAgoDate
+}
+
+if(threeMonthsAgoMonth<10) {
+    threeMonthsAgoMonth='0'+threeMonthsAgoMonth
+}
+var threeMonthsAgo=threeMonthsAgoYear+'-'+threeMonthsAgoMonth+'-'+threeMonthsAgoDate;
+var sd= $('#startDate').val(threeMonthsAgo);
+console.log("threeMonthsAgo>>",threeMonthsAgo);
   });
   $('.datesubmit').on('click', function(){
     var datetimepicker1= $('input#startDate').val(),
@@ -518,7 +593,26 @@ $(document).ready(function(){
     if(isNaN(dateFrom)|| isNaN(dateTo)){
       return;
     }
+
   });
+  function todaysdate(){
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth()+1; //January is 0!
+    var yyyy = today.getFullYear();
+
+    if(dd<10) {
+        dd='0'+dd
+    }
+
+    if(mm<10) {
+        mm='0'+mm
+    }
+
+
+    today1= yyyy+'-'+mm+'-'+dd;
+    return today1;
+  };
   //datepicker
 $.ajax({
     // url : 'http://52.55.210.93:8080/analysis/snapshot-views?start_date=2017-05-14&end_date=2017-05-18',
@@ -582,7 +676,7 @@ $.ajax({
 ];
            var dmmonth=monthNames[dm.getMonth()];
 
-        var t= dmmonth+ dmdate;//for the x-axis 
+        var t= dmmonth+ dmdate;//for the x-axis
 
 
               dataM.push({
