@@ -574,9 +574,19 @@ $.ajax({
 
              });//endofdataL
               MakeChartData(dataL)
+           var calculatedDate= single.snapshotDate;
+           var dm= new Date(calculatedDate);
+           var dmdate= dm.getDate();
+           var monthNames = ["January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December"
+];
+           var dmmonth=monthNames[dm.getMonth()];
+
+        var t= dmmonth+ dmdate;//for the x-axis 
+
 
               dataM.push({
-                date: single.snapshotDate,
+                date: t,
                 usersValue:single.totalNumOfUsers,
                 followup : single.followUpStatusCounts.FOLLOWED_UP,
                 Ignored: single.followUpStatusCounts.IGNORED+single.followUpStatusCounts.IGNORED_BLACKLISTED,
@@ -590,7 +600,7 @@ $.ajax({
             MakeStackData(dataM);
             MaxChartData(dataM);
             dataN.push({
-              date: single.snapshotDate,
+              date: t,
               usersValue:single.totalNumOfUsers,
               followup : single.followUpStatusPercentages.FOLLOWED_UP,
               Ignored: single.followUpStatusPercentages.IGNORED+single.followUpStatusPercentages.IGNORED_BLACKLISTED,
