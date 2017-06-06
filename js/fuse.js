@@ -495,12 +495,13 @@ var bindDateRangeValidation = function (f, s, e) {
 //end of date picker
 
 $(document).ready(function(){
+  var ed,sd;
 //for one week
   $('a.oneWeek').on('click', function(today1){
     $('.datePicker').css('visibility', 'visible');
     var ed= $('#endDate').val(todaysdate(today1));
-    console.log("ed>>>",ed);
-    console.log("endDate%",$('#endDate').val());
+    var ed = $('#endDate').val();
+    console.log("endDate%",ed);
     var oneWeekAgo = new Date();
 oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
 var oneWeekAgoDate=oneWeekAgo.getDate();
@@ -513,16 +514,16 @@ if(oneWeekAgoDate<10) {
 if(oneWeekAgoMonth<10) {
     oneWeekAgoMonth='0'+oneWeekAgoMonth
 }
-var oneWeekAgo=oneWeekAgoYear+'-'+oneWeekAgoMonth+'-'+oneWeekAgoDate;
-var sd= $('#startDate').val(oneWeekAgo);
-console.log("one weekago>>",oneWeekAgo);
+var sd=oneWeekAgoYear+'-'+oneWeekAgoMonth+'-'+oneWeekAgoDate;
+$('#startDate').val(oneWeekAgo);
+console.log("one weekago>>",sd);
   });
-  //for one month
+  //for two weeks
   $('a.twoWeeks').on('click', function(today1){
     $('.datePicker').css('visibility', 'visible');
     var ed= $('#endDate').val(todaysdate(today1));
-    console.log("ed>>>",ed);
-    console.log("endDate%",$('#endDate').val());
+    var ed= $('#endDate').val();
+    console.log("endDate%",ed);
     var twoWeeksAgo = new Date();
 twoWeeksAgo.setDate(twoWeeksAgo.getDate() - 14);
 var twoWeeksAgoDate=twoWeeksAgo.getDate();
@@ -535,16 +536,16 @@ if(twoWeeksAgoDate<10) {
 if(twoWeeksAgoMonth<10) {
   twoWeeksAgoMonth='0'+twoWeeksAgoMonth
 }
-var twoWeeksAgo=twoWeeksAgoYear+'-'+twoWeeksAgoMonth+'-'+twoWeeksAgoDate;
-var sd= $('#startDate').val(twoWeeksAgo);
-console.log("twoweeks ago>>",twoWeeksAgo);
+var sd=twoWeeksAgoYear+'-'+twoWeeksAgoMonth+'-'+twoWeeksAgoDate;
+$('#startDate').val(twoWeeksAgo);
+console.log("twoweeks ago>>",sd);
   });
   //for one month
   $('a.oneMonth').on('click', function(today1){
     $('.datePicker').css('visibility', 'visible');
     var ed= $('#endDate').val(todaysdate(today1));
-    console.log("ed>>>",ed);
-    console.log("endDate%",$('#endDate').val());
+  var ed = $('#endDate').val();
+    console.log("endDate%",ed);
     var oneMonthAgo = new Date();
 oneMonthAgo.setDate(oneMonthAgo.getDate());
 var oneMonthAgoDate=oneMonthAgo.getDate();
@@ -561,12 +562,12 @@ var oneMonthAgo=oneMonthAgoYear+'-'+oneMonthAgoMonth+'-'+oneMonthAgoDate;
 var sd= $('#startDate').val(oneMonthAgo);
 console.log("one Monthago>>",oneMonthAgo);
   });
-  //
+  //for one quarter
   $('a.oneQuarter').on('click', function(today1){
     $('.datePicker').css('visibility', 'visible');
     var ed= $('#endDate').val(todaysdate(today1));
-    console.log("ed>>>",ed);
-    console.log("endDate%",$('#endDate').val());
+    var ed=$('#endDate').val();
+    console.log("endDate%",ed);
     var threeMonthsAgo = new Date();
 threeMonthsAgo.setDate(threeMonthsAgo.getDate());
 var threeMonthsAgoDate=threeMonthsAgo.getDate();
@@ -581,15 +582,15 @@ if(threeMonthsAgoMonth<10) {
 }
 var threeMonthsAgo=threeMonthsAgoYear+'-'+threeMonthsAgoMonth+'-'+threeMonthsAgoDate;
 var sd= $('#startDate').val(threeMonthsAgo);
-console.log("threeMonthsAgo>>",threeMonthsAgo);
+console.log("threeMonthsAgo>>",sd);
   });
   $('.datesubmit').on('click', function(){
     var datetimepicker1= $('input#startDate').val(),
     dateFrom = new Date(datetimepicker1).valueOf();
-    // console.log('date1>>>',datetimepicker1);
+     console.log('date1>>>',datetimepicker1);
     var datetimepicker2= $('input#endDate').val(),
     dateTo = new Date(datetimepicker2).valueOf();
-    // console.log('date2>>>',datetimepicker2);
+    console.log('date2>>>',datetimepicker2);
     if(isNaN(dateFrom)|| isNaN(dateTo)){
       return;
     }
@@ -613,6 +614,8 @@ console.log("threeMonthsAgo>>",threeMonthsAgo);
     today1= yyyy+'-'+mm+'-'+dd;
     return today1;
   };
+console.log("sd>>>>",sd);
+console.log("ed>>>>",ed);
   //datepicker
 $.ajax({
     // url : 'http://52.55.210.93:8080/analysis/snapshot-views?start_date=2017-05-14&end_date=2017-05-18',

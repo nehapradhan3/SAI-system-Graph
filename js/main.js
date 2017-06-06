@@ -103,25 +103,30 @@ function generateChartData() {
 
 var yesterday = new Date();
 
+console.log('yesterday date',yesterday);
+
 yesterday.setDate(t.getDate() - decrement);
 var printday =yesterday;
+var newdatebiz = printday;
+console.log("newdatebiz",newdatebiz);
+var dd=newdatebiz.getDate();
+var monthNames = ["January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December"
+];
+var mm=monthNames[newdatebiz.getMonth()];
+var yyyy=newdatebiz.getFullYear();
+console.log("hellonewdate>>>",dd);
+console.log("hellonewdate>>>",mm);
+console.log("hellonewdate>>>",yyyy);
+yesterday=dd+" "+mm+","+" "+yyyy;
+console.log("yesterday1>>>>",yesterday);
+
 printday=new Date(printday).toUTCString();
 printday=printday.split(' ').slice(0, 4).join(' ')
 console.log(printday);
 // $('#seedate').text(printday);
 
-
-  var dd = yesterday.getDate();
-  var mm = yesterday.getMonth()+1; //January is 0!
-  var yyyy = yesterday.getFullYear();
-  if(dd<10){
-    dd='0'+dd
-  }
-  if(mm<10){
-    mm='0'+mm
-  }
-  yesterday = yyyy+'-'+mm+'-'+dd;
-console.log('queryDay>>>',yesterday);
+filterDate(yesterday);
 
 
 //////////////datepicker//////////////////////////////
@@ -306,168 +311,13 @@ picker.on('set', function() {
   $inputText.val(this.get('value'))
 console.log(">>>>>>>>",  $inputText.val());
     var pickdatez = $inputText.val();
-    // console.log('pickdatez>>>>',pickdatez);
-var yearss= pickdatez.substring(pickdatez.indexOf(',')+1,pickdatez.length);
-// console.log('year>>>>',yearss);
-var dayss= pickdatez.substring(0,pickdatez.indexOf(' '));
-console.log("length of days>>>",dayss.length);
-if (dayss.length!=2){
-  dayss="0"+dayss;
-  console.log("zero wala days>>>",dayss);
-}
-console.log("######days>>",dayss);
-var monthss= pickdatez.substring(pickdatez.indexOf(' ')+1,pickdatez.length-6);
-// console.log("month>>",monthss);
-
-var b = "";
-
-    switch(monthss){
-        case "January":
-        b = "01";
-            break;
-        case "February":
-         b = "02" ;
-            break;
-        case  "March":
-        b = "03";
-            break;
-        case "April":
-        b = "04";
-            break;
-        case "May":
-            b = "05";
-            break;
-        case "June":
-            b = "06";
-            break;
-        case "July":
-            b = "07";
-            break;
-        case "August":
-            b = "08";
-            break;
-        case "September":
-            b = "09";
-            break;
-        case "October":
-            b = "10";
-            break;
-        case "November":
-            b = "11";
-            break;
-        case "December":
-            b = "12";
-            break;
-            default:
-            b = 00;
-            break;
-        }
-        // console.log("month>>>>",b);
-
-
-
-
-      var showDate = (yearss+'-'+b+'-'+dayss).trim();
-  console.log('pickdatez>>>>',pickdatez);
-
-console.log('showdate>>>', showDate);
-var printday = showDate;
-printday = new Date(printday).toUTCString();
-printday = printday.split(' ').slice(0, 4).join(' ')
-console.log("what to show>>>",printday);
-//test
-
-var today = new Date();
-console.log("*****",today);
-var today = new Date();
-var d2 = new Date(today);
-var dateonetoday = d2.getTime();
- var d3 = new Date(pickdatez);
- var datetwopicked = d3.getTime();//checking if picked day is greater than today
-console.log("dateonetoday>>",dateonetoday);
-console.log("datetwopicked>>",datetwopicked);
-if (datetwopicked>dateonetoday){
-  alert("can't select future dates");
-      // $inputText.val(this.get());
-}
-$('#seedate').text(printday);//to show date next to the dashboard in sam.htmlshow daily
+    console.log('pickdatez>>>>',pickdatez);
+    filterDate(pickdatez);
+})
 //////////////////////datepicker/////////////////////
 
 
-    $.ajax({
-//url: ( $('#input_text').val()=="" ? 'http://52.7.123.186:8080/analysis/snapshot-views?start_date='+yesterday+'&end_date='+yesterday : 'http://52.7.123.186:8080/analysis/snapshot-views?start_date='+showDate+'&end_date='+showDate),
-   url:'http://52.7.123.186:8080/analysis/snapshot-views?start_date='+showDate+'&end_date='+showDate,
-        //url:'http://52.7.123.186:8080/analysis/snapshot-views?start_date='+yesterday+'&end_date='+yesterday,
-      contentType:"application/x-www-form-urlencoded",
-      type: 'GET',
-      dataType: 'json',
-      crossDomain: true,
 
-      error: function() {
-        $('#info').html('<p>An error has occurred</p>');
-      },
-      success: function (data) {
-
-        // chartData =data.dataProvider;
-        var totalNumOfUsers,  differenceTotalNumOfUsers, differenceRefreshTokenCount, totalNumOfAccounts, totalNumOfThreads, totalNumOfFollowUpThreads, totalNumOfUserModels, totalValidRefreshTokens, avgMessagesPerThread, maxPossibleNumOfFollowUp , totalFollowUpStatusCounts;
-        console.log ('data>>>',data);
-        data.forEach(function(single){
-          totalFollowUpStatusCounts = single.followUpStatusCounts.FOLLOWED_UP+single.followUpStatusCounts.IGNORED+single.followUpStatusCounts.IGNORED_BLACKLISTED+single.followUpStatusCounts.NO_ACTION+single.followUpStatusCounts.UNDEFINED;
-          totalNumOfUsers = single.totalNumOfUsers;
-          differenceTotalNumOfUsers = single.totalNumOfUsers;
-          totalNumOfAccounts = single.totalNumOfAccounts.GMAIL+single.totalNumOfAccounts.GMAIL_CALENDAR+single.totalNumOfAccounts.SALESFORCE+single.totalNumOfAccounts.TWITTER;
-          totalNumOfThreads = single.totalNumOfThreads;
-          totalNumOfFollowUpThreads = single.totalNumOfFollowUpThreads;
-          totalNumOfUserModels = single.totalNumOfUserModels;
-          totalValidRefreshTokens = single.totalValidRefreshTokens;
-          maxPossibleNumOfFollowUp = single.maxPossibleNumOfFollowUp;
-          differenceRefreshToken = single.maxPossibleNumOfFollowUp;
-        })
-        $('#differenceRefreshTokenCount').text(totalNumOfAccounts);
-        $('#differenceTotalNumOfUsersCount').text(totalNumOfUsers);
-        $('#usercount').text(totalNumOfUsers);
-        $('#accountCount').text(totalNumOfAccounts);
-        $('#EmailThreadsCount').text(totalNumOfThreads);
-        $('#markedAsFollowUpCount').text(totalNumOfFollowUpThreads);
-        $('#userModelBuiltCount').text(totalNumOfUserModels);
-        $('#refreshtokenCount').text(totalValidRefreshTokens);
-        $('#candidateThreadsCount').text(maxPossibleNumOfFollowUp);
-
-        console.log("totalNumOfUsers>>>",totalNumOfUsers);
-        console.log("totalNumOfAccounts>>>",totalNumOfAccounts);
-        console.log("totalNumOfThreads>>>",totalNumOfThreads);
-        console.log("totalNumOfFollowUpThreads>>>",totalNumOfFollowUpThreads);
-        console.log("totalNumOfUserModels>>>",totalNumOfUserModels);
-        console.log("totalValidRefreshTokens>>>",totalValidRefreshTokens);
-        console.log("maxPossibleNumOfFollowUp>>>",maxPossibleNumOfFollowUp);
-        console.log("totalFollowUpStatusCounts>>>",totalFollowUpStatusCounts);
-
-        var values = [];
-        var valuesTwo = [];
-        data.forEach(function(single){
-          values = [];
-          var valuesTwo = [];
-          var keys = Object.keys(single.totalNumOfAccounts);
-          var keysTwo = Object.keys(single.followUpStatusCounts);
-          // console.log("keysTwo####",keysTwo);
-          keysTwo.forEach(function(keyTwo){
-            let b = {"followUpStatusCounts" : keyTwo , "visits" : single.followUpStatusCounts[keyTwo] };
-            // console.log("b####",b);
-            valuesTwo.push(b);
-          })
-          keys.forEach(function(key){
-            let a = {"totalNoOfAccounts" : key , "litres" : single.totalNumOfAccounts[key] };
-            values.push(a);
-
-          })
-          createChartOne(values);
-          createChart(valuesTwo);
-        });
-
-      }
-})
-
-    });
   });
 /*for line graph*/
   var chartData = [];
@@ -515,6 +365,170 @@ function zoomChart(){
   chart.zoomToIndexes(chart.dataProvider.length - 20, chart.dataProvider.length - 1);
 }
 /*line graph ends*/
+
+function filterDate(getdate){
+  var pickdatez = getdate;
+  console.log('actual date format==>',pickdatez);
+  var yearss= pickdatez.substring(pickdatez.indexOf(',')+1,pickdatez.length);
+  // console.log('year>>>>',yearss);
+  var dayss= pickdatez.substring(0,pickdatez.indexOf(' '));
+  console.log("length of days>>>",dayss.length);
+  if (dayss.length!=2){
+    dayss="0"+dayss;
+    console.log("zero wala days>>>",dayss);
+  }
+  console.log("######days>>",dayss);
+  var monthss= pickdatez.substring(pickdatez.indexOf(' ')+1,pickdatez.length-6);
+  // console.log("month>>",monthss);
+
+  var b = "";
+
+      switch(monthss){
+          case "January":
+          b = "01";
+              break;
+          case "February":
+           b = "02" ;
+              break;
+          case  "March":
+          b = "03";
+              break;
+          case "April":
+          b = "04";
+              break;
+          case "May":
+              b = "05";
+              break;
+          case "June":
+              b = "06";
+              break;
+          case "July":
+              b = "07";
+              break;
+          case "August":
+              b = "08";
+              break;
+          case "September":
+              b = "09";
+              break;
+          case "October":
+              b = "10";
+              break;
+          case "November":
+              b = "11";
+              break;
+          case "December":
+              b = "12";
+              break;
+              default:
+              b = 00;
+              break;
+          }
+          // console.log("month>>>>",b);
+
+
+
+
+        var showDate = (yearss+'-'+b+'-'+dayss).trim();
+    console.log('pickdatez>>>>',pickdatez);
+
+  console.log('showdate>>>', showDate);
+  var printday = showDate;
+  printday = new Date(printday).toUTCString();
+  printday = printday.split(' ').slice(0, 4).join(' ')
+  console.log("what to show>>>",printday);
+  //test
+
+  var today = new Date();
+  console.log("*****",today);
+  var today = new Date();
+  var d2 = new Date(today);
+  var dateonetoday = d2.getTime();
+   var d3 = new Date(pickdatez);
+   var datetwopicked = d3.getTime();//checking if picked day is greater than today
+  console.log("dateonetoday>>",dateonetoday);
+  console.log("datetwopicked>>",datetwopicked);
+  if (datetwopicked>dateonetoday){
+    alert("can't select future dates");
+        // $inputText.val(this.get());
+  }
+  $('#seedate').text(printday);//to show date next to the dashboard in sam.htmlshow daily
+
+  $.ajax({
+//url: ( $('#input_text').val()=="" ? 'http://52.7.123.186:8080/analysis/snapshot-views?start_date='+yesterday+'&end_date='+yesterday : 'http://52.7.123.186:8080/analysis/snapshot-views?start_date='+showDate+'&end_date='+showDate),
+ url:'http://52.7.123.186:8080/analysis/snapshot-views?start_date='+showDate+'&end_date='+showDate,
+      // url:'http://52.7.123.186:8080/analysis/snapshot-views?start_date='+yesterday+'&end_date='+yesterday,
+    contentType:"application/x-www-form-urlencoded",
+    type: 'GET',
+    dataType: 'json',
+    crossDomain: true,
+
+    error: function() {
+      $('#info').html('<p>An error has occurred</p>');
+    },
+    success: function (data) {
+
+      // chartData =data.dataProvider;
+      var totalNumOfUsers,  differenceTotalNumOfUsers, differenceRefreshTokenCount, totalNumOfAccounts, totalNumOfThreads, totalNumOfFollowUpThreads, totalNumOfUserModels, totalValidRefreshTokens, avgMessagesPerThread, maxPossibleNumOfFollowUp , totalFollowUpStatusCounts;
+      console.log ('data>>>',data);
+      data.forEach(function(single){
+        totalFollowUpStatusCounts = single.followUpStatusCounts.FOLLOWED_UP+single.followUpStatusCounts.IGNORED+single.followUpStatusCounts.IGNORED_BLACKLISTED+single.followUpStatusCounts.NO_ACTION+single.followUpStatusCounts.UNDEFINED;
+        totalNumOfUsers = single.totalNumOfUsers;
+        differenceTotalNumOfUsers = single.totalNumOfUsers;
+        totalNumOfAccounts = single.totalNumOfAccounts.GMAIL+single.totalNumOfAccounts.GMAIL_CALENDAR+single.totalNumOfAccounts.SALESFORCE+single.totalNumOfAccounts.TWITTER;
+        totalNumOfThreads = single.totalNumOfThreads;
+        totalNumOfFollowUpThreads = single.totalNumOfFollowUpThreads;
+        totalNumOfUserModels = single.totalNumOfUserModels;
+        totalValidRefreshTokens = single.totalValidRefreshTokens;
+        maxPossibleNumOfFollowUp = single.maxPossibleNumOfFollowUp;
+        differenceRefreshToken = single.maxPossibleNumOfFollowUp;
+      })
+      $('#differenceRefreshTokenCount').text(totalNumOfAccounts);
+      $('#differenceTotalNumOfUsersCount').text(totalNumOfUsers);
+      $('#usercount').text(totalNumOfUsers);
+      $('#accountCount').text(totalNumOfAccounts);
+      $('#EmailThreadsCount').text(totalNumOfThreads);
+      $('#markedAsFollowUpCount').text(totalNumOfFollowUpThreads);
+      $('#userModelBuiltCount').text(totalNumOfUserModels);
+      $('#refreshtokenCount').text(totalValidRefreshTokens);
+      $('#candidateThreadsCount').text(maxPossibleNumOfFollowUp);
+
+      console.log("totalNumOfUsers>>>",totalNumOfUsers);
+      console.log("totalNumOfAccounts>>>",totalNumOfAccounts);
+      console.log("totalNumOfThreads>>>",totalNumOfThreads);
+      console.log("totalNumOfFollowUpThreads>>>",totalNumOfFollowUpThreads);
+      console.log("totalNumOfUserModels>>>",totalNumOfUserModels);
+      console.log("totalValidRefreshTokens>>>",totalValidRefreshTokens);
+      console.log("maxPossibleNumOfFollowUp>>>",maxPossibleNumOfFollowUp);
+      console.log("totalFollowUpStatusCounts>>>",totalFollowUpStatusCounts);
+
+      var values = [];
+      var valuesTwo = [];
+      data.forEach(function(single){
+        values = [];
+        var valuesTwo = [];
+        var keys = Object.keys(single.totalNumOfAccounts);
+        var keysTwo = Object.keys(single.followUpStatusCounts);
+        // console.log("keysTwo####",keysTwo);
+        keysTwo.forEach(function(keyTwo){
+          let b = {"followUpStatusCounts" : keyTwo , "visits" : single.followUpStatusCounts[keyTwo] };
+          // console.log("b####",b);
+          valuesTwo.push(b);
+        })
+        keys.forEach(function(key){
+          let a = {"totalNoOfAccounts" : key , "litres" : single.totalNumOfAccounts[key] };
+          values.push(a);
+
+        })
+        createChartOne(values);
+        createChart(valuesTwo);
+      });
+
+    }
+
+
+  });
+}
 
 function createChartOne(data){
   /*PieChart*/
