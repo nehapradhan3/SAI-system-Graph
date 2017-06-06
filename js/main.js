@@ -426,9 +426,6 @@ function filterDate(getdate){
           }
           // console.log("month>>>>",b);
 
-
-
-
         var showDate = (yearss+'-'+b+'-'+dayss).trim();
     console.log('pickdatez>>>>',pickdatez);
 

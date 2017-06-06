@@ -515,7 +515,7 @@ if(oneWeekAgoMonth<10) {
     oneWeekAgoMonth='0'+oneWeekAgoMonth
 }
 var sd=oneWeekAgoYear+'-'+oneWeekAgoMonth+'-'+oneWeekAgoDate;
-$('#startDate').val(oneWeekAgo);
+$('#startDate').val(sd);
 console.log("one weekago>>",sd);
   });
   //for two weeks
@@ -537,7 +537,7 @@ if(twoWeeksAgoMonth<10) {
   twoWeeksAgoMonth='0'+twoWeeksAgoMonth
 }
 var sd=twoWeeksAgoYear+'-'+twoWeeksAgoMonth+'-'+twoWeeksAgoDate;
-$('#startDate').val(twoWeeksAgo);
+$('#startDate').val(sd);
 console.log("twoweeks ago>>",sd);
   });
   //for one month
@@ -558,9 +558,9 @@ if(oneMonthAgoDate<10) {
 if(oneMonthAgoMonth<10) {
     oneMonthAgoMonth='0'+oneMonthAgoMonth
 }
-var oneMonthAgo=oneMonthAgoYear+'-'+oneMonthAgoMonth+'-'+oneMonthAgoDate;
-var sd= $('#startDate').val(oneMonthAgo);
-console.log("one Monthago>>",oneMonthAgo);
+var sd=oneMonthAgoYear+'-'+oneMonthAgoMonth+'-'+oneMonthAgoDate;
+ $('#startDate').val(sd);
+console.log("one Monthago>>",sd);
   });
   //for one quarter
   $('a.oneQuarter').on('click', function(today1){
@@ -580,22 +580,139 @@ if(threeMonthsAgoDate<10) {
 if(threeMonthsAgoMonth<10) {
     threeMonthsAgoMonth='0'+threeMonthsAgoMonth
 }
-var threeMonthsAgo=threeMonthsAgoYear+'-'+threeMonthsAgoMonth+'-'+threeMonthsAgoDate;
-var sd= $('#startDate').val(threeMonthsAgo);
+var sd=threeMonthsAgoYear+'-'+threeMonthsAgoMonth+'-'+threeMonthsAgoDate;
+$('#startDate').val(sd);
 console.log("threeMonthsAgo>>",sd);
   });
   $('.datesubmit').on('click', function(){
-    var datetimepicker1= $('input#startDate').val(),
+    var datetimepicker1=$('#startDate').val(),
     dateFrom = new Date(datetimepicker1).valueOf();
-     console.log('date1>>>',datetimepicker1);
-    var datetimepicker2= $('input#endDate').val(),
+    //  console.log('date1>>>', dateFrom);
+    var datetimepicker2= $('#endDate').val(),
     dateTo = new Date(datetimepicker2).valueOf();
-    console.log('date2>>>',datetimepicker2);
+    // console.log('date2>>>',dateTo);
     if(isNaN(dateFrom)|| isNaN(dateTo)){
       return;
     }
+    console.log("sd>>>>",datetimepicker1);
+    console.log("ed>>>>",datetimepicker2);
+    $.ajax({
+        // url : 'http://52.55.210.93:8080/analysis/snapshot-views?start_date=2017-05-14&end_date=2017-05-18',
+          url:'http://52.7.123.186:8080/analysis/snapshot-views?start_date='+datetimepicker1+'&end_date='+datetimepicker2,
+      //  url: 'http://52.7.123.186:8080/analysis/snapshot-views',
+        contentType:"application/x-www-form-urlencoded",
+        type: 'GET',
+        dataType: 'json',
+        crossDomain: true,
 
+        error: function() {
+          $('#info').html('<p>An error has occurred</p>');
+        },
+        success: function (data) {
+          var totalNumOfUsers,  differenceTotalNumOfUsers, differenceRefreshTokenCount, totalNumOfAccounts, totalNumOfThreads, totalNumOfFollowUpThreads, totalNumOfUserModels, totalValidRefreshTokens, avgMessagesPerThread;
+        //  console.log ('data>>>',data);
+          // console.log('data.length>>>',data.length);
+
+          let snapshotDate=[];
+          let dataL = [];
+          let dataM = [];
+          let dataN = [];
+          data.forEach(function(single){
+            // console.log('DATE>>',single.snapshotDate);
+            // snapshotDate.push(single.snapshotDate);
+            // generateChartData(snapshotDate,single.totalNumOfUsers,single.totalNumOfAccounts.GMAIL,data.length);
+            totalFollowUpStatusCounts = single.followUpStatusCounts.FOLLOWED_UP+single.followUpStatusCounts.IGNORED+single.followUpStatusCounts.IGNORED_BLACKLISTED+single.followUpStatusCounts.NO_ACTION+single.followUpStatusCounts.UNDEFINED;
+            totalNumOfUsers = single.totalNumOfUsers;
+            differenceTotalNumOfUsers = single.totalNumOfUsers;
+
+            totalNumOfAccounts = single.totalNumOfAccounts.GMAIL+single.totalNumOfAccounts.GMAIL_CALENDAR+single.totalNumOfAccounts.SALESFORCE+single.totalNumOfAccounts.TWITTER;
+            totalNumOfThreads = single.totalNumOfThreads;
+            totalNumOfFollowUpThreads = single.totalNumOfFollowUpThreads;
+            totalNumOfUserModels = single.totalNumOfUserModels;
+            totalValidRefreshTokens = single.totalValidRefreshTokens;
+            maxPossibleNumOfFollowUp = single.maxPossibleNumOfFollowUp;
+            differenceRefreshToken = single.maxPossibleNumOfFollowUp;
+
+
+            ///////////////////////suman
+
+            let unixEpochTime = single.snapshotDateUnixTimeStamp;
+            // let d = new Date(0); // The 0 there is the key, which sets the date to the epoch
+            //     d.setUTCSeconds(unixEpochTime);
+            //     d.setDate(d.getDate() - 100);
+                //  console.log("epochdate>>>",d);
+                 var d = new Date(unixEpochTime*1000);
+                //  console.log("date>>>>>",d);
+          dataL.push({
+                      date: d,
+                      totalAccounts: totalNumOfAccounts,
+                      totalUsers: totalNumOfUsers
+
+                 });//endofdataL
+                  MakeChartData(dataL)
+               var calculatedDate= single.snapshotDate;
+               var dm= new Date(calculatedDate);
+               var dmdate= dm.getDate();
+               var monthNames = ["January", "February", "March", "April", "May", "June",
+      "July", "August", "September", "October", "November", "December"
+    ];
+               var dmmonth=monthNames[dm.getMonth()];
+
+            var t= dmmonth+ dmdate;//for the x-axis
+
+
+                  dataM.push({
+                    date: t,
+                    usersValue:single.totalNumOfUsers,
+                    followup : single.followUpStatusCounts.FOLLOWED_UP,
+                    Ignored: single.followUpStatusCounts.IGNORED+single.followUpStatusCounts.IGNORED_BLACKLISTED,
+                    maxpossibleTL: single.maxPossibleThreadsInList,
+                    NoAction: single.followUpStatusCounts.NO_ACTION,
+                    undefinedone: single.followUpStatusCounts.UNDEFINED,
+                    totalsent: single.followUpStatusCounts.FOLLOWED_UP+single.followUpStatusCounts.IGNORED+single.followUpStatusCounts.IGNORED_BLACKLISTED+single.followUpStatusCounts.NO_ACTION+single.followUpStatusCounts.UNDEFINED
+
+                  });//end of dataM
+                  // console.log("dataM>>>>",dataM);
+                MakeStackData(dataM);
+                MaxChartData(dataM);
+                dataN.push({
+                  date: t,
+                  usersValue:single.totalNumOfUsers,
+                  followup : single.followUpStatusPercentages.FOLLOWED_UP,
+                  Ignored: single.followUpStatusPercentages.IGNORED+single.followUpStatusPercentages.IGNORED_BLACKLISTED,
+                  maxpossibleTL: single.maxPossibleThreadsInList,
+                  NoAction: single.followUpStatusPercentages.NO_ACTION,
+                  undefinedone: single.followUpStatusPercentages.UNDEFINED
+
+                });
+                // console.log("dataN>>>>",dataN);
+                MakepercentData(dataN);
+          })
+
+
+        }
+      });
+
+      var sd = new Date(), ed = new Date();
+
+      $('#startDate').datetimepicker({
+        pickTime: false,
+        format: "YYYY/MM/DD",
+        defaultDate: sd,
+        maxDate: ed
+      });
+
+      $('#endDate').datetimepicker({
+        pickTime: false,
+        format: "YYYY/MM/DD",
+        defaultDate: ed,
+        minDate: sd
+      });
+
+      //passing 1.jquery form object, 2.start date dom Id, 3.end date dom Id
+      bindDateRangeValidation($("#form"), 'startDate', 'endDate');
   });
+
   function todaysdate(){
     var today = new Date();
     var dd = today.getDate();
@@ -614,122 +731,7 @@ console.log("threeMonthsAgo>>",sd);
     today1= yyyy+'-'+mm+'-'+dd;
     return today1;
   };
-console.log("sd>>>>",sd);
-console.log("ed>>>>",ed);
+
   //datepicker
-$.ajax({
-    // url : 'http://52.55.210.93:8080/analysis/snapshot-views?start_date=2017-05-14&end_date=2017-05-18',
-    // url :'http://52.55.210.93:8080/analysis/snapshot-views?start_date='+dateFrom+'&end_date='dateTo,
-    url: 'http://52.7.123.186:8080/analysis/snapshot-views',
-    contentType:"application/x-www-form-urlencoded",
-    type: 'GET',
-    dataType: 'json',
-    crossDomain: true,
 
-    error: function() {
-      $('#info').html('<p>An error has occurred</p>');
-    },
-    success: function (data) {
-      var totalNumOfUsers,  differenceTotalNumOfUsers, differenceRefreshTokenCount, totalNumOfAccounts, totalNumOfThreads, totalNumOfFollowUpThreads, totalNumOfUserModels, totalValidRefreshTokens, avgMessagesPerThread;
-    //  console.log ('data>>>',data);
-      // console.log('data.length>>>',data.length);
-
-      let snapshotDate=[];
-      let dataL = [];
-      let dataM = [];
-      let dataN = [];
-      data.forEach(function(single){
-        // console.log('DATE>>',single.snapshotDate);
-        // snapshotDate.push(single.snapshotDate);
-        // generateChartData(snapshotDate,single.totalNumOfUsers,single.totalNumOfAccounts.GMAIL,data.length);
-        totalFollowUpStatusCounts = single.followUpStatusCounts.FOLLOWED_UP+single.followUpStatusCounts.IGNORED+single.followUpStatusCounts.IGNORED_BLACKLISTED+single.followUpStatusCounts.NO_ACTION+single.followUpStatusCounts.UNDEFINED;
-        totalNumOfUsers = single.totalNumOfUsers;
-        differenceTotalNumOfUsers = single.totalNumOfUsers;
-
-        totalNumOfAccounts = single.totalNumOfAccounts.GMAIL+single.totalNumOfAccounts.GMAIL_CALENDAR+single.totalNumOfAccounts.SALESFORCE+single.totalNumOfAccounts.TWITTER;
-        totalNumOfThreads = single.totalNumOfThreads;
-        totalNumOfFollowUpThreads = single.totalNumOfFollowUpThreads;
-        totalNumOfUserModels = single.totalNumOfUserModels;
-        totalValidRefreshTokens = single.totalValidRefreshTokens;
-        maxPossibleNumOfFollowUp = single.maxPossibleNumOfFollowUp;
-        differenceRefreshToken = single.maxPossibleNumOfFollowUp;
-
-
-        ///////////////////////suman
-
-        let unixEpochTime = single.snapshotDateUnixTimeStamp;
-        // let d = new Date(0); // The 0 there is the key, which sets the date to the epoch
-        //     d.setUTCSeconds(unixEpochTime);
-        //     d.setDate(d.getDate() - 100);
-            //  console.log("epochdate>>>",d);
-             var d = new Date(unixEpochTime*1000);
-            //  console.log("date>>>>>",d);
-      dataL.push({
-                  date: d,
-                  totalAccounts: totalNumOfAccounts,
-                  totalUsers: totalNumOfUsers
-
-             });//endofdataL
-              MakeChartData(dataL)
-           var calculatedDate= single.snapshotDate;
-           var dm= new Date(calculatedDate);
-           var dmdate= dm.getDate();
-           var monthNames = ["January", "February", "March", "April", "May", "June",
-  "July", "August", "September", "October", "November", "December"
-];
-           var dmmonth=monthNames[dm.getMonth()];
-
-        var t= dmmonth+ dmdate;//for the x-axis
-
-
-              dataM.push({
-                date: t,
-                usersValue:single.totalNumOfUsers,
-                followup : single.followUpStatusCounts.FOLLOWED_UP,
-                Ignored: single.followUpStatusCounts.IGNORED+single.followUpStatusCounts.IGNORED_BLACKLISTED,
-                maxpossibleTL: single.maxPossibleThreadsInList,
-                NoAction: single.followUpStatusCounts.NO_ACTION,
-                undefinedone: single.followUpStatusCounts.UNDEFINED,
-                totalsent: single.followUpStatusCounts.FOLLOWED_UP+single.followUpStatusCounts.IGNORED+single.followUpStatusCounts.IGNORED_BLACKLISTED+single.followUpStatusCounts.NO_ACTION+single.followUpStatusCounts.UNDEFINED
-
-              });//end of dataM
-              // console.log("dataM>>>>",dataM);
-            MakeStackData(dataM);
-            MaxChartData(dataM);
-            dataN.push({
-              date: t,
-              usersValue:single.totalNumOfUsers,
-              followup : single.followUpStatusPercentages.FOLLOWED_UP,
-              Ignored: single.followUpStatusPercentages.IGNORED+single.followUpStatusPercentages.IGNORED_BLACKLISTED,
-              maxpossibleTL: single.maxPossibleThreadsInList,
-              NoAction: single.followUpStatusPercentages.NO_ACTION,
-              undefinedone: single.followUpStatusPercentages.UNDEFINED
-
-            });
-            // console.log("dataN>>>>",dataN);
-            MakepercentData(dataN);
-      })
-
-
-    }
-  });
-
-  var sd = new Date(), ed = new Date();
-
-  $('#startDate').datetimepicker({
-    pickTime: false,
-    format: "YYYY/MM/DD",
-    defaultDate: sd,
-    maxDate: ed
-  });
-
-  $('#endDate').datetimepicker({
-    pickTime: false,
-    format: "YYYY/MM/DD",
-    defaultDate: ed,
-    minDate: sd
-  });
-
-  //passing 1.jquery form object, 2.start date dom Id, 3.end date dom Id
-  bindDateRangeValidation($("#form"), 'startDate', 'endDate');
 });
