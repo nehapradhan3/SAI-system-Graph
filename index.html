@@ -3,7 +3,7 @@
 <head>
   <link rel="stylesheet" href="css/login.css"/>
     <script src="js/login.js"></script>
-  
+
 </head>
 
 <body onload=beginning()>
@@ -82,7 +82,7 @@ function beginning(){
   }
   else{
    sessionStorage.setItem('status','loggedOut');
-
+   localStorage.removeItem('userEmail');
   }
 }
 </script>

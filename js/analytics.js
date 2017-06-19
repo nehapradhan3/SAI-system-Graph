@@ -1,200 +1,181 @@
-(function(window, document, undefined) {
 
-  var factory = function($, DataTable) {
-    "use strict";
 
-    $('.search-toggle').click(function() {
-      if ($('.hiddensearch').css('display') == 'none')
-        $('.hiddensearch').slideDown();
-      else
-        $('.hiddensearch').slideUp();
-    });
+$(document).ready(function() {
+  var showdate=localStorage.getItem("dailyShowDate");
+console.log("dailyShowDate",showdate);
 
-    /* Set the defaults for DataTables initialisation */
-    $.extend(true, DataTable.defaults, {
-      dom: "<'hiddensearch'f'>" +
-        "tr" +
-        "<'table-footer'lip'>",
-      renderer: 'material'
-    });
+  $.ajax({
 
-    /* Default class modification */
-    $.extend(DataTable.ext.classes, {
-      sWrapper: "dataTables_wrapper",
-      sFilterInput: "form-control input-sm",
-      sLengthSelect: "form-control input-sm"
-    });
+    url:'http://52.7.123.186:8080/analysis/user-snapshot-views?date='+showdate,
+    contentType:"application/x-www-form-urlencoded",
+    type: 'GET',
+    dataType: 'json',
+    crossDomain: true,
 
-    /* Bootstrap paging button renderer */
-    DataTable.ext.renderer.pageButton.material = function(settings, host, idx, buttons, page, pages) {
-      var api = new DataTable.Api(settings);
-      var classes = settings.oClasses;
-      var lang = settings.oLanguage.oPaginate;
-      var btnDisplay, btnClass, counter = 0;
+    error: function() {
+      $('#info').html('<p>An error has occurred</p>');
+    },
+    success: function (data) {
+      var baseEmailAddress, numOfAccounts, userAccountStatus, trHTML='', details;
 
-      var attach = function(container, buttons) {
-        var i, ien, node, button;
-        var clickHandler = function(e) {
-          e.preventDefault();
-          if (!$(e.currentTarget).hasClass('disabled')) {
-            api.page(e.data.action).draw(false);
-          }
-        };
+      // console.log('data>>>',data);
 
-        for (i = 0, ien = buttons.length; i < ien; i++) {
-          button = buttons[i];
+      data.forEach(function(single){
+        // console.log("single>>>>",single);
+        baseEmailAddress=single.baseEmailAddress;
+        // console.log("baseEmailAddress>>>",baseEmailAddress);
+        numOfAccounts = single.numOfAccounts.GMAIL+single.numOfAccounts.GMAIL_CALENDAR+single.numOfAccounts.SALESFORCE+single.numOfAccounts.TWITTER;
+        // console.log("numOfAccounts>>>",numOfAccounts);
+        userAccountStatus=single.userAccountStatus;
+        // console.log("userAccountStatus>>>>",userAccountStatus);
+        details=single.baseEmailAddress;
+        //  console.log(">>>>>>",trHTML);
 
-          if ($.isArray(button)) {
-            attach(container, button);
-          } else {
-            btnDisplay = '';
-            btnClass = '';
+        trHTML += '<tr><td>' + baseEmailAddress + '</td><td>' + numOfAccounts + '</td><td>' + userAccountStatus +'</td><td><a href="analyticsDetail.html">'+details +'</a></td></tr>';
+        // console.log("userAccountStatus>>>",userAccountStatus);
 
-            switch (button) {
+      })//for each
+      $('#example1').append(trHTML);
 
-              case 'first':
-                btnDisplay = lang.sFirst;
-                btnClass = button + (page > 0 ?
-                  '' : ' disabled');
-                break;
+    },//success
+    complete: function (data) {
+      trcolor();
+      alink();
+     }
+  });//ajax/ajax
+});
 
-              case 'previous':
-                btnDisplay = '<i class="material-icons">chevron_left</i>';
-                btnClass = button + (page > 0 ?
-                  '' : ' disabled');
-                break;
+function myFunction() {
+   var input, filter, table, tr, td, i;
+   input = document.getElementById("myInput");
+   filter = input.value.toUpperCase();
+   table = document.getElementById("example1");
+   tr = table.getElementsByTagName("tr");
+   for (i = 0; i < tr.length; i++) {
+     td = tr[i].getElementsByTagName("td")[0];
+     if (td) {
+       if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+         tr[i].style.display = "";
+       } else {
+         tr[i].style.display = "none";
+       }
+     }
+   }
+ }
 
-              case 'next':
-                btnDisplay = '<i class="material-icons">chevron_right</i>';
-                btnClass = button + (page < pages - 1 ?
-                  '' : ' disabled');
-                break;
+ function alink(txt) {
+    var input, filter, table, tr, td, i,tdd;
+    table = document.getElementById("example1");
+    tr = table.getElementsByTagName("tr");
+   for (i = 1; i < tr.length; i++) {
+      td = tr[i].getElementsByTagName("td")[3];
 
-              case 'last':
-                btnDisplay = lang.sLast;
-                btnClass = button + (page < pages - 1 ?
-                  '' : ' disabled');
-                break;
+//console.log("td>>>>",$("td > a").text() + " ");
 
-            }
 
-            if (btnDisplay) {
-              node = $('<li>', {
-                  'class': classes.sPageButton + ' ' + btnClass,
-                  'id': idx === 0 && typeof button === 'string' ?
-                    settings.sTableId + '_' + button : null
-                })
-                .append($('<a>', {
-                    'href': '#',
-                    'aria-controls': settings.sTableId,
-                    'data-dt-idx': counter,
-                    'tabindex': settings.iTabIndex
-                  })
-                  .html(btnDisplay)
-                )
-                .appendTo(container);
-
-              settings.oApi._fnBindAction(
-                node, {
-                  action: button
-                }, clickHandler
-              );
-
-              counter++;
-            }
-          }
-        }
-      };
-
-      // IE9 throws an 'unknown error' if document.activeElement is used
-      // inside an iframe or frame.
-      var activeEl;
-
-      try {
-        // Because this approach is destroying and recreating the paging
-        // elements, focus is lost on the select button which is bad for
-        // accessibility. So we want to restore focus once the draw has
-        // completed
-        activeEl = $(document.activeElement).data('dt-idx');
-      } catch (e) {}
-
-      attach(
-        $(host).empty().html('<ul class="material-pagination"/>').children('ul'),
-        buttons
-      );
-
-      if (activeEl) {
-        $(host).find('[data-dt-idx=' + activeEl + ']').focus();
       }
-    };
+      $("td > a").click(function(e) {
+         txt = $(e.target).text();
 
-    /*
-     * TableTools Bootstrap compatibility
-     * Required TableTools 2.1+
-     */
-    if (DataTable.TableTools) {
-      // Set the classes that TableTools uses to something suitable for Bootstrap
-      $.extend(true, DataTable.TableTools.classes, {
-        "container": "DTTT btn-group",
-        "buttons": {
-          "normal": "btn btn-default",
-          "disabled": "disabled"
-        },
-        "collection": {
-          "container": "DTTT_dropdown dropdown-menu",
-          "buttons": {
-            "normal": "",
-            "disabled": "disabled"
-          }
-        },
-        "print": {
-          "info": "DTTT_print_info"
-        },
-        "select": {
-          "row": "active"
-        }
-      });
-
-      // Have the collection use a material compatible drop down
-      $.extend(true, DataTable.TableTools.DEFAULTS.oTags, {
-        "collection": {
-          "container": "ul",
-          "button": "li",
-          "liner": "a"
-        }
+        console.log(txt);
+        // return txt;
+localStorage.setItem('userEmail', txt);
+console.log("localStorage>>>>",localStorage.userEmail);
+        //window.location = 'analyticsDetail.html';
       });
     }
 
-  }; // /factory
-
-  // Define as an AMD module if possible
-  if (typeof define === 'function' && define.amd) {
-    define(['jquery', 'datatables'], factory);
-  } else if (typeof exports === 'object') {
-    // Node/CommonJS
-    factory(require('jquery'), require('datatables'));
-  } else if (jQuery) {
-    // Otherwise simply initialise as normal, stopping multiple evaluation
-    factory(jQuery, jQuery.fn.dataTable);
+// var test ={
+//   email:
+// };
+// console.log("#####",test.email);
+ //function number sortTable
+ function numbersortTable() {
+  var table, rows, switching, i, x, y, shouldSwitch;
+  table = document.getElementById("example1");
+  switching = true;
+  /*Make a loop that will continue until
+  no switching has been done:*/
+  while (switching) {
+    //start by saying: no switching is done:
+    switching = false;
+    rows = table.getElementsByTagName("TR");
+    /*Loop through all table rows (except the
+    first, which contains table headers):*/
+    for (i = 1; i < (rows.length - 1); i++) {
+      //start by saying there should be no switching:
+      shouldSwitch = false;
+      /*Get the two elements you want to compare,
+      one from current row and one from the next:*/
+      x = rows[i].getElementsByTagName("TD")[1];
+      y = rows[i + 1].getElementsByTagName("TD")[1];
+      //check if the two rows should switch place:
+      if (x.innerHTML > y.innerHTML) {
+        //if so, mark as a switch and break the loop:
+        shouldSwitch= true;
+        break;
+      }
+    }
+    if (shouldSwitch) {
+      /*If a switch has been marked, make the switch
+      and mark that a switch has been done:*/
+      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+      switching = true;
+    }
   }
+ }
+ //sorting table function
+ function sortTable() {
+  var table, rows, switching, i, x, y, shouldSwitch;
+  table = document.getElementById("example1");
+  switching = true;
+  /*Make a loop that will continue until
+  no switching has been done:*/
+  while (switching) {
+    //start by saying: no switching is done:
+    switching = false;
+    rows = table.getElementsByTagName("TR");
+    /*Loop through all table rows (except the
+    first, which contains table headers):*/
+    for (i = 1; i < (rows.length - 1); i++) {
+      //start by saying there should be no switching:
+      shouldSwitch = false;
+      /*Get the two elements you want to compare,
+      one from current row and one from the next:*/
+      x = rows[i].getElementsByTagName("TD")[0];
+      y = rows[i + 1].getElementsByTagName("TD")[0];
+      //check if the two rows should switch place:
+      if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+        //if so, mark as a switch and break the loop:
+        shouldSwitch= true;
+        break;
+      }
+    }
+    if (shouldSwitch) {
+      /*If a switch has been marked, make the switch
+      and mark that a switch has been done:*/
+      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+      switching = true;
+    }
+  }
+}
+ function trcolor(){
+   tablecolor = document.getElementById("example1");
+   tr = tablecolor.getElementsByTagName("tr");
 
-})(window, document);
+   for (i = 1; i < tr.length; i++) {
+     td = tr[i].getElementsByTagName("td")[2];
+    //  console.log("td>>>",td);
+       if (td.innerHTML.toUpperCase()=="VALID") {
+        $(tr[i]).css('background-color', '#99ff99');
+        }
+        if(td.innerHTML.toUpperCase()=="INVALID") {
+            $(tr[i]).css('background-color', '#ff8080');
+          }
 
-$(document).ready(function() {
-  $('#datatable').DataTable({
-    "oLanguage": {
-      "sStripClasses": "",
-      "sSearch": "",
-      "sSearchPlaceholder": "Enter Keywords Here",
-      "sInfo": "_START_ -_END_ of _TOTAL_",
-      "sLengthMenu": '<span>Rows per page:</span><select class="browser-default">' +
-        '<option value="10">10</option>' +
-        '<option value="20">20</option>' +
-        '<option value="30">30</option>' +
-        
-        '<option value="-1">All</option>' +
-        '</select></div>'
-    },
-    bAutoWidth: false
-  });
-});
+ if(td.innerHTML.toUpperCase()=="PARTIAL_VALID") {
+     $(tr[i]).css('background-color', '#ffff80');
+
+    }
+ }
+ }

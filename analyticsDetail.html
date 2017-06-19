@@ -7,6 +7,7 @@
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <script src="plugins/jQuery/jquery-2.2.3.min.js"></script>
+  <script src="js/jQuery/jquery-2.2.3.min.js"></script>
   <!-- Bootstrap 3.3.7 -->
   <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
   <!-- Font Awesome -->
@@ -20,12 +21,24 @@
   <!-- AdminLTE Skins. Choose a skin from the css/skins
   folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="dist/css/skins/_all-skins.min.css">
-
+  <link rel="stylesheet" href="css/analyticsDetail.css">
+  <!-- <script src="js/analytics.js"> -->
 
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
   <!-- <link rel="stylesheet" type="text/css" href="plugins/datatables/jquery.dataTables.css">
   <script type="text/javascript" charset="utf8" src="plugins/datatables/jquery.dataTables.js"></script> -->
+
+  <link rel="stylesheet" href="plugins/datepicker/datepicker3.css">
+  <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/3.1.3/css/bootstrap-datetimepicker.min.css">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+  <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/css/bootstrapValidator.min.css">
+
+  <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css" media="all" />
+
+
+
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
   <div class="wrapper">
@@ -55,7 +68,7 @@
           <!-- Tasks: style can be found in dropdown.less -->
 
           <!-- User Account: style can be found in dropdown.less -->
-        <li class="dropdown user user-menu pull-right">
+      <li class="dropdown user user-menu pull-right">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <img src="img_avatar2.png" class="user-image" alt="User Image">
               <span class="hidden-xs"></span>
@@ -91,15 +104,15 @@
                   <a href="#" class="btn btn-default btn-flat">Profile</a>
                 </div>
                 <div class="pull-right">
-                  <a href="index.html" class="btn btn-default btn-flat">Sign out</a>
+                  <a href="#" class="btn btn-default btn-flat">Sign out</a>
                 </div>
               </li>
             </ul>
           </li>
           <!-- Control Sidebar Toggle Button -->
-          <li>
+          <!-- <li>
             <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
-          </li>
+          </li> -->
         </ul>
       </div>
     </nav>
@@ -166,60 +179,155 @@
 </section>
 
 <!-- Main content -->
-<section class="content">
+<div class="box">
+<div class="box-body">
+  <!-- Small boxes (Stat box) -->
+  <section class="showDaily">
   <div class="row">
-    <div class="col-xs-12">
-      <div class="box">
+    <div class="col-lg-3 col-xs-6">
+      <!-- small box -->
+      <div class="small-box bg-aqua">
+        <div class="inner">
+          <!-- <h3 id="usercount"></h3> -->
 
-        <!-- /.box-header -->
-        <div class="box-body">
-
-          <!-- /.box -->
-
-          <div class="box">
-
-            <div class="box-header">
-              <h3 class="box-title">User Analytics</h3>
-
-            </div>
-            <input type="text" id="myInput" class="pull-right"  onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
-            <!-- /.box-header -->
-            <div class="box-body">
-              <!-- <button onclick="trcolor()">colorcheck</button> -->
-              <table id="example1" class="table table-bordered table-striped">
-
-
-                <!-- <thead> -->
-                <tr>
-                  <th>Email (job title) <button class="btn btn-default" onclick="sortTable()"><i class="fa fa-sort" aria-hidden="true"></i>
-                  </button></th>
-                  <th>Accounts  <button  id="rank" class="btn btn-default" onclick="numbersortTable()" ><i class="fa fa-sort" aria-hidden="true"></i>
-                  </button></th>
-                  <th>Status </th>
-                    <th>Details </th>
-                </tr>
-                <!-- </thead>  -->
-
-                <tbody>
-
-
-                </tbody>
-
-
-              </table>
-
-            </div>
-            <!-- /.box-body -->
-          </div>
-          <!-- /.box -->
+        <center>  <p>Base Email Address</p></center>
         </div>
-        <!-- /.col -->
+        <div class="icon">
+          <!-- <i class="ion ion-email"></i> -->
+        </div>
+        <a href="analytics.html" class="small-box-footer">
+          <h4 id="showName">
+          </h4>
+          <!-- <i class="fa fa-arrow-circle-right"></i> -->
+        </a>
       </div>
-      <!-- /.row -->
+    </div>
+    <!-- ./col -->
+    <div class="col-lg-3 col-xs-6">
+      <!-- small box -->
+      <div class="small-box bg-green">
+        <div class="inner">
+          <h3 id="accountCount"><sup style="font-size: 20px"></sup></h3>
+
+          <center><p>SignUp Date</p></center>
+        </div>
+        <div class="icon">
+          <!-- <i class="ion-android-checkbox-outline"></i> -->
+        </div>
+        <a href="#" class="small-box-footer">
+            <h4 id="signUpDate"></h4>
+           <!-- <i class="fa fa-arrow-circle-right"></i> -->
+         </a>
+      </div>
+    </div>
+    <!-- ./col -->
+    <div class="col-lg-3 col-xs-6">
+      <!-- small box -->
+      <div class="small-box bg-yellow">
+        <div class="inner">
+          <h5 id="EmailThreadsCount"></h5>
+
+          <center><p>Account Types</p></center>
+        </div>
+        <div class="icon">
+          <!-- <i class="ion-android-settings"></i> -->
+        </div>
+        <a href="#" class="small-box-footer">
+            <h5 id="AccountType"></h5>
+           <!-- <i class="fa fa-arrow-circle-right"></i> -->
+         </a>
+      </div>
+    </div>
+    <!-- ./col -->
+    <div class="col-lg-3 col-xs-6">
+      <!-- small box -->
+      <div class="small-box bg-red">
+        <div class="inner">
+          <h5 id="candidateThreadsCount"></h5>
+
+        <center><p>Number of related Accounts</p></center>
+        </div>
+        <div class="icon">
+          <!-- <i class="ion ion-pie-graph"></i> -->
+        </div>
+        <a href="#" class="small-box-footer">
+          <h5 id="NoOfAccounts"></h5>
+
+           <!-- <i class="fa fa-arrow-circle-right"></i> -->
+         </a>
+      </div>
+    </div>
+
+
+    <!-- ./col -->
+
+  </section>
+  <!-- Base Email Address: -->
+        <!-- <h6 id="showName">
+        </h6> -->
+        <!-- Sign Up Date:
+        <h6 id="signUpDate"></h6>
+        Account Type:
+        <h6 id="AccountType"></h6>
+
+      </div>
+
+</div> -->
+
+
+<!--date picker-->
+<div class="content-wrapper">
+
+  <div class="col-md-12">
+  <div class="datePicker">
+  <form id="form" name="form" class="form-inline">
+  <div class="form-group">
+
+    <label for="startDate">Start Date</label>
+    <input id="startDate" name="startDate" type="text" class="form-control" />
+
+    &nbsp;
+
+    <label for="endDate">End Date</label>
+    <input id="endDate" name="endDate" type="text" class="form-control" />
+
+  </div>
+  <button class="btn btn-primary datesubmit">ReSync</button>
+  </form>
+  </div>
+</div>
+<!--end of col-md-12-->
+
+</div>
+<!-- /.content-wrapper -->
+<!--end of date picker-->
+
+
+
+<section class="contentss">
+  <div class="col-md-12">
+     <!-- <div id="chartdiv"> </div> -->
+     <!-- <div class="col-md-12">
+                <div id="chartdivfuse"></div>
+       </div> -->
+       <div class="col-md-12">
+         <div id="simplestack"></div>
+       </div>
+       <!--maxpossible tl vs total sent -->
+       <div class="col-md-12">
+      <div id="maxpossibleTS"></div>
+       </div>
+
+       <!--maxpossible tl vs total sent-->
+       <div class="col-md-12">
+         <div id="chartdivpercent"></div>
+       </div>
+
+</div>
+</div>
     </section>
     <!-- /.content -->
-  </div>
-  <!-- /.content-wrapper -->
+
   <footer class="main-footer">
     <div class="pull-right hidden-xs">
 
@@ -227,7 +335,7 @@
     <strong>Copyright &copy; 2017 Fusemachines.com.</strong> All rights
     reserved.
   </footer>
-
+</div>
   <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">
     <!-- Create the tabs -->
@@ -263,22 +371,33 @@
 <!-- AdminLTE for demo purposes -->
 <script src="dist/js/demo.js"></script>
 <!-- page script -->
+<script src="js/analyticsDetail.js"></script>
+<script src="plugins/jQuery/bootstrap-table.js"></script>
+<script src="plugins/datepicker/bootstrap-datepicker.js"></script>
+<!-- daterangepicker -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
+<script src="plugins/daterangepicker/daterangepicker.js"></script>
+<!-- datepicker -->
+<script src="plugins/datepicker/bootstrap-datepicker.js"></script>
+<!-- Bootstrap WYSIHTML5 -->
+<script src="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
+
+
+<script src="dist/js/app.min.js"></script>
+
+<script src="dist/js/pages/dashboard.js"></script>
+
+<script src="dist/js/demo.js"></script>
+<script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/js/bootstrapValidator.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/3.1.3/js/bootstrap-datetimepicker.min.js"></script>
+<script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
+<script src="https://www.amcharts.com/lib/3/serial.js"></script>
+<script src="https://www.amcharts.com/lib/3/pie.js"></script>
+<script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
 <script src="js/analytics.js"></script>
 <script src="js/analyticsDetail.js"></script>
-
-<script src="plugins/jQuery/bootstrap-table.js"
-<script>
-$(function () {
-  $("#example1").DataTable();
-  $('#example2').DataTable({
-    "paging": true,
-    "lengthChange": false,
-    "searching": false,
-    "ordering": true,
-    "info": true,
-    "autoWidth": false
-  });
-});
-</script>
 </body>
 </html>

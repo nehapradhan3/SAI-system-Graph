@@ -495,6 +495,146 @@ var bindDateRangeValidation = function (f, s, e) {
 //end of date picker
 
 $(document).ready(function(){
+
+//written today but yesterdays date and one weekago
+todaysdate();
+
+yesterday2date = todaysdate();
+
+//oneWeekAgoDate
+var oneWeekDate = new Date();
+oneWeekDate.setDate(oneWeekDate.getDate() - 8);
+var oneWeekDateDate=oneWeekDate.getDate();
+var oneWeekDateMonth=oneWeekDate.getMonth()+1;
+var oneWeekDateYear=oneWeekDate.getFullYear();
+if(oneWeekDateDate<10) {
+oneWeekDateDate='0'+oneWeekDateDate
+}
+
+if(oneWeekDateMonth<10) {
+oneWeekDateMonth='0'+oneWeekDateMonth
+}
+var testdate=oneWeekDateYear+'-'+oneWeekDateMonth+'-'+oneWeekDateDate;
+console.log("yesterday>>>",yesterday2date);
+console.log("testdate>>>>",testdate);
+
+$.ajax({
+  //url: (num == 1) ? url1 : url2,
+    // url : 'http://52.55.210.93:8080/analysis/snapshot-views?start_date=2017-05-14&end_date=2017-05-18',
+      url:'http://52.7.123.186:8080/analysis/snapshot-views?start_date='+testdate+'&end_date='+yesterday2date,
+  //  url: 'http://52.7.123.186:8080/analysis/snapshot-views',
+    contentType:"application/x-www-form-urlencoded",
+    type: 'GET',
+    dataType: 'json',
+    crossDomain: true,
+
+    error: function() {
+      $('#info').html('<p>An error has occurred</p>');
+    },
+    success: function (data) {
+      var totalNumOfUsers,  differenceTotalNumOfUsers, differenceRefreshTokenCount, totalNumOfAccounts, totalNumOfThreads, totalNumOfFollowUpThreads, totalNumOfUserModels, totalValidRefreshTokens, avgMessagesPerThread;
+    //  console.log ('data>>>',data);
+      // console.log('data.length>>>',data.length);
+
+      let snapshotDate=[];
+      let dataL = [];
+      let dataM = [];
+      let dataN = [];
+      data.forEach(function(single){
+        // console.log('DATE>>',single.snapshotDate);
+        // snapshotDate.push(single.snapshotDate);
+        // generateChartData(snapshotDate,single.totalNumOfUsers,single.totalNumOfAccounts.GMAIL,data.length);
+        totalFollowUpStatusCounts = single.followUpStatusCounts.FOLLOWED_UP+single.followUpStatusCounts.IGNORED+single.followUpStatusCounts.IGNORED_BLACKLISTED+single.followUpStatusCounts.NO_ACTION+single.followUpStatusCounts.UNDEFINED;
+        totalNumOfUsers = single.totalNumOfUsers;
+        differenceTotalNumOfUsers = single.totalNumOfUsers;
+
+        totalNumOfAccounts = single.totalNumOfAccounts.GMAIL+single.totalNumOfAccounts.GMAIL_CALENDAR+single.totalNumOfAccounts.SALESFORCE+single.totalNumOfAccounts.TWITTER;
+        totalNumOfThreads = single.totalNumOfThreads;
+        totalNumOfFollowUpThreads = single.totalNumOfFollowUpThreads;
+        totalNumOfUserModels = single.totalNumOfUserModels;
+        totalValidRefreshTokens = single.totalValidRefreshTokens;
+        maxPossibleNumOfFollowUp = single.maxPossibleNumOfFollowUp;
+        differenceRefreshToken = single.maxPossibleNumOfFollowUp;
+
+
+
+        let unixEpochTime = single.snapshotDateUnixTimeStamp;
+        // let d = new Date(0); // The 0 there is the key, which sets the date to the epoch
+        //     d.setUTCSeconds(unixEpochTime);
+        //     d.setDate(d.getDate() - 100);
+            //  console.log("epochdate>>>",d);
+             var d = new Date(unixEpochTime*1000);
+            //  console.log("date>>>>>",d);
+      dataL.push({
+                  date: d,
+                  totalAccounts: totalNumOfAccounts,
+                  totalUsers: totalNumOfUsers
+
+             });//endofdataL
+              MakeChartData(dataL)
+           var calculatedDate= single.snapshotDate;
+           var dm= new Date(calculatedDate);
+           var dmdate= dm.getDate();
+           var monthNames = ["January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December"
+];
+           var dmmonth=monthNames[dm.getMonth()];
+
+        var t= dmmonth+ dmdate;//for the x-axis
+
+
+              dataM.push({
+                date: t,
+                usersValue:single.totalNumOfUsers,
+                followup : single.followUpStatusCounts.FOLLOWED_UP,
+                Ignored: single.followUpStatusCounts.IGNORED+single.followUpStatusCounts.IGNORED_BLACKLISTED,
+                maxpossibleTL: single.maxPossibleThreadsInList,
+                NoAction: single.followUpStatusCounts.NO_ACTION,
+                undefinedone: single.followUpStatusCounts.UNDEFINED,
+                totalsent: single.followUpStatusCounts.FOLLOWED_UP+single.followUpStatusCounts.IGNORED+single.followUpStatusCounts.IGNORED_BLACKLISTED+single.followUpStatusCounts.NO_ACTION+single.followUpStatusCounts.UNDEFINED
+
+              });//end of dataM
+              // console.log("dataM>>>>",dataM);
+            MakeStackData(dataM);
+            MaxChartData(dataM);
+            dataN.push({
+              date: t,
+              usersValue:single.totalNumOfUsers,
+              followup : single.followUpStatusPercentages.FOLLOWED_UP,
+              Ignored: single.followUpStatusPercentages.IGNORED+single.followUpStatusPercentages.IGNORED_BLACKLISTED,
+              maxpossibleTL: single.maxPossibleThreadsInList,
+              NoAction: single.followUpStatusPercentages.NO_ACTION,
+              undefinedone: single.followUpStatusPercentages.UNDEFINED
+
+            });
+            // console.log("dataN>>>>",dataN);
+            MakepercentData(dataN);
+      })//for each
+
+
+    }//success
+  });//ajax
+
+  var sd = new Date(), ed = new Date();
+
+  $('#startDate').datetimepicker({
+    pickTime: false,
+    format: "YYYY/MM/DD",
+    defaultDate: sd,
+    maxDate: ed
+  });
+
+  $('#endDate').datetimepicker({
+    pickTime: false,
+    format: "YYYY/MM/DD",
+    defaultDate: ed,
+    minDate: sd
+  });
+
+  //passing 1.jquery form object, 2.start date dom Id, 3.end date dom Id
+  bindDateRangeValidation($("#form"), 'startDate', 'endDate');
+
+
   var ed,sd;
 //for one week
   $('a.oneWeek').on('click', function(today1){
@@ -503,7 +643,7 @@ $(document).ready(function(){
     var ed = $('#endDate').val();
     console.log("endDate%",ed);
     var oneWeekAgo = new Date();
-oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
+oneWeekAgo.setDate(oneWeekAgo.getDate() - 8);
 var oneWeekAgoDate=oneWeekAgo.getDate();
 var oneWeekAgoMonth=oneWeekAgo.getMonth()+1;
 var oneWeekAgoYear=oneWeekAgo.getFullYear();
@@ -525,7 +665,7 @@ console.log("one weekago>>",sd);
     var ed= $('#endDate').val();
     console.log("endDate%",ed);
     var twoWeeksAgo = new Date();
-twoWeeksAgo.setDate(twoWeeksAgo.getDate() - 14);
+twoWeeksAgo.setDate(twoWeeksAgo.getDate() - 15);
 var twoWeeksAgoDate=twoWeeksAgo.getDate();
 var twoWeeksAgoMonth=twoWeeksAgo.getMonth()+1;
 var twoWeeksAgoYear=twoWeeksAgo.getFullYear();
@@ -594,9 +734,11 @@ console.log("threeMonthsAgo>>",sd);
     if(isNaN(dateFrom)|| isNaN(dateTo)){
       return;
     }
+
     console.log("sd>>>>",datetimepicker1);
     console.log("ed>>>>",datetimepicker2);
     $.ajax({
+      //url: (num == 1) ? url1 : url2,
         // url : 'http://52.55.210.93:8080/analysis/snapshot-views?start_date=2017-05-14&end_date=2017-05-18',
           url:'http://52.7.123.186:8080/analysis/snapshot-views?start_date='+datetimepicker1+'&end_date='+datetimepicker2,
       //  url: 'http://52.7.123.186:8080/analysis/snapshot-views',
@@ -687,11 +829,11 @@ console.log("threeMonthsAgo>>",sd);
                 });
                 // console.log("dataN>>>>",dataN);
                 MakepercentData(dataN);
-          })
+          })//for each
 
 
-        }
-      });
+        }//success
+      });//ajax
 
       var sd = new Date(), ed = new Date();
 
@@ -714,22 +856,18 @@ console.log("threeMonthsAgo>>",sd);
   });
 
   function todaysdate(){
-    var today = new Date();
-    var dd = today.getDate();
-    var mm = today.getMonth()+1; //January is 0!
-    var yyyy = today.getFullYear();
 
-    if(dd<10) {
-        dd='0'+dd
-    }
+    /////yesterday's dateto show for datepicker2
+    today = new Date();
+yesterday = new Date(today);
+yesterday.setDate(today.getDate() - 1); //setDate also supports negative values, which cause the month to rollover.
+var dd = yesterday.getDate();
+var mm = yesterday.getMonth()+1; //January is 0!
 
-    if(mm<10) {
-        mm='0'+mm
-    }
-
-
-    today1= yyyy+'-'+mm+'-'+dd;
-    return today1;
+var yyyy = yesterday.getFullYear();
+if(dd<10){dd='0'+dd} if(mm<10){mm='0'+mm}
+ var today1 = yyyy+'-'+mm+'-'+dd;
+ return today1;
   };
 
   //datepicker

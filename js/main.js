@@ -93,6 +93,8 @@ function generateChartData() {
     if (sessionStorage.getItem('status') !== 'loggedIn'){
 
       window.location.href="index.html";
+      localStorage.removeItem('userEmail');
+      localStorage.removeItem('login');
     }
 
     //todays date
@@ -103,27 +105,27 @@ function generateChartData() {
 
 var yesterday = new Date();
 
-console.log('yesterday date',yesterday);
+// console.log('yesterday date',yesterday);
 
 yesterday.setDate(t.getDate() - decrement);
 var printday =yesterday;
 var newdatebiz = printday;
-console.log("newdatebiz",newdatebiz);
+// console.log("newdatebiz",newdatebiz);
 var dd=newdatebiz.getDate();
 var monthNames = ["January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December"
 ];
 var mm=monthNames[newdatebiz.getMonth()];
 var yyyy=newdatebiz.getFullYear();
-console.log("hellonewdate>>>",dd);
-console.log("hellonewdate>>>",mm);
-console.log("hellonewdate>>>",yyyy);
+// console.log("hellonewdate>>>",dd);
+// console.log("hellonewdate>>>",mm);
+// console.log("hellonewdate>>>",yyyy);
 yesterday=dd+" "+mm+","+" "+yyyy;
-console.log("yesterday1>>>>",yesterday);
+// console.log("yesterday1>>>>",yesterday);
 
 printday=new Date(printday).toUTCString();
 printday=printday.split(' ').slice(0, 4).join(' ')
-console.log(printday);
+// console.log(printday);
 // $('#seedate').text(printday);
 
 filterDate(yesterday);
@@ -309,9 +311,9 @@ var $inputDate = $('#input_date').pickadate(),
 
 picker.on('set', function() {
   $inputText.val(this.get('value'))
-console.log(">>>>>>>>",  $inputText.val());
+// console.log(">>>>>>>>",  $inputText.val());
     var pickdatez = $inputText.val();
-    console.log('pickdatez>>>>',pickdatez);
+    // console.log('pickdatez>>>>',pickdatez);
     filterDate(pickdatez);
 })
 //////////////////////datepicker/////////////////////
@@ -368,16 +370,16 @@ function zoomChart(){
 
 function filterDate(getdate){
   var pickdatez = getdate;
-  console.log('actual date format==>',pickdatez);
+  // console.log('actual date format==>',pickdatez);
   var yearss= pickdatez.substring(pickdatez.indexOf(',')+1,pickdatez.length);
   // console.log('year>>>>',yearss);
   var dayss= pickdatez.substring(0,pickdatez.indexOf(' '));
-  console.log("length of days>>>",dayss.length);
+  // console.log("length of days>>>",dayss.length);
   if (dayss.length!=2){
     dayss="0"+dayss;
-    console.log("zero wala days>>>",dayss);
+    // console.log("zero wala days>>>",dayss);
   }
-  console.log("######days>>",dayss);
+  // console.log("######days>>",dayss);
   var monthss= pickdatez.substring(pickdatez.indexOf(' ')+1,pickdatez.length-6);
   // console.log("month>>",monthss);
 
@@ -427,24 +429,26 @@ function filterDate(getdate){
           // console.log("month>>>>",b);
 
         var showDate = (yearss+'-'+b+'-'+dayss).trim();
-    console.log('pickdatez>>>>',pickdatez);
+    // console.log('pickdatez>>>>',pickdatez);
 
-  console.log('showdate>>>', showDate);
+  // console.log('showdate>>>', showDate);
+localStorage.setItem("dailyShowDate", showDate);
+
   var printday = showDate;
   printday = new Date(printday).toUTCString();
   printday = printday.split(' ').slice(0, 4).join(' ')
-  console.log("what to show>>>",printday);
+  // console.log("what to show>>>",printday);
   //test
 
   var today = new Date();
-  console.log("*****",today);
+  // console.log("*****",today);
   var today = new Date();
   var d2 = new Date(today);
   var dateonetoday = d2.getTime();
    var d3 = new Date(pickdatez);
    var datetwopicked = d3.getTime();//checking if picked day is greater than today
-  console.log("dateonetoday>>",dateonetoday);
-  console.log("datetwopicked>>",datetwopicked);
+  // console.log("dateonetoday>>",dateonetoday);
+  // console.log("datetwopicked>>",datetwopicked);
   if (datetwopicked>dateonetoday){
     alert("can't select future dates");
         // $inputText.val(this.get());
@@ -467,7 +471,7 @@ function filterDate(getdate){
 
       // chartData =data.dataProvider;
       var totalNumOfUsers,  differenceTotalNumOfUsers, differenceRefreshTokenCount, totalNumOfAccounts, totalNumOfThreads, totalNumOfFollowUpThreads, totalNumOfUserModels, totalValidRefreshTokens, avgMessagesPerThread, maxPossibleNumOfFollowUp , totalFollowUpStatusCounts;
-      console.log ('data>>>',data);
+      // console.log ('data>>>',data);
       data.forEach(function(single){
         totalFollowUpStatusCounts = single.followUpStatusCounts.FOLLOWED_UP+single.followUpStatusCounts.IGNORED+single.followUpStatusCounts.IGNORED_BLACKLISTED+single.followUpStatusCounts.NO_ACTION+single.followUpStatusCounts.UNDEFINED;
         totalNumOfUsers = single.totalNumOfUsers;
@@ -490,14 +494,14 @@ function filterDate(getdate){
       $('#refreshtokenCount').text(totalValidRefreshTokens);
       $('#candidateThreadsCount').text(maxPossibleNumOfFollowUp);
 
-      console.log("totalNumOfUsers>>>",totalNumOfUsers);
-      console.log("totalNumOfAccounts>>>",totalNumOfAccounts);
-      console.log("totalNumOfThreads>>>",totalNumOfThreads);
-      console.log("totalNumOfFollowUpThreads>>>",totalNumOfFollowUpThreads);
-      console.log("totalNumOfUserModels>>>",totalNumOfUserModels);
-      console.log("totalValidRefreshTokens>>>",totalValidRefreshTokens);
-      console.log("maxPossibleNumOfFollowUp>>>",maxPossibleNumOfFollowUp);
-      console.log("totalFollowUpStatusCounts>>>",totalFollowUpStatusCounts);
+      // console.log("totalNumOfUsers>>>",totalNumOfUsers);
+      // console.log("totalNumOfAccounts>>>",totalNumOfAccounts);
+      // console.log("totalNumOfThreads>>>",totalNumOfThreads);
+      // console.log("totalNumOfFollowUpThreads>>>",totalNumOfFollowUpThreads);
+      // console.log("totalNumOfUserModels>>>",totalNumOfUserModels);
+      // console.log("totalValidRefreshTokens>>>",totalValidRefreshTokens);
+      // console.log("maxPossibleNumOfFollowUp>>>",maxPossibleNumOfFollowUp);
+      // console.log("totalFollowUpStatusCounts>>>",totalFollowUpStatusCounts);
 
       var values = [];
       var valuesTwo = [];
@@ -552,7 +556,7 @@ function createChartOne(data){
 
 function createChart(data){
 
-console.log("createChart function called");
+// console.log("createChart function called");
 
     /*DougnutChart*/
     var chartThree = AmCharts.makeChart( "chartdivThree", {

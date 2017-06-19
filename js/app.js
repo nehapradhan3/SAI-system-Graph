@@ -25,7 +25,7 @@
     $.notify("Insufficient information !", "error");
   }else if(emailVal.length >= 1 &&  passwordVal.length >=1 ){
      if(emailVal =="saicharts" && passwordVal =="123"){ //change this with backend
-    
+
     	 localStorage.setItem('login', true);
     	 $("#form").submit();
        window.location.href = "index.html";
@@ -34,10 +34,11 @@
   }
 });
 
-// user logout actons
+// user logout actions
 $('#user-logout').off('click');
 $('#user-logout').on('click', function(){
   localStorage.removeItem('login')
+  localStorage.removeItem('userEmail');
   window.location.href = "index.html"; // redirect to index.html
 })
 }(jQuery);
